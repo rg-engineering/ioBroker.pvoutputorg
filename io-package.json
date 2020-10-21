@@ -4,42 +4,18 @@
 		"version": "0.0.1",
 		"news": {
 			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"zh-cn": "首次出版"
+				"en": "initial test alpha version",
+				"de": "Erstveröffentlichung Alpha Status"
 			}
 		},
 		"title": "PV",
 		"titleLang": {
 			"en": "PV",
-			"de": "PV",
-			"ru": "PV",
-			"pt": "PV",
-			"nl": "PV",
-			"fr": "PV",
-			"it": "PV",
-			"es": "PV",
-			"pl": "PV",
-			"zh-cn": "PV"
+			"de": "PV"
 		},
 		"desc": {
 			"en": "pvoutputorg",
-			"de": "pvoutputorg",
-			"ru": "pvoutputorg",
-			"pt": "pvoutputorg",
-			"nl": "pvoutputorg",
-			"fr": "pvoutputorg",
-			"it": "pvoutputorg",
-			"es": "pvoutputorg",
-			"pl": "pvoutputorg",
-			"zh-cn": "pvoutputorg"
+			"de": "pvoutputorg"
 		},
 		"authors": [
 			"Seqway <dirkscheck@gmx.de>"

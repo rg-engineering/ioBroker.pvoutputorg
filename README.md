@@ -21,19 +21,13 @@ Describe your project here
 Please provide your feedback here
 
 ## Known issues
-* [ ] Source Values reset to default value at night if default value is defined in an object (bug in JS-Controller, fix needed in 2.3)
-*Workaround : Ensure no default value is set for self-created states*
 
 ## To-Do
 * [ ] Documentation
-* [ ] Period calculation selectable but not yet implemented
-* [ ] monthly cost price not yet implemented in calculation
-* [ ] recalculation based on meter values (configurable by date)
-* [ ] add object states for previous [x]day, [x]week, [x]month, [x]quarter, [x]year configurable in adapter settings
 
 ## Support me
 If you like my work, please consider a personal donation  
-(this is an personal Donate link for DutchmanNL, no relation to the ioBroker Project !)  
+(this is an personal Donate link for me - Seqway aka Dirk, no relation to the ioBroker Project !)  
 [![Donate](https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.sourceanalytix/master/admin/button.png)](http://paypal.me/Seqway)
 
 ## What is Sentry.io and what is reported to the servers of that company?
@@ -44,7 +38,7 @@ When the adapter crashes or an other Code error happens, this error message that
 ## Changelog
 
 ### 0.0.1
-* (Seqway) initial release
+* (Seqway) initial alpha code without testing yet - coming soon
 
 ## License
 MIT License

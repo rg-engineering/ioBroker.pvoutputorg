@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "2.6.0",
-    "@sentry/node": "6.19.3"
+    "@sentry/node": "6.19.3",
+    "axios": "0.26.1"
   },
   "devDependencies": {
     "@iobroker/testing": "2.5.6",

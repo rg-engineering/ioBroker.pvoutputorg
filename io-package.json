@@ -81,6 +81,7 @@
         "messages": []
     },
   "native": {
-    "PVSystems": []
+    "PVSystems": [],
+    "readInterval":  15 
   }
 }

@@ -19,6 +19,10 @@ For more details and for information how to disable the error reporting see [Sen
                                                                           
 [![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YBAZTEBT9SYC2&source=url) 
 
+The adapter connects to [PvOutput.org](https://pvoutput.org). System-ID and API-key is used to establish the connection. Both needs to be configured on admin page.
+The system, status and statistical data for all configured systems are currently being read and displayed in data points.
+
+Data upload is not yet implemented. Currently [sbfspot](https://github.com/SBFspot/SBFspot) can be used for this. Later the adapter will also support data upload. 
 
 
 
@@ -28,13 +32,13 @@ For more details and for information how to disable the error reporting see [Sen
    
 ## Changelog
 
+### 0.0.2 (in progress)
 
-
-### 0.0.1 (in progress)
+### 0.0.1 (2022-04-24)
 * (René) initial release
 
 ## License
-Copyright (C) <2017 - 2022>  <info@rg-engineering.eu>
+Copyright (C) <2022>  <info@rg-engineering.eu>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

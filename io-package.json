@@ -1,85 +1,80 @@
 {
-    "common": {
-        "name": "pvoutputorg",
-        "version": "0.0.1",
-        "news": {
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Первый выпуск",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "初始发行"
-            }
-        },
-        "title": "ebus",
-        "titleLang": {
-            "en": "interface to PvOutput.org",
-            "de": "Schnittstelle zu PvOutput.org",
-            "ru": "интерфейс к PvOutput.org",
-            "pt": "interface para PvOutput.org",
-            "nl": "interface naar PvOutput.org",
-            "fr": "interface vers PvOutput.org",
-            "it": "interfaccia a PvOutput.org",
-            "es": "interfaz a PvOutput.org",
-            "pl": "interfejs do PvOutput.org",
-            "zh-cn": "PvOutput.org 的接口"
-        },
-        "desc": {
-            "en": "PvOutput.org Adapter; reads and writes data on PvSystem.org. supports different System-Ids",
-            "de": "PvOutput.org-Adapter; ",
-            "ru": "Адаптер PvOutput.org; ",
-            "pt": "Adaptador PvOutput.org; ",
-            "nl": "PvOutput.org-adapter; ",
-            "fr": "Adaptateur PvOutput.org ; ",
-            "it": "Adattatore PvOutput.org; ",
-            "es": "Adaptador PvOutput.org; ",
-            "pl": "Adapter PvOutput.org; ",
-            "zh-cn": "PvOutput.org 适配器；"
-        },
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "icon": "pvoutput.png",
-        "enabled": true,
-        "messagebox": true,
-        "extIcon": "https://raw.githubusercontent.com/rg-engineering/ioBroker.pvoutputorg/master/admin/pvoutputorg.png",
-        "keywords": [
-            "PvOutput.org"
-        ],
-        "readme": "https://github.com/rg-engineering/ioBroker.pvoutputorg/blob/master/README.md",
-        "loglevel": "info",
-        "stopBeforeUpdate": true,
-        "type": "hardware",
-        "license": "MIT",
-        "materialize": true,
-        "dependencies": [
-            {
-                "js-controller": ">=2.0.0"
-            }
-        ],
-        "plugins": {
-            "sentry": {
-                "dsn": "https://bb7e6f51a1274ced81576d84f82f667e@o390433.ingest.sentry.io/5434784"
-            }
-        },
-        "compact": true,
-        "authors": [
-            {
-                "name": "René G.",
-                "email": "info@rg-engineering.eu"
-            }
-        ],
-        "connectionType": "local",
-        "dataSource": "push",
-        "adminUI": {
-            "config": "materialize"
-        },
-        "messages": []
+  "common": {
+    "name": "pvoutputorg",
+    "version": "0.0.2",
+    "news": {
+      "0.0.2": {
+        "en": ""
+      },
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Первый выпуск",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "初始发行"
+      }
     },
+    "title": "ebus",
+    "titleLang": {
+      "en": "interface to PvOutput.org",
+      "de": "Schnittstelle zu PvOutput.org",
+      "ru": "интерфейс к PvOutput.org",
+      "pt": "interface para PvOutput.org",
+      "nl": "interface naar PvOutput.org",
+      "fr": "interface vers PvOutput.org",
+      "it": "interfaccia a PvOutput.org",
+      "es": "interfaz a PvOutput.org",
+      "pl": "interfejs do PvOutput.org",
+      "zh-cn": "PvOutput.org 的接口"
+    },
+    "desc": {
+      "en": "PvOutput.org Adapter: reads and writes data on PvSystem.org. supports different System-Ids"
+
+    },
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "pvoutput.png",
+    "enabled": true,
+    "messagebox": true,
+    "extIcon": "https://raw.githubusercontent.com/rg-engineering/ioBroker.pvoutputorg/master/admin/pvoutputorg.png",
+    "keywords": [
+      "PvOutput.org"
+    ],
+    "readme": "https://github.com/rg-engineering/ioBroker.pvoutputorg/blob/master/README.md",
+    "loglevel": "info",
+    "stopBeforeUpdate": true,
+    "type": "energy",
+    "license": "MIT",
+    "materialize": true,
+    "dependencies": [
+      {
+        "js-controller": ">=2.0.0"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://bb7e6f51a1274ced81576d84f82f667e@o390433.ingest.sentry.io/5434784"
+      }
+    },
+    "compact": true,
+    "authors": [
+      {
+        "name": "René G.",
+        "email": "info@rg-engineering.eu"
+      }
+    ],
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "materialize"
+    },
+    "messages": []
+  },
   "native": {
     "PVSystems": [],
     "readInterval":  15 

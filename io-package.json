@@ -38,7 +38,7 @@
     },
     "platform": "Javascript/Node.js",
     "mode": "daemon",
-    "icon": "pvoutput.png",
+    "icon": "pvoutputorg.png",
     "enabled": true,
     "messagebox": true,
     "extIcon": "https://raw.githubusercontent.com/rg-engineering/ioBroker.pvoutputorg/master/admin/pvoutputorg.png",

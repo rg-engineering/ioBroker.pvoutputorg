@@ -132,13 +132,13 @@ async function read(system) {
 
         await adapter.setStateAsync(system.Name + ".Status.Date", { ack: true, val: data[0] });
         await adapter.setStateAsync(system.Name + ".Status.Time", { ack: true, val: data[1] });
-        await adapter.setStateAsync(system.Name + ".Status.EnergyGeneration", { ack: true, val: data[2] });
-        await adapter.setStateAsync(system.Name + ".Status.PowerGeneration", { ack: true, val: data[3] });
-        await adapter.setStateAsync(system.Name + ".Status.EnergyConsumption", { ack: true, val: data[4] });
-        await adapter.setStateAsync(system.Name + ".Status.PowerConsumption", { ack: true, val: data[5] });
-        await adapter.setStateAsync(system.Name + ".Status.NormalisedOutput", { ack: true, val: data[6] });
-        await adapter.setStateAsync(system.Name + ".Status.Temperature", { ack: true, val: data[7] });
-        await adapter.setStateAsync(system.Name + ".Status.Voltage", { ack: true, val: data[8] });
+        await adapter.setStateAsync(system.Name + ".Status.EnergyGeneration", { ack: true, val: Number(data[2]) });
+        await adapter.setStateAsync(system.Name + ".Status.PowerGeneration", { ack: true, val: Number(data[3]) });
+        await adapter.setStateAsync(system.Name + ".Status.EnergyConsumption", { ack: true, val: Number(data[4]) });
+        await adapter.setStateAsync(system.Name + ".Status.PowerConsumption", { ack: true, val: Number(data[5]) });
+        await adapter.setStateAsync(system.Name + ".Status.NormalisedOutput", { ack: true, val: Number(data[6]) });
+        await adapter.setStateAsync(system.Name + ".Status.Temperature", { ack: true, val: Number(data[7]) });
+        await adapter.setStateAsync(system.Name + ".Status.Voltage", { ack: true, val: Number(data[8]) });
 
         /*
          * 
@@ -168,16 +168,16 @@ async function read(system) {
         */
         data = buffer.data.split(",");
 
-        await adapter.setStateAsync(system.Name + ".Statistic.EnergyGenerated", { ack: true, val: data[0] });
-        await adapter.setStateAsync(system.Name + ".Statistic.EnergyExported", { ack: true, val: data[1] });
-        await adapter.setStateAsync(system.Name + ".Statistic.AverageGeneration", { ack: true, val: data[2] });
-        await adapter.setStateAsync(system.Name + ".Statistic.MinimumGeneration", { ack: true, val: data[3] });
-        await adapter.setStateAsync(system.Name + ".Statistic.MaximumGeneration", { ack: true, val: data[4] });
-        await adapter.setStateAsync(system.Name + ".Statistic.AverageEfficiency", { ack: true, val: data[5] });
-        await adapter.setStateAsync(system.Name + ".Statistic.Outputs", { ack: true, val: data[6] });
+        await adapter.setStateAsync(system.Name + ".Statistic.EnergyGenerated", { ack: true, val: Number(data[0]) });
+        await adapter.setStateAsync(system.Name + ".Statistic.EnergyExported", { ack: true, val: Number(data[1]) });
+        await adapter.setStateAsync(system.Name + ".Statistic.AverageGeneration", { ack: true, val: Number(data[2]) });
+        await adapter.setStateAsync(system.Name + ".Statistic.MinimumGeneration", { ack: true, val: Number(data[3]) });
+        await adapter.setStateAsync(system.Name + ".Statistic.MaximumGeneration", { ack: true, val: Number(data[4]) });
+        await adapter.setStateAsync(system.Name + ".Statistic.AverageEfficiency", { ack: true, val: Number(data[5]) });
+        await adapter.setStateAsync(system.Name + ".Statistic.Outputs", { ack: true, val: Number(data[6]) });
         await adapter.setStateAsync(system.Name + ".Statistic.ActualDateFrom", { ack: true, val: data[7] });
         await adapter.setStateAsync(system.Name + ".Statistic.ActualDateTo", { ack: true, val: data[8] });
-        await adapter.setStateAsync(system.Name + ".Statistic.RecordEfficiency", { ack: true, val: data[9] });
+        await adapter.setStateAsync(system.Name + ".Statistic.RecordEfficiency", { ack: true, val: Number(data[9]) });
         await adapter.setStateAsync(system.Name + ".Statistic.RecordDate", { ack: true, val: data[10] });
 
         /*
@@ -211,20 +211,20 @@ async function read(system) {
         data = buffer.data.split(",");
 
         await adapter.setStateAsync(system.Name + ".System.SystemName", { ack: true, val: data[0] });
-        await adapter.setStateAsync(system.Name + ".System.SystemSize", { ack: true, val: data[1] });
-        await adapter.setStateAsync(system.Name + ".System.Postcode", { ack: true, val: data[2] });
-        await adapter.setStateAsync(system.Name + ".System.Panels", { ack: true, val: data[3] });
-        await adapter.setStateAsync(system.Name + ".System.PanelPower", { ack: true, val: data[4] });
+        await adapter.setStateAsync(system.Name + ".System.SystemSize", { ack: true, val: Number(data[1]) });
+        await adapter.setStateAsync(system.Name + ".System.Postcode", { ack: true, val: Number(data[2]) });
+        await adapter.setStateAsync(system.Name + ".System.Panels", { ack: true, val: Number(data[3]) });
+        await adapter.setStateAsync(system.Name + ".System.PanelPower", { ack: true, val: Number(data[4]) });
         await adapter.setStateAsync(system.Name + ".System.PanelBrand", { ack: true, val: data[5] });
-        await adapter.setStateAsync(system.Name + ".System.Inverters", { ack: true, val: data[6] });
-        await adapter.setStateAsync(system.Name + ".System.InverterPower", { ack: true, val: data[7] });
+        await adapter.setStateAsync(system.Name + ".System.Inverters", { ack: true, val: Number(data[6]) });
+        await adapter.setStateAsync(system.Name + ".System.InverterPower", { ack: true, val: Number(data[7]) });
         await adapter.setStateAsync(system.Name + ".System.InverterBrand", { ack: true, val: data[8] });
         await adapter.setStateAsync(system.Name + ".System.Orientation", { ack: true, val: data[9] });
-        await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: data[10] });
+        await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
         await adapter.setStateAsync(system.Name + ".System.Shade", { ack: true, val: data[11] });
         await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: data[12] });
-        await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: data[13] });
-        await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: data[14] });
+        await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: Number(data[13]) });
+        await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: Number(data[14]) });
        
         /*
          * System Name text PVOutput Demo

@@ -40,6 +40,8 @@ function startAdapter(options) {
         //#######################################
         //
         SIGINT: function () {
+            clearInterval(intervalID);
+            intervalID = null;
             adapter && adapter.log && adapter.log.info && adapter.log.info("cleaned everything up...");
             CronStop();
         },

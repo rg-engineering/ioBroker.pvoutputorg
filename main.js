@@ -132,7 +132,7 @@ async function read(system) {
 
         let data = buffer.data.split(",");
 
-        await adapter.setStateAsync(system.Name + ".Status.Date", { ack: true, val: data[0] });
+        await adapter.setStateAsync(system.Name + ".Status.Date", { ack: true, val: toDate(data[0]) });
         await adapter.setStateAsync(system.Name + ".Status.Time", { ack: true, val: data[1] });
         await adapter.setStateAsync(system.Name + ".Status.EnergyGeneration", { ack: true, val: Number(data[2]) });
         await adapter.setStateAsync(system.Name + ".Status.PowerGeneration", { ack: true, val: Number(data[3]) });
@@ -177,10 +177,10 @@ async function read(system) {
         await adapter.setStateAsync(system.Name + ".Statistic.MaximumGeneration", { ack: true, val: Number(data[4]) });
         await adapter.setStateAsync(system.Name + ".Statistic.AverageEfficiency", { ack: true, val: Number(data[5]) });
         await adapter.setStateAsync(system.Name + ".Statistic.Outputs", { ack: true, val: Number(data[6]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.ActualDateFrom", { ack: true, val: data[7] });
-        await adapter.setStateAsync(system.Name + ".Statistic.ActualDateTo", { ack: true, val: data[8] });
+        await adapter.setStateAsync(system.Name + ".Statistic.ActualDateFrom", { ack: true, val: toDate(data[7]) });
+        await adapter.setStateAsync(system.Name + ".Statistic.ActualDateTo", { ack: true, val: toDate(data[8]) });
         await adapter.setStateAsync(system.Name + ".Statistic.RecordEfficiency", { ack: true, val: Number(data[9]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.RecordDate", { ack: true, val: data[10] });
+        await adapter.setStateAsync(system.Name + ".Statistic.RecordDate", { ack: true, val: toDate(data[10]) });
 
         /*
          * Energy Generated number watt hours 24600 
@@ -224,7 +224,7 @@ async function read(system) {
         await adapter.setStateAsync(system.Name + ".System.Orientation", { ack: true, val: data[9] });
         await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
         await adapter.setStateAsync(system.Name + ".System.Shade", { ack: true, val: data[11] });
-        await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: data[12] });
+        await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
         await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: Number(data[13]) });
         await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: Number(data[14]) });
        
@@ -252,6 +252,18 @@ async function read(system) {
     }
 }
 
+
+function toDate(sDate) {
+
+    //yyyymmdd
+    const year = sDate.slice(0, 4);
+    const month = sDate.slice(4, 6);
+    const day = sDate.slice(6, 9);
+
+    let oDate = new Date(year, month - 1, day);
+
+    return oDate.toLocaleDateString();
+}
 
 async function HandleStateChange(id, state) {
    

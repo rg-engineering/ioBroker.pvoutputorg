@@ -29,14 +29,13 @@ If you support pvoutput.org with a donation, additional features will be made av
 Data upload is not yet implemented. Currently [sbfspot](https://github.com/SBFspot/SBFspot) can be used for this. Later the adapter will also support data upload. 
 
 
-
-
 ## known issues
 * please create issues at [github](https://github.com/rg-engineering/ioBroker.pvoutputorg/issues) if you find bugs or whish new features
    
 ## Changelog
 
-### 0.0.2 (in progress)
+### 1.0.0 (2022-04-29)
+* (René) first official release
 
 ### 0.0.1 (2022-04-24)
 * (René) initial release

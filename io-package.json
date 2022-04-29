@@ -1,90 +1,99 @@
 {
-  "common": {
-    "name": "pvoutputorg",
-    "version": "0.0.2",
-    "news": {
-      "0.0.2": {
-        "en": ""
-      },
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Первый выпуск",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "初始发行"
-      }
+    "common": {
+        "name": "pvoutputorg",
+        "version": "1.0.0",
+        "news": {
+            "1.0.0": {
+                "en": "first official release",
+                "de": "erste offizielle Veröffentlichung",
+                "ru": "первый официальный релиз",
+                "pt": "primeiro lançamento oficial",
+                "nl": "eerste officiële release",
+                "fr": "première sortie officielle",
+                "it": "prima uscita ufficiale",
+                "es": "primer lanzamiento oficial",
+                "pl": "pierwsze oficjalne wydanie",
+                "zh-cn": "第一次正式发布"
+            },
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Первый выпуск",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "初始发行"
+            }
+        },
+        "title": "PvOutput.org",
+        "titleLang": {
+            "en": "interface to PvOutput.org",
+            "de": "Schnittstelle zu PvOutput.org",
+            "ru": "интерфейс к PvOutput.org",
+            "pt": "interface para PvOutput.org",
+            "nl": "interface naar PvOutput.org",
+            "fr": "interface vers PvOutput.org",
+            "it": "interfaccia a PvOutput.org",
+            "es": "interfaz a PvOutput.org",
+            "pl": "interfejs do PvOutput.org",
+            "zh-cn": "PvOutput.org 的接口"
+        },
+        "desc": {
+            "en": "PvOutput.org Adapter: reads and writes data on PvSystem.org. supports different System-Ids",
+            "de": "PvOutput.org Adapter: liest und schreibt Daten auf PvSystem.org. unterstützt verschiedene System-Ids",
+            "ru": "Адаптер PvOutput.org: читает и записывает данные на PvSystem.org. поддерживает разные системные идентификаторы",
+            "pt": "Adaptador PvOutput.org: lê e grava dados em PvSystem.org. suporta diferentes IDs de sistema",
+            "nl": "PvOutput.org Adapter: leest en schrijft gegevens op PvSystem.org. ondersteunt verschillende systeem-ID's",
+            "fr": "Adaptateur PvOutput.org : lit et écrit des données sur PvSystem.org. prend en charge différents identifiants système",
+            "it": "Adattatore PvOutput.org: legge e scrive dati su PvSystem.org. supporta diversi ID di sistema",
+            "es": "Adaptador PvOutput.org: lee y escribe datos en PvSystem.org. admite diferentes identificadores de sistema",
+            "pl": "Adapter PvOutput.org: odczytuje i zapisuje dane na PvSystem.org. obsługuje różne identyfikatory systemowe",
+            "zh-cn": "PvOutput.org 适配器：在 PvSystem.org 上读取和写入数据。支持不同的系统 ID"
+        },
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "icon": "pvoutputorg.png",
+        "enabled": true,
+        "messagebox": true,
+        "extIcon": "https://raw.githubusercontent.com/rg-engineering/ioBroker.pvoutputorg/master/admin/pvoutputorg.png",
+        "keywords": [
+            "PvOutput.org"
+        ],
+        "readme": "https://github.com/rg-engineering/ioBroker.pvoutputorg/blob/master/README.md",
+        "loglevel": "info",
+        "stopBeforeUpdate": true,
+        "type": "energy",
+        "license": "MIT",
+        "materialize": true,
+        "dependencies": [
+            {
+                "js-controller": ">=2.0.0"
+            }
+        ],
+        "plugins": {
+            "sentry": {
+                "dsn": "https://bb7e6f51a1274ced81576d84f82f667e@o390433.ingest.sentry.io/5434784"
+            }
+        },
+        "compact": true,
+        "authors": [
+            {
+                "name": "René G.",
+                "email": "info@rg-engineering.eu"
+            }
+        ],
+        "connectionType": "local",
+        "dataSource": "push",
+        "adminUI": {
+            "config": "materialize"
+        },
+        "messages": []
     },
-    "title": "PvOutput.org",
-    "titleLang": {
-      "en": "interface to PvOutput.org",
-      "de": "Schnittstelle zu PvOutput.org",
-      "ru": "интерфейс к PvOutput.org",
-      "pt": "interface para PvOutput.org",
-      "nl": "interface naar PvOutput.org",
-      "fr": "interface vers PvOutput.org",
-      "it": "interfaccia a PvOutput.org",
-      "es": "interfaz a PvOutput.org",
-      "pl": "interfejs do PvOutput.org",
-      "zh-cn": "PvOutput.org 的接口"
-    },
-    "desc": {
-      "en": "PvOutput.org Adapter: reads and writes data on PvSystem.org. supports different System-Ids",
-      "de": "PvOutput.org Adapter: liest und schreibt Daten auf PvSystem.org. unterstützt verschiedene System-Ids",
-      "ru": "Адаптер PvOutput.org: читает и записывает данные на PvSystem.org. поддерживает разные системные идентификаторы",
-      "pt": "Adaptador PvOutput.org: lê e grava dados em PvSystem.org. suporta diferentes IDs de sistema",
-      "nl": "PvOutput.org Adapter: leest en schrijft gegevens op PvSystem.org. ondersteunt verschillende systeem-ID's",
-      "fr": "Adaptateur PvOutput.org : lit et écrit des données sur PvSystem.org. prend en charge différents identifiants système",
-      "it": "Adattatore PvOutput.org: legge e scrive dati su PvSystem.org. supporta diversi ID di sistema",
-      "es": "Adaptador PvOutput.org: lee y escribe datos en PvSystem.org. admite diferentes identificadores de sistema",
-      "pl": "Adapter PvOutput.org: odczytuje i zapisuje dane na PvSystem.org. obsługuje różne identyfikatory systemowe",
-      "zh-cn": "PvOutput.org 适配器：在 PvSystem.org 上读取和写入数据。支持不同的系统 ID"
-    },
-    "platform": "Javascript/Node.js",
-    "mode": "daemon",
-    "icon": "pvoutputorg.png",
-    "enabled": true,
-    "messagebox": true,
-    "extIcon": "https://raw.githubusercontent.com/rg-engineering/ioBroker.pvoutputorg/master/admin/pvoutputorg.png",
-    "keywords": [
-      "PvOutput.org"
-    ],
-    "readme": "https://github.com/rg-engineering/ioBroker.pvoutputorg/blob/master/README.md",
-    "loglevel": "info",
-    "stopBeforeUpdate": true,
-    "type": "energy",
-    "license": "MIT",
-    "materialize": true,
-    "dependencies": [
-      {
-        "js-controller": ">=2.0.0"
-      }
-    ],
-    "plugins": {
-      "sentry": {
-        "dsn": "https://bb7e6f51a1274ced81576d84f82f667e@o390433.ingest.sentry.io/5434784"
-      }
-    },
-    "compact": true,
-    "authors": [
-      {
-        "name": "René G.",
-        "email": "info@rg-engineering.eu"
-      }
-    ],
-    "connectionType": "local",
-    "dataSource": "push",
-    "adminUI": {
-      "config": "materialize"
-    },
-    "messages": []
-  },
-  "native": {
-    "PVSystems": [],
-    "readInterval":  15 
-  }
+    "native": {
+        "PVSystems": [],
+        "readInterval": 15
+    }
 }

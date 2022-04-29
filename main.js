@@ -66,6 +66,59 @@ function startAdapter(options) {
     return adapter;
 }
 
+/* if isDonated
+https://pvoutput.org/help/donations.html
+
+Add Status
+        The d date parameter must be not be older than 90 days from the current date.
+        Extended parameters v7, v8, v9, v10, v11 and v12
+        Maximum energy consumption v3 value increased to 9,999,999Wh
+        Maximum power consumption v4 value increased to 2,000,000W
+        Temperature v5 and Extended parameters v7 to v12 can be sent without v1 to v4
+        Text message m1 parameter can be used as part of a custom alert subject or body message.
+
+Add Batch Status
+        The d date parameter must be not be older than 90 days from the current date.
+        Extended parameters v7, v8, v9, v10, v11 and v12
+        Maximum energy consumption v3 value increased to 9,999,999Wh
+        Maximum power consumption v4 value increased to 2,000,000W
+        Increased batch status size to 100 from 30
+
+Add Output
+        Batch updates up to 100 outputs per request.
+
+Rate Limits
+        The amount of API requests per system is increased to 300 per hour from 60.
+
+Live Backload
+        The number of days into the past live data may be uploaded is increased to 90 days from 14.
+
+Get Status
+        The sid1 parameter is enabled to retrieve live generation data from any system.
+
+Get Output
+        The sid1 parameter is enabled to retrieve daily generation data from any system.
+        The maximum number of records returned increased to 150 from 50.
+        The insolation parameter is enabeld to retrieve daily insolation data.
+
+Get Statistic
+        The sid1 parameter is enabled to retrieve statistics data from any system.
+
+Get Supply
+        The r parameter is enabled to retrieve the 24 hour supply and demand history for a state/region
+
+Get Insolation
+        The sid1 parameter is enabled to retrieve insolation data from any system
+        The d parameter is enabled to use an alternative date
+        The tz parameter is enabled to use an alternative timezone
+        The ll parameter is enabled to use an alternative latitude/longitude
+
+Delete Status
+        The d date parameter must be not be older than 90 days from the current date.
+
+*/
+
+
 
 let intervalID;
 async function main() {

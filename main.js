@@ -171,8 +171,8 @@ async function read(system) {
         */
 
         let sURL = "https://pvoutput.org/service/r2/getstatus.jsp?";
-        sURL += "key=" + system.ApiKey;
-        sURL += "&sid=" + system.SystemId;
+        sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS,'_');
+        sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
         adapter.log.debug("URL " + sURL);
 
@@ -214,8 +214,8 @@ async function read(system) {
         */
 
         sURL = "https://pvoutput.org/service/r2/getstatistic.jsp?";
-        sURL += "key=" + system.ApiKey;
-        sURL += "&sid=" + system.SystemId;
+        sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
+        sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
         adapter.log.debug("URL " + sURL);
 
@@ -260,8 +260,8 @@ async function read(system) {
 
 
         sURL = "https://pvoutput.org/service/r2/getsystem.jsp?";
-        sURL += "key=" + system.ApiKey;
-        sURL += "&sid=" + system.SystemId;
+        sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
+        sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
         adapter.log.debug("URL " + sURL);
 
@@ -368,7 +368,7 @@ async function checkVariables() {
 
         // Status ====================================
         key = system.Name + ".Status.Date" ; 
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Date",
@@ -377,10 +377,11 @@ async function checkVariables() {
                 read: true,
                 write: false
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Status.Time";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Time",
@@ -389,10 +390,11 @@ async function checkVariables() {
                 read: true,
                 write: false
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Status.EnergyGeneration";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Energy Generation",
@@ -402,10 +404,11 @@ async function checkVariables() {
                 write: false,
                 unit: "Wh"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Status.PowerGeneration";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Power Generation",
@@ -415,10 +418,11 @@ async function checkVariables() {
                 write: false,
                 unit: "W"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Status.EnergyConsumption";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Energy Consumption",
@@ -428,10 +432,11 @@ async function checkVariables() {
                 write: false,
                 unit: "Wh"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Status.PowerConsumption";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Power Consumption",
@@ -441,10 +446,11 @@ async function checkVariables() {
                 write: false,
                 unit: "W"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Status.NormalisedOutput";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Normalised Output",
@@ -454,10 +460,11 @@ async function checkVariables() {
                 write: false,
                 unit: "kW/kW"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Status.Temperature";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Temperature",
@@ -467,10 +474,11 @@ async function checkVariables() {
                 write: false,
                 unit: "°C"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Status.Voltage";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Voltage",
@@ -480,11 +488,12 @@ async function checkVariables() {
                 write: false,
                 unit: "V"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         // Statistic ====================================
         key = system.Name + ".Statistic.EnergyGenerated";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Energy Generated",
@@ -494,10 +503,11 @@ async function checkVariables() {
                 write: false,
                 unit: "Wh"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.EnergyExported";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Energy Exported",
@@ -507,10 +517,11 @@ async function checkVariables() {
                 write: false,
                 unit: "Wh"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.AverageGeneration";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Average Generation",
@@ -520,10 +531,11 @@ async function checkVariables() {
                 write: false,
                 unit: "Wh"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.MinimumGeneration";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Minimum Generation",
@@ -533,10 +545,11 @@ async function checkVariables() {
                 write: false,
                 unit: "Wh"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.MaximumGeneration";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Maximum Generation",
@@ -546,10 +559,11 @@ async function checkVariables() {
                 write: false,
                 unit: "Wh"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.AverageEfficiency";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Average Efficiency",
@@ -559,10 +573,11 @@ async function checkVariables() {
                 write: false,
                 unit: "kWh/kW"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.Outputs";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Outputs",
@@ -572,10 +587,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.ActualDateFrom";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Actual Date From",
@@ -585,10 +601,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.ActualDateTo";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Actual Date To",
@@ -598,10 +615,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.RecordEfficiency";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Record Efficiency",
@@ -611,10 +629,11 @@ async function checkVariables() {
                 write: false,
                 unit: "kWh/kW"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".Statistic.RecordDate";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Record Date",
@@ -624,12 +643,13 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
 
         // System ====================================
         key = system.Name + ".System.SystemName";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "System Name",
@@ -639,10 +659,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.SystemSize";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "System Size",
@@ -652,10 +673,11 @@ async function checkVariables() {
                 write: false,
                 unit: "W"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.Postcode";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Postcode",
@@ -665,10 +687,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.Panels";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Panels",
@@ -678,10 +701,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.PanelPower";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Panel Power",
@@ -691,10 +715,11 @@ async function checkVariables() {
                 write: false,
                 unit: "W"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.PanelBrand";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Panel Brand",
@@ -704,10 +729,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.Inverters";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Inverters",
@@ -717,10 +743,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.InverterPower";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Inverter Power",
@@ -730,10 +757,11 @@ async function checkVariables() {
                 write: false,
                 unit: "W"
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.InverterBrand";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Inverter Brand",
@@ -743,10 +771,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.Orientation";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Orientation",
@@ -756,10 +785,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.ArrayTilt";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Array Tilt",
@@ -769,10 +799,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.Shade";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj= {
             type: "state",
             common: {
                 name: "Shade",
@@ -782,10 +813,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.InstallDate";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj = {
             type: "state",
             common: {
                 name: "Install Date",
@@ -795,10 +827,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.Latitude";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj = {
             type: "state",
             common: {
                 name: "Latitude",
@@ -808,11 +841,11 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
-
+        };
+        await CreateObject(key, obj);
 
         key = system.Name + ".System.Longitude";
-        await adapter.setObjectNotExistsAsync(key, {
+        obj = {
             type: "state",
             common: {
                 name: "Longitude",
@@ -822,8 +855,8 @@ async function checkVariables() {
                 write: false,
                 unit: ""
             }
-        });
-
+        };
+        await CreateObject(key, obj);
     }
 
 
@@ -831,6 +864,38 @@ async function checkVariables() {
     
 }
 
+async function CreateObject(key, obj) {
+
+    const obj_new = await adapter.getObjectAsync(key);
+    //adapter.log.warn("got object " + JSON.stringify(obj_new));
+
+    if (obj_new != null) {
+
+        if ((obj_new.common.role != obj.common.role
+            || obj_new.common.type != obj.common.type
+            || (obj_new.common.unit != obj.common.unit && obj.common.unit != null)
+            || obj_new.common.read != obj.common.read
+            || obj_new.common.write != obj.common.write
+            || obj_new.common.name != obj.common.name)
+            && obj.type === "state"
+        ) {
+            adapter.log.warn("change object " + JSON.stringify(obj) + " " + JSON.stringify(obj_new));
+            await adapter.extendObject(key, {
+                common: {
+                    name: obj.common.name,
+                    role: obj.common.role,
+                    type: obj.common.type,
+                    unit: obj.common.unit,
+                    read: obj.common.read,
+                    write: obj.common.write
+                }
+            });
+        }
+    }
+    else {
+        await adapter.setObjectNotExistsAsync(key, obj);
+    }
+}
 
 
 

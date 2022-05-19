@@ -1,6 +1,6 @@
 {
   "name": "iobroker.pvoutputorg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ioBroker Adapter for PvOutput.org",
   "author": {
     "name": "René G.",
@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "2.6.0",
-    "@sentry/node": "6.19.3",
     "axios": "0.26.1"
   },
   "devDependencies": {

@@ -30,8 +30,9 @@ function startAdapter(options) {
         //  is called when adapter shuts down
         unload: function (callback) {
             try {
+                clearInterval(intervalID);
+                intervalID = null;
                 adapter && adapter.log && adapter.log.info && adapter.log.info("cleaned everything up...");
-                //to do stop intervall
                 callback();
             } catch (e) {
                 callback();
@@ -43,7 +44,6 @@ function startAdapter(options) {
             clearInterval(intervalID);
             intervalID = null;
             adapter && adapter.log && adapter.log.info && adapter.log.info("cleaned everything up...");
-            CronStop();
         },
         //#######################################
         //  is called if a subscribed object changes
@@ -156,7 +156,7 @@ async function Do() {
 
 async function ReadData(){
 
-    adapter.config.PVSystems
+
     for (const system of adapter.config.PVSystems) {
         await read(system);
     }
@@ -176,25 +176,30 @@ async function read(system) {
 
         adapter.log.debug("URL " + sURL);
 
-        let buffer = await axios.get(sURL);
+        let buffer = await axios.get(sURL, { timeout: 5000 });
 
         adapter.log.debug("got data status " + typeof buffer.data + " " + JSON.stringify(buffer.data));
         /*
         got data string "20220424,10:00,548,168,NaN,NaN,0.058,0.0,235.0"
         */
 
-        let data = buffer.data.split(",");
+        if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
 
-        await adapter.setStateAsync(system.Name + ".Status.Date", { ack: true, val: toDate(data[0]) });
-        await adapter.setStateAsync(system.Name + ".Status.Time", { ack: true, val: data[1] });
-        await adapter.setStateAsync(system.Name + ".Status.EnergyGeneration", { ack: true, val: Number(data[2]) });
-        await adapter.setStateAsync(system.Name + ".Status.PowerGeneration", { ack: true, val: Number(data[3]) });
-        await adapter.setStateAsync(system.Name + ".Status.EnergyConsumption", { ack: true, val: Number(data[4]) });
-        await adapter.setStateAsync(system.Name + ".Status.PowerConsumption", { ack: true, val: Number(data[5]) });
-        await adapter.setStateAsync(system.Name + ".Status.NormalisedOutput", { ack: true, val: Number(data[6]) });
-        await adapter.setStateAsync(system.Name + ".Status.Temperature", { ack: true, val: Number(data[7]) });
-        await adapter.setStateAsync(system.Name + ".Status.Voltage", { ack: true, val: Number(data[8]) });
+            let data = buffer.data.split(",");
 
+            await adapter.setStateAsync(system.Name + ".Status.Date", { ack: true, val: toDate(data[0]) });
+            await adapter.setStateAsync(system.Name + ".Status.Time", { ack: true, val: data[1] });
+            await adapter.setStateAsync(system.Name + ".Status.EnergyGeneration", { ack: true, val: Number(data[2]) });
+            await adapter.setStateAsync(system.Name + ".Status.PowerGeneration", { ack: true, val: Number(data[3]) });
+            await adapter.setStateAsync(system.Name + ".Status.EnergyConsumption", { ack: true, val: Number(data[4]) });
+            await adapter.setStateAsync(system.Name + ".Status.PowerConsumption", { ack: true, val: Number(data[5]) });
+            await adapter.setStateAsync(system.Name + ".Status.NormalisedOutput", { ack: true, val: Number(data[6]) });
+            await adapter.setStateAsync(system.Name + ".Status.Temperature", { ack: true, val: Number(data[7]) });
+            await adapter.setStateAsync(system.Name + ".Status.Voltage", { ack: true, val: Number(data[8]) });
+        }
+        else {
+            adapter.log.error("error status: " +  JSON.stringify(buffer));
+        }
         /*
          * 
          * Date yyyymmdd date 20210228
@@ -214,27 +219,31 @@ async function read(system) {
 
         adapter.log.debug("URL " + sURL);
 
-        buffer = await axios.get(sURL);
+        buffer = await axios.get(sURL, { timeout: 5000 });
 
         adapter.log.debug("got data statistic " + typeof buffer.data + " " + JSON.stringify(buffer.data));
 
         /*
         got data statistic string "14088651,0,5932,1,16113,2.060,2375,20150510,20220424,5.595,20170424"
         */
-        data = buffer.data.split(",");
+        if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
+            let data = buffer.data.split(",");
 
-        await adapter.setStateAsync(system.Name + ".Statistic.EnergyGenerated", { ack: true, val: Number(data[0]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.EnergyExported", { ack: true, val: Number(data[1]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.AverageGeneration", { ack: true, val: Number(data[2]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.MinimumGeneration", { ack: true, val: Number(data[3]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.MaximumGeneration", { ack: true, val: Number(data[4]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.AverageEfficiency", { ack: true, val: Number(data[5]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.Outputs", { ack: true, val: Number(data[6]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.ActualDateFrom", { ack: true, val: toDate(data[7]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.ActualDateTo", { ack: true, val: toDate(data[8]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.RecordEfficiency", { ack: true, val: Number(data[9]) });
-        await adapter.setStateAsync(system.Name + ".Statistic.RecordDate", { ack: true, val: toDate(data[10]) });
-
+            await adapter.setStateAsync(system.Name + ".Statistic.EnergyGenerated", { ack: true, val: Number(data[0]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.EnergyExported", { ack: true, val: Number(data[1]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.AverageGeneration", { ack: true, val: Number(data[2]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.MinimumGeneration", { ack: true, val: Number(data[3]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.MaximumGeneration", { ack: true, val: Number(data[4]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.AverageEfficiency", { ack: true, val: Number(data[5]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.Outputs", { ack: true, val: Number(data[6]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.ActualDateFrom", { ack: true, val: toDate(data[7]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.ActualDateTo", { ack: true, val: toDate(data[8]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.RecordEfficiency", { ack: true, val: Number(data[9]) });
+            await adapter.setStateAsync(system.Name + ".Statistic.RecordDate", { ack: true, val: toDate(data[10]) });
+        }
+        else {
+            adapter.log.error("error statistic: " + JSON.stringify(buffer));
+        }
         /*
          * Energy Generated number watt hours 24600 
          * Energy Exported number watt hours 14220
@@ -256,31 +265,36 @@ async function read(system) {
 
         adapter.log.debug("URL " + sURL);
 
-        buffer = await axios.get(sURL);
+        buffer = await axios.get(sURL, { timeout: 5000 });
 
         adapter.log.debug("got data system " + typeof buffer.data + " " + JSON.stringify(buffer.data));
 
         /*
         got data system string "PV-System R-Wisch,2880,,16,180,Yingli YL 180,1,2500,SMA SB 2500,S,45.0,No,20081211,50.546189,12.36239,5;;0"
         */
-        data = buffer.data.split(",");
 
-        await adapter.setStateAsync(system.Name + ".System.SystemName", { ack: true, val: data[0] });
-        await adapter.setStateAsync(system.Name + ".System.SystemSize", { ack: true, val: Number(data[1]) });
-        await adapter.setStateAsync(system.Name + ".System.Postcode", { ack: true, val: Number(data[2]) });
-        await adapter.setStateAsync(system.Name + ".System.Panels", { ack: true, val: Number(data[3]) });
-        await adapter.setStateAsync(system.Name + ".System.PanelPower", { ack: true, val: Number(data[4]) });
-        await adapter.setStateAsync(system.Name + ".System.PanelBrand", { ack: true, val: data[5] });
-        await adapter.setStateAsync(system.Name + ".System.Inverters", { ack: true, val: Number(data[6]) });
-        await adapter.setStateAsync(system.Name + ".System.InverterPower", { ack: true, val: Number(data[7]) });
-        await adapter.setStateAsync(system.Name + ".System.InverterBrand", { ack: true, val: data[8] });
-        await adapter.setStateAsync(system.Name + ".System.Orientation", { ack: true, val: data[9] });
-        await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
-        await adapter.setStateAsync(system.Name + ".System.Shade", { ack: true, val: data[11] });
-        await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
-        await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: Number(data[13]) });
-        await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: Number(data[14]) });
-       
+        if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
+            let data = buffer.data.split(",");
+
+            await adapter.setStateAsync(system.Name + ".System.SystemName", { ack: true, val: data[0] });
+            await adapter.setStateAsync(system.Name + ".System.SystemSize", { ack: true, val: Number(data[1]) });
+            await adapter.setStateAsync(system.Name + ".System.Postcode", { ack: true, val: Number(data[2]) });
+            await adapter.setStateAsync(system.Name + ".System.Panels", { ack: true, val: Number(data[3]) });
+            await adapter.setStateAsync(system.Name + ".System.PanelPower", { ack: true, val: Number(data[4]) });
+            await adapter.setStateAsync(system.Name + ".System.PanelBrand", { ack: true, val: data[5] });
+            await adapter.setStateAsync(system.Name + ".System.Inverters", { ack: true, val: Number(data[6]) });
+            await adapter.setStateAsync(system.Name + ".System.InverterPower", { ack: true, val: Number(data[7]) });
+            await adapter.setStateAsync(system.Name + ".System.InverterBrand", { ack: true, val: data[8] });
+            await adapter.setStateAsync(system.Name + ".System.Orientation", { ack: true, val: data[9] });
+            await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
+            await adapter.setStateAsync(system.Name + ".System.Shade", { ack: true, val: data[11] });
+            await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
+            await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: Number(data[13]) });
+            await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: Number(data[14]) });
+        }
+        else {
+            adapter.log.error("error system: " + JSON.stringify(buffer));
+        }
         /*
          * System Name text PVOutput Demo
          * System Size number watts 3200 
@@ -319,7 +333,8 @@ function toDate(sDate) {
 }
 
 async function HandleStateChange(id, state) {
-   
+
+    //prepared for further extensions e.g. write data to PVOutput.org
 
     if (state.ack !== true) {
 

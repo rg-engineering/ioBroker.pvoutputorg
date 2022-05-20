@@ -103,7 +103,7 @@
             <!--  main - settings  -->
             <div id="tab-main" class="col s12 page">
                 <div class="row">
-                    <div class="col s6 m4 l2">
+                    <div class="col s6">
                         <img src="pvoutputorg.png" class="logo">
                     </div>
                 </div>
@@ -114,10 +114,15 @@
                         <input type="text" id="timezone" class="value" />
                         <label for="timezone" class="translate">timezone</label>
                     </div>
-                    
-                    <div class="input-field col s6">
+                </div>
+                <div class="row">
+                    <div class="input-field col s3">
                         <input class="value number" id="readInterval" size="3" maxlength="3" type="number" />
                         <label for="readInterval" class="translate">readInterval</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input class="value number" id="writeInterval" size="3" maxlength="3" type="number" />
+                        <label for="writeInterval" class="translate">writeInterval</label>
                     </div>
                 </div>
 
@@ -137,7 +142,8 @@
                                     <th id="tableSystems_col1" data-name="Name" style="width: 20%; background: #64b5f6 " class="translate">name</th>
                                     <th id="tableSystems_col2" data-name="SystemId" style=" background: #64b5f6 " class="translate">SystemId</th>
                                     <th id="tableSystems_col3" data-name="ApiKey" style=" background: #64b5f6 " class="translate">ApiKey</th>
-                                    <th id="tableSystems_col4" data-name="IsDonated" data-type="checkbox" style="background: #64b5f6 " class="translate">IsDonated</th>
+                                    <th id="tableSystems_col4" data-name="Upload" data-type="checkbox"style=" background: #64b5f6 " class="translate">Upload</th>
+                                    <th id="tableSystems_col5" data-name="IsDonated" data-type="checkbox" style="background: #64b5f6 " class="translate">IsDonated</th>
                                     <th data-buttons="up down delete" style="width: 100px; background: #64b5f6"></th>
                                 </tr>
                             </thead>

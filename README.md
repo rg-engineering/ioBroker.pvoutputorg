@@ -21,18 +21,20 @@ For more details and for information how to disable the error reporting see [Sen
 
 The adapter connects to [PvOutput.org](https://pvoutput.org). System-ID and API-key is used to establish the connection. Both needs to be configured on admin page.
 The system, status and statistical data for all configured systems are currently being read and displayed in data points.
+The generated energy can be uploaded to PvOutput.org permanantly.
 
 For detailed information please have a look on [pvoutput.org help](https://pvoutput.org/help/overview.html)
 
 If you support pvoutput.org with a donation, additional features will be made available to you. At the moment these are not supported here in the adapter yet.
-
-Data upload is not yet implemented. Currently [sbfspot](https://github.com/SBFspot/SBFspot) can be used for this. Later the adapter will also support data upload. 
 
 
 ## known issues
 * please create issues at [github](https://github.com/rg-engineering/ioBroker.pvoutputorg/issues) if you find bugs or whish new features
    
 ## Changelog
+
+### 1.1.0 (2022-05-20)
+* (René) write data to PvOutput.org added
 
 ### 1.0.0 (2022-04-29)
 * (René) first official release

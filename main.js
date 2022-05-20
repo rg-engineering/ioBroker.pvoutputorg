@@ -147,20 +147,35 @@ async function main() {
     adapter.log.debug("read every  " + readInterval + " minutes");
     //intervalID = setInterval(Do, readInterval * 60 * 1000);
 
-    CronCreate(readInterval, Do)
+    CronCreate(readInterval, DoRead)
+
+    let writeInterval = 15;
+    if (parseInt(adapter.config.writeInterval) > 0) {
+        writeInterval = adapter.config.writeInterval;
+    }
+    else {
+        adapter.log.warn("write interval not defined");
+    }
+    adapter.log.debug("write every  " + writeInterval + " minutes");
+    //intervalID = setInterval(Do, readInterval * 60 * 1000);
+
+    CronCreate(writeInterval, DoWrite)
     
 }
 
-async function Do() {
+async function DoRead() {
 
-    adapter.log.debug("starting ... " );
+    adapter.log.debug("start reading ... " );
 
     await ReadData();
-
-    //to do
-    //await WriteData();
 }
 
+async function DoWrite() {
+
+    adapter.log.debug("start writing ... ");
+
+    await WriteData();
+}
 
 async function ReadData(){
 
@@ -344,6 +359,74 @@ function toDate(sDate) {
     let oDate = new Date(year, month - 1, day);
 
     return oDate.toLocaleDateString();
+}
+
+//==========================================================================
+//write to PVOutput.org
+
+async function WriteData() {
+
+
+    for (const system of adapter.config.PVSystems) {
+        if (system.Upload) {
+            await write(system);
+        }
+    }
+    adapter.log.debug("all written" );
+}
+
+async function write(system) {
+    //https://pvoutput.org/help/api_specification.html
+    //
+
+    let sURL = "";
+
+    try {
+
+        sURL = "https://pvoutput.org/service/r2/addoutput.jsp?";
+        sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
+        sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
+
+        
+        let date = new Date();
+        const year = date.getFullYear();
+        let month = date.getMonth();
+        month = month + 1;
+        let sMonth = "";
+        if (month < 10) {
+            sMonth = "0" + month;
+        }
+        else {
+            sMonth = month;
+        }
+        const day = date.getDate();
+        let sDate = year + sMonth + day;
+        sURL += "&d=" + sDate;
+
+        let generated = await adapter.getStateAsync(system.Name + ".Upload.Generated");
+        if (generated != null && generated.val > 0) {
+            sURL += "&g=" + generated.val;
+
+            adapter.log.debug("URL " + sURL);
+
+            let response = await axios.get(sURL, { timeout: 5000 });
+
+            if (response != null && response.status == 200) {
+                adapter.log.debug("data written ");
+            }
+            else {
+                adapter.log.warn("data not written " + JSON.stringify(response));
+            }
+        }
+        else {
+            adapter.log.warn("no generated value on " + system.Name + ".Upload.Generated! upload skipped!");
+        }
+
+    }
+    catch (e) {
+        adapter.log.error("exception in write [" + e + "] " + sURL);
+    }
+
 }
 
 async function HandleStateChange(id, state) {
@@ -871,6 +954,26 @@ async function checkVariables() {
             }
         };
         await CreateObject(key, obj);
+
+
+        if (system.Upload) {
+            key = system.Name + ".Upload.Generated";
+            obj = {
+                type: "state",
+                common: {
+                    name: "Generated Power for Upload",
+                    type: "number",
+                    role: "value",
+                    read: true,
+                    write: true,
+                    unit: "Wh"
+                }
+            };
+            await CreateObject(key, obj);
+
+        }
+
+
     }
 }
 

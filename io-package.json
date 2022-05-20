@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.1.1",
+        "version": "1.1.0",
         "news": {
             "1.1.0": {
                 "en": "data upload added",

@@ -10,6 +10,10 @@
 const utils = require("@iobroker/adapter-core");
 const axios = require('axios');
 
+const CronJob = require("cron").CronJob;
+
+let cronJobs = [];
+
 let adapter;
 function startAdapter(options) {
     options = options || {};
@@ -30,8 +34,9 @@ function startAdapter(options) {
         //  is called when adapter shuts down
         unload: function (callback) {
             try {
-                clearInterval(intervalID);
-                intervalID = null;
+                CronStop();
+                //clearInterval(intervalID);
+                //intervalID = null;
                 adapter && adapter.log && adapter.log.info && adapter.log.info("cleaned everything up...");
                 callback();
             } catch (e) {
@@ -41,8 +46,9 @@ function startAdapter(options) {
         //#######################################
         //
         SIGINT: function () {
-            clearInterval(intervalID);
-            intervalID = null;
+            CronStop();
+            //clearInterval(intervalID);
+            //intervalID = null;
             adapter && adapter.log && adapter.log.info && adapter.log.info("cleaned everything up...");
         },
         //#######################################
@@ -120,7 +126,7 @@ Delete Status
 
 
 
-let intervalID;
+//let intervalID;
 async function main() {
 
     adapter.log.debug("start  ");
@@ -139,7 +145,9 @@ async function main() {
         adapter.log.warn("read interval not defined");
     }
     adapter.log.debug("read every  " + readInterval + " minutes");
-    intervalID = setInterval(Do, readInterval * 60 * 1000);
+    //intervalID = setInterval(Do, readInterval * 60 * 1000);
+
+    CronCreate(readInterval, Do)
     
 }
 
@@ -175,7 +183,7 @@ async function read(system) {
 
         adapter.log.debug("URL " + sURL);
 
-        buffer = await axios.get(sURL, { timeout: 5000 });
+        let buffer = await axios.get(sURL, { timeout: 5000 });
 
         adapter.log.debug("got data system " + typeof buffer.data + " " + JSON.stringify(buffer.data));
 
@@ -234,7 +242,7 @@ async function read(system) {
 
         adapter.log.debug("URL " + sURL);
 
-        let buffer = await axios.get(sURL, { timeout: 5000 });
+        buffer = await axios.get(sURL, { timeout: 5000 });
 
         adapter.log.debug("got data status " + typeof buffer.data + " " + JSON.stringify(buffer.data));
         /*
@@ -864,10 +872,6 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
     }
-
-
-    
-    
 }
 
 async function CreateObject(key, obj) {
@@ -902,6 +906,92 @@ async function CreateObject(key, obj) {
         await adapter.setObjectNotExistsAsync(key, obj);
     }
 }
+
+//===============================================================================
+//cron functions
+function CronStop() {
+    if (cronJobs.length > 0) {
+        adapter.log.debug("delete " + cronJobs.length + " cron jobs");
+        //cancel all cron jobs...
+        const start = cronJobs.length - 1;
+        for (let n = start; n >= 0; n--) {
+            cronJobs[n].stop();
+        }
+        cronJobs = [];
+    }
+}
+
+function deleteCronJob(id) {
+
+    cronJobs[id].stop();
+
+    if (id === cronJobs.length - 1) {
+        cronJobs.pop(); //remove last
+    }
+    else {
+        delete cronJobs[id];
+    }
+    CronStatus();
+
+
+}
+
+function CronCreate(Minute, callback) {
+
+    try {
+
+        const timezone = adapter.config.timezone || "Europe/Berlin";
+
+        //https://crontab-generator.org/
+        let cronString = "*/" + Minute + " * * * * ";
+
+
+        const nextCron = cronJobs.length;
+
+        adapter.log.debug("create cron job #" + nextCron + " every " + Minute + " string: " + cronString + " " + timezone);
+
+        //details see https://www.npmjs.com/package/cron
+        cronJobs[nextCron] = new CronJob(cronString,
+            () => callback(),
+            () => adapter.log.debug("cron job stopped"), // This function is executed when the job stops
+            true,
+            timezone
+        );
+
+    }
+    catch (e) {
+        adapter.log.error("exception in CronCreate [" + e + "]");
+    }
+}
+
+function CronStatus() {
+    let n = 0;
+    let length = 0;
+    try {
+        if (typeof cronJobs !== undefined && cronJobs != null) {
+
+            length = cronJobs.length;
+            //adapter.log.debug("cron jobs");
+            for (n = 0; n < length; n++) {
+                if (typeof cronJobs[n] !== undefined && cronJobs[n] != null) {
+                    adapter.log.debug("cron status = " + cronJobs[n].running + " next event: " + timeConverter("DE", cronJobs[n].nextDates()));
+                }
+            }
+
+            if (length > 500) {
+                adapter.log.warn("more then 500 cron jobs existing for this adapter, this might be a configuration error! (" + length + ")");
+            }
+            else {
+                adapter.log.info(length + " cron job(s) created");
+            }
+        }
+    }
+    catch (e) {
+        adapter.log.error("exception in getCronStat [" + e + "] : " + n + " of " + length);
+    }
+}
+
+
 
 
 

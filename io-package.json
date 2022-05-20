@@ -80,6 +80,7 @@
   },
   "native": {
     "PVSystems": [],
-    "readInterval": 15
+    "readInterval": 15,
+    "timezone": "Europe/Berlin"
   }
 }

@@ -165,12 +165,70 @@ async function ReadData(){
 
 async function read(system) {
 
+    let sURL = "";
+
     try {
+
+        sURL = "https://pvoutput.org/service/r2/getsystem.jsp?";
+        sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
+        sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
+
+        adapter.log.debug("URL " + sURL);
+
+        buffer = await axios.get(sURL, { timeout: 5000 });
+
+        adapter.log.debug("got data system " + typeof buffer.data + " " + JSON.stringify(buffer.data));
+
+        /*
+        got data system string "PV-System R-Wisch,2880,,16,180,Yingli YL 180,1,2500,SMA SB 2500,S,45.0,No,20081211,50.546189,12.36239,5;;0"
+        */
+
+        if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
+            let data = buffer.data.split(",");
+
+            await adapter.setStateAsync(system.Name + ".System.SystemName", { ack: true, val: data[0] });
+            await adapter.setStateAsync(system.Name + ".System.SystemSize", { ack: true, val: Number(data[1]) });
+            await adapter.setStateAsync(system.Name + ".System.Postcode", { ack: true, val: Number(data[2]) });
+            await adapter.setStateAsync(system.Name + ".System.Panels", { ack: true, val: Number(data[3]) });
+            await adapter.setStateAsync(system.Name + ".System.PanelPower", { ack: true, val: Number(data[4]) });
+            await adapter.setStateAsync(system.Name + ".System.PanelBrand", { ack: true, val: data[5] });
+            await adapter.setStateAsync(system.Name + ".System.Inverters", { ack: true, val: Number(data[6]) });
+            await adapter.setStateAsync(system.Name + ".System.InverterPower", { ack: true, val: Number(data[7]) });
+            await adapter.setStateAsync(system.Name + ".System.InverterBrand", { ack: true, val: data[8] });
+            await adapter.setStateAsync(system.Name + ".System.Orientation", { ack: true, val: data[9] });
+            await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
+            await adapter.setStateAsync(system.Name + ".System.Shade", { ack: true, val: data[11] });
+            await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
+            await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: Number(data[13]) });
+            await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: Number(data[14]) });
+        }
+        else {
+            adapter.log.error("error system: " + JSON.stringify(buffer));
+        }
+        /*
+         * System Name text PVOutput Demo
+         * System Size number watts 3200
+         * Postcode / Zipcode number 2162
+         * Panels number 10
+         * Panel Power number watts 320
+         * Panel Brand text Enertech
+         * Inverters number 1
+         * Inverter Power watts 5000
+         * Inverter Brand text Fronius
+         * Orientation text N
+         * Array Tilt decimal degrees 20.0
+         * Shade text No
+         * Install Date yyyymmdd date 20120228
+         * Latitude decimal -33.868135
+         * Longitude decimal 151.133423
+         */
+
+
         /*
         https://pvoutput.org/service/r2/getstatus.jsp?key=key&sid=system
         */
 
-        let sURL = "https://pvoutput.org/service/r2/getstatus.jsp?";
+        sURL = "https://pvoutput.org/service/r2/getstatus.jsp?";
         sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS,'_');
         sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
@@ -259,63 +317,11 @@ async function read(system) {
          */
 
 
-        sURL = "https://pvoutput.org/service/r2/getsystem.jsp?";
-        sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
-        sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
-
-        adapter.log.debug("URL " + sURL);
-
-        buffer = await axios.get(sURL, { timeout: 5000 });
-
-        adapter.log.debug("got data system " + typeof buffer.data + " " + JSON.stringify(buffer.data));
-
-        /*
-        got data system string "PV-System R-Wisch,2880,,16,180,Yingli YL 180,1,2500,SMA SB 2500,S,45.0,No,20081211,50.546189,12.36239,5;;0"
-        */
-
-        if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
-            let data = buffer.data.split(",");
-
-            await adapter.setStateAsync(system.Name + ".System.SystemName", { ack: true, val: data[0] });
-            await adapter.setStateAsync(system.Name + ".System.SystemSize", { ack: true, val: Number(data[1]) });
-            await adapter.setStateAsync(system.Name + ".System.Postcode", { ack: true, val: Number(data[2]) });
-            await adapter.setStateAsync(system.Name + ".System.Panels", { ack: true, val: Number(data[3]) });
-            await adapter.setStateAsync(system.Name + ".System.PanelPower", { ack: true, val: Number(data[4]) });
-            await adapter.setStateAsync(system.Name + ".System.PanelBrand", { ack: true, val: data[5] });
-            await adapter.setStateAsync(system.Name + ".System.Inverters", { ack: true, val: Number(data[6]) });
-            await adapter.setStateAsync(system.Name + ".System.InverterPower", { ack: true, val: Number(data[7]) });
-            await adapter.setStateAsync(system.Name + ".System.InverterBrand", { ack: true, val: data[8] });
-            await adapter.setStateAsync(system.Name + ".System.Orientation", { ack: true, val: data[9] });
-            await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
-            await adapter.setStateAsync(system.Name + ".System.Shade", { ack: true, val: data[11] });
-            await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
-            await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: Number(data[13]) });
-            await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: Number(data[14]) });
-        }
-        else {
-            adapter.log.error("error system: " + JSON.stringify(buffer));
-        }
-        /*
-         * System Name text PVOutput Demo
-         * System Size number watts 3200 
-         * Postcode / Zipcode number 2162
-         * Panels number 10 
-         * Panel Power number watts 320
-         * Panel Brand text Enertech 
-         * Inverters number 1 
-         * Inverter Power watts 5000 
-         * Inverter Brand text Fronius
-         * Orientation text N
-         * Array Tilt decimal degrees 20.0
-         * Shade text No 
-         * Install Date yyyymmdd date 20120228 
-         * Latitude decimal -33.868135
-         * Longitude decimal 151.133423
-         */
+       
 
     }
     catch (e) {
-        adapter.log.error("exception in read [" + e + "]");
+        adapter.log.error("exception in read [" + e + "] " + sURL);
     }
 }
 

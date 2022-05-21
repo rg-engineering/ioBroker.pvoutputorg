@@ -33,8 +33,12 @@ If you support pvoutput.org with a donation, additional features will be made av
    
 ## Changelog
 
+### 1.2.0 (2022-05-21)
+* (René) IsActive per system added
+
 ### 1.1.0 (2022-05-20)
 * (René) write data to PvOutput.org added
+* (René) change to cron
 
 ### 1.0.0 (2022-04-29)
 * (René) first official release

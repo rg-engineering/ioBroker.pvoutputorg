@@ -181,8 +181,12 @@ async function ReadData(){
 
 
     for (const system of adapter.config.PVSystems) {
-        await read(system);
+        if (system.IsActive) {
+            await read(system);
+        }
     }
+    adapter.log.debug("all systems read");
+
 }
 
 
@@ -368,11 +372,11 @@ async function WriteData() {
 
 
     for (const system of adapter.config.PVSystems) {
-        if (system.Upload) {
+        if (system.IsActive && system.Upload) {
             await write(system);
         }
     }
-    adapter.log.debug("all written" );
+    adapter.log.debug("all systems written" );
 }
 
 async function write(system) {

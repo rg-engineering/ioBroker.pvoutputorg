@@ -9,3 +9,10 @@ node_modules
 /readme.txt
 /pvoutputorg.njsproj
 /pvoutputorg.njsproj.user
+
+
+*.txt
+
+.github
+READMEbackup.md
+main.test.js

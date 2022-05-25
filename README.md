@@ -33,6 +33,10 @@ If you support pvoutput.org with a donation, additional features will be made av
    
 ## Changelog
 
+### 1.3.0 (in progress)
+* (René) Upload live data and end-of-day
+* (René) better error handling when receiving errors from server
+
 ### 1.2.0 (2022-05-21)
 * (René) IsActive per system added
 

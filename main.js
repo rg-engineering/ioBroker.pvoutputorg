@@ -160,6 +160,8 @@ async function main() {
     //intervalID = setInterval(Do, readInterval * 60 * 1000);
 
     CronCreate(writeInterval, DoWrite)
+
+    CronCreate(-99, DoWriteEOD)
     
 }
 
@@ -175,6 +177,13 @@ async function DoWrite() {
     adapter.log.debug("start writing ... ");
 
     await WriteData();
+}
+
+async function DoWriteEOD() {
+
+    adapter.log.debug("start writing end of day ... ");
+
+    await WriteEODData();
 }
 
 async function ReadData(){
@@ -200,151 +209,170 @@ async function read(system) {
         sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
         sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
-        adapter.log.debug("URL " + sURL);
+        adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
+        try {
+            let buffer = await axios.get(sURL, { timeout: 5000 });
 
-        let buffer = await axios.get(sURL, { timeout: 5000 });
+            adapter.log.debug("got data system " + typeof buffer.data + " " + JSON.stringify(buffer.data));
 
-        adapter.log.debug("got data system " + typeof buffer.data + " " + JSON.stringify(buffer.data));
+            /*
+            got data system string "PV-System R-Wisch,2880,,16,180,Yingli YL 180,1,2500,SMA SB 2500,S,45.0,No,20081211,50.546189,12.36239,5;;0"
+            */
 
-        /*
-        got data system string "PV-System R-Wisch,2880,,16,180,Yingli YL 180,1,2500,SMA SB 2500,S,45.0,No,20081211,50.546189,12.36239,5;;0"
-        */
+            if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
+                let data = buffer.data.split(",");
 
-        if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
-            let data = buffer.data.split(",");
+                await adapter.setStateAsync(system.Name + ".System.SystemName", { ack: true, val: data[0] });
+                await adapter.setStateAsync(system.Name + ".System.SystemSize", { ack: true, val: Number(data[1]) });
+                await adapter.setStateAsync(system.Name + ".System.Postcode", { ack: true, val: Number(data[2]) });
+                await adapter.setStateAsync(system.Name + ".System.Panels", { ack: true, val: Number(data[3]) });
+                await adapter.setStateAsync(system.Name + ".System.PanelPower", { ack: true, val: Number(data[4]) });
+                await adapter.setStateAsync(system.Name + ".System.PanelBrand", { ack: true, val: data[5] });
+                await adapter.setStateAsync(system.Name + ".System.Inverters", { ack: true, val: Number(data[6]) });
+                await adapter.setStateAsync(system.Name + ".System.InverterPower", { ack: true, val: Number(data[7]) });
+                await adapter.setStateAsync(system.Name + ".System.InverterBrand", { ack: true, val: data[8] });
+                await adapter.setStateAsync(system.Name + ".System.Orientation", { ack: true, val: data[9] });
+                await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
+                await adapter.setStateAsync(system.Name + ".System.Shade", { ack: true, val: data[11] });
+                await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
+                await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: Number(data[13]) });
+                await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: Number(data[14]) });
+            }
+            else {
 
-            await adapter.setStateAsync(system.Name + ".System.SystemName", { ack: true, val: data[0] });
-            await adapter.setStateAsync(system.Name + ".System.SystemSize", { ack: true, val: Number(data[1]) });
-            await adapter.setStateAsync(system.Name + ".System.Postcode", { ack: true, val: Number(data[2]) });
-            await adapter.setStateAsync(system.Name + ".System.Panels", { ack: true, val: Number(data[3]) });
-            await adapter.setStateAsync(system.Name + ".System.PanelPower", { ack: true, val: Number(data[4]) });
-            await adapter.setStateAsync(system.Name + ".System.PanelBrand", { ack: true, val: data[5] });
-            await adapter.setStateAsync(system.Name + ".System.Inverters", { ack: true, val: Number(data[6]) });
-            await adapter.setStateAsync(system.Name + ".System.InverterPower", { ack: true, val: Number(data[7]) });
-            await adapter.setStateAsync(system.Name + ".System.InverterBrand", { ack: true, val: data[8] });
-            await adapter.setStateAsync(system.Name + ".System.Orientation", { ack: true, val: data[9] });
-            await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
-            await adapter.setStateAsync(system.Name + ".System.Shade", { ack: true, val: data[11] });
-            await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
-            await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: Number(data[13]) });
-            await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: Number(data[14]) });
+
+                adapter.log.error("error system: " + JSON.stringify(buffer));
+
+            }
+            /*
+             * System Name text PVOutput Demo
+             * System Size number watts 3200
+             * Postcode / Zipcode number 2162
+             * Panels number 10
+             * Panel Power number watts 320
+             * Panel Brand text Enertech
+             * Inverters number 1
+             * Inverter Power watts 5000
+             * Inverter Brand text Fronius
+             * Orientation text N
+             * Array Tilt decimal degrees 20.0
+             * Shade text No
+             * Install Date yyyymmdd date 20120228
+             * Latitude decimal -33.868135
+             * Longitude decimal 151.133423
+             */
         }
-        else {
-            adapter.log.error("error system: " + JSON.stringify(buffer));
+        catch (error) {
+            ShowError(error);
         }
-        /*
-         * System Name text PVOutput Demo
-         * System Size number watts 3200
-         * Postcode / Zipcode number 2162
-         * Panels number 10
-         * Panel Power number watts 320
-         * Panel Brand text Enertech
-         * Inverters number 1
-         * Inverter Power watts 5000
-         * Inverter Brand text Fronius
-         * Orientation text N
-         * Array Tilt decimal degrees 20.0
-         * Shade text No
-         * Install Date yyyymmdd date 20120228
-         * Latitude decimal -33.868135
-         * Longitude decimal 151.133423
-         */
-
 
         /*
         https://pvoutput.org/service/r2/getstatus.jsp?key=key&sid=system
         */
 
         sURL = "https://pvoutput.org/service/r2/getstatus.jsp?";
-        sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS,'_');
+        sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
         sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
-        adapter.log.debug("URL " + sURL);
+        adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
 
-        buffer = await axios.get(sURL, { timeout: 5000 });
+        try {
+            let buffer = await axios.get(sURL, { timeout: 5000 });
 
-        adapter.log.debug("got data status " + typeof buffer.data + " " + JSON.stringify(buffer.data));
-        /*
-        got data string "20220424,10:00,548,168,NaN,NaN,0.058,0.0,235.0"
-        */
+            adapter.log.debug("got data status " + typeof buffer.data + " " + JSON.stringify(buffer.data));
+            /*
+            got data string "20220424,10:00,548,168,NaN,NaN,0.058,0.0,235.0"
+            */
 
-        if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
+            if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
 
-            let data = buffer.data.split(",");
+                let data = buffer.data.split(",");
 
-            await adapter.setStateAsync(system.Name + ".Status.Date", { ack: true, val: toDate(data[0]) });
-            await adapter.setStateAsync(system.Name + ".Status.Time", { ack: true, val: data[1] });
-            await adapter.setStateAsync(system.Name + ".Status.EnergyGeneration", { ack: true, val: Number(data[2]) });
-            await adapter.setStateAsync(system.Name + ".Status.PowerGeneration", { ack: true, val: Number(data[3]) });
-            await adapter.setStateAsync(system.Name + ".Status.EnergyConsumption", { ack: true, val: Number(data[4]) });
-            await adapter.setStateAsync(system.Name + ".Status.PowerConsumption", { ack: true, val: Number(data[5]) });
-            await adapter.setStateAsync(system.Name + ".Status.NormalisedOutput", { ack: true, val: Number(data[6]) });
-            await adapter.setStateAsync(system.Name + ".Status.Temperature", { ack: true, val: Number(data[7]) });
-            await adapter.setStateAsync(system.Name + ".Status.Voltage", { ack: true, val: Number(data[8]) });
+                await adapter.setStateAsync(system.Name + ".Status.Date", { ack: true, val: toDate(data[0]) });
+                await adapter.setStateAsync(system.Name + ".Status.Time", { ack: true, val: data[1] });
+                await adapter.setStateAsync(system.Name + ".Status.EnergyGeneration", { ack: true, val: Number(data[2]) });
+                await adapter.setStateAsync(system.Name + ".Status.PowerGeneration", { ack: true, val: Number(data[3]) });
+                await adapter.setStateAsync(system.Name + ".Status.EnergyConsumption", { ack: true, val: Number(data[4]) });
+                await adapter.setStateAsync(system.Name + ".Status.PowerConsumption", { ack: true, val: Number(data[5]) });
+                await adapter.setStateAsync(system.Name + ".Status.NormalisedOutput", { ack: true, val: Number(data[6]) });
+                await adapter.setStateAsync(system.Name + ".Status.Temperature", { ack: true, val: Number(data[7]) });
+                await adapter.setStateAsync(system.Name + ".Status.Voltage", { ack: true, val: Number(data[8]) });
+            }
+            else {
+
+                adapter.log.error("error status: " + JSON.stringify(buffer));
+
+            }
+            /*
+             * 
+             * Date yyyymmdd date 20210228
+             * Time hh:mm time 13:00
+             * Energy Generation number watt hours 359
+             * Power Generation number watt 731 
+             * Energy Consumption number watt hours 92
+             * Power Consumption number watt 130 
+             * Normalised Output number kW/kW 0.164
+             * Temperature decimal celsius 21.4 
+             * Voltage decimal volts 240.4
+            */
         }
-        else {
-            adapter.log.error("error status: " +  JSON.stringify(buffer));
+        catch (error) {
+            ShowError(error);
         }
-        /*
-         * 
-         * Date yyyymmdd date 20210228
-         * Time hh:mm time 13:00
-         * Energy Generation number watt hours 359
-         * Power Generation number watt 731 
-         * Energy Consumption number watt hours 92
-         * Power Consumption number watt 130 
-         * Normalised Output number kW/kW 0.164
-         * Temperature decimal celsius 21.4 
-         * Voltage decimal volts 240.4
-        */
 
         sURL = "https://pvoutput.org/service/r2/getstatistic.jsp?";
         sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
         sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
-        adapter.log.debug("URL " + sURL);
+        adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
 
-        buffer = await axios.get(sURL, { timeout: 5000 });
+        try {
+            let buffer = await axios.get(sURL, { timeout: 5000 });
 
-        adapter.log.debug("got data statistic " + typeof buffer.data + " " + JSON.stringify(buffer.data));
+            adapter.log.debug("got data statistic " + typeof buffer.data + " " + JSON.stringify(buffer.data));
 
-        /*
-        got data statistic string "14088651,0,5932,1,16113,2.060,2375,20150510,20220424,5.595,20170424"
-        */
-        if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
-            let data = buffer.data.split(",");
+            /*
+            got data statistic string "14088651,0,5932,1,16113,2.060,2375,20150510,20220424,5.595,20170424"
+            */
+            if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
+                let data = buffer.data.split(",");
 
-            await adapter.setStateAsync(system.Name + ".Statistic.EnergyGenerated", { ack: true, val: Number(data[0]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.EnergyExported", { ack: true, val: Number(data[1]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.AverageGeneration", { ack: true, val: Number(data[2]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.MinimumGeneration", { ack: true, val: Number(data[3]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.MaximumGeneration", { ack: true, val: Number(data[4]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.AverageEfficiency", { ack: true, val: Number(data[5]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.Outputs", { ack: true, val: Number(data[6]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.ActualDateFrom", { ack: true, val: toDate(data[7]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.ActualDateTo", { ack: true, val: toDate(data[8]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.RecordEfficiency", { ack: true, val: Number(data[9]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.RecordDate", { ack: true, val: toDate(data[10]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.EnergyGenerated", { ack: true, val: Number(data[0]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.EnergyExported", { ack: true, val: Number(data[1]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.AverageGeneration", { ack: true, val: Number(data[2]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.MinimumGeneration", { ack: true, val: Number(data[3]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.MaximumGeneration", { ack: true, val: Number(data[4]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.AverageEfficiency", { ack: true, val: Number(data[5]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.Outputs", { ack: true, val: Number(data[6]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.ActualDateFrom", { ack: true, val: toDate(data[7]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.ActualDateTo", { ack: true, val: toDate(data[8]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.RecordEfficiency", { ack: true, val: Number(data[9]) });
+                await adapter.setStateAsync(system.Name + ".Statistic.RecordDate", { ack: true, val: toDate(data[10]) });
+            }
+            else {
+
+                adapter.log.error("error statistic: " + JSON.stringify(buffer));
+
+            }
+            /*
+             * Energy Generated number watt hours 24600 
+             * Energy Exported number watt hours 14220
+             * Average Generation number watt hours 2220 
+             * Minimum Generation number watt hours 800
+             * Maximum Generation number watt hours 3400
+             * Average Efficiency number kWh/kW 3.358 
+             * Outputs number 27 
+             * Actual Date From yyyymmdd date 20210201 
+             * Actual Date To yyyymmdd date 20210228 
+             * Record Efficiency number kWh/kW 4.653 
+             * Record Date yyyymmdd date 20210205
+             */
+
         }
-        else {
-            adapter.log.error("error statistic: " + JSON.stringify(buffer));
+        catch (error) {
+            ShowError(error);
         }
-        /*
-         * Energy Generated number watt hours 24600 
-         * Energy Exported number watt hours 14220
-         * Average Generation number watt hours 2220 
-         * Minimum Generation number watt hours 800
-         * Maximum Generation number watt hours 3400
-         * Average Efficiency number kWh/kW 3.358 
-         * Outputs number 27 
-         * Actual Date From yyyymmdd date 20210201 
-         * Actual Date To yyyymmdd date 20210228 
-         * Record Efficiency number kWh/kW 4.653 
-         * Record Date yyyymmdd date 20210205
-         */
 
-
-       
 
     }
     catch (e) {
@@ -364,6 +392,118 @@ function toDate(sDate) {
 
     return oDate.toLocaleDateString();
 }
+
+function ShowError(error) {
+    if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        let isKnown = false;
+        
+        if (error.response.status == 400) {
+            if (error.response.data.includes("No status found")) {
+                isKnown = true;
+                adapter.log.error("No live data found on a specified date or no live data reported in the last 7 days when no date parameter is used.");
+            }
+        }
+        else if (error.response.status == 401) {
+            if (error.response.data.includes("Inaccessible System ID")) {
+                isKnown = true;
+                adapter.log.error("This error is reported when another system id is requested from an account without donation enabled.");
+            }
+            else if (error.response.data.includes("Invalid System ID")) {
+                isKnown = true;
+                adapter.log.error("The required parameter X-Pvoutput-SystemId or sid is missing from the request. The sid is a number which identifies a system. The sid can be obtained from the Settings page under Registered Systems");
+            }
+            else if (error.response.data.includes("Invalid API Key")) {
+                isKnown = true;
+                adapter.log.error("The API key is missing in the header request or the API key is invalid.");
+            }
+            else if (error.response.data.includes("Disabled API Key")) {
+                isKnown = true;
+                adapter.log.error("The API key has not been enabled in the Settings.");
+            }
+            else if (error.response.data.includes("Missing, invalid or inactive api key information")) {
+                isKnown = true;
+                adapter.log.error("The sid and key combination is invalid");
+            }
+            //write errors
+            else if (error.response.data.includes("Date") && error.response.data.includes("invalid") ) {
+                isKnown = true;
+                adapter.log.error("The date is incorrectly formatted, expecting yyyymmdd format");
+            }
+            else if (error.response.data.includes("Date") && error.response.data.includes("too old")) {
+                isKnown = true;
+                adapter.log.error("The date must be after 2000-01-01");
+            }
+            else if (error.response.data.includes("Date") && error.response.data.includes("too new")) {
+                isKnown = true;
+                adapter.log.error("The date must not be a future date");
+            }
+            else if (error.response.data.includes("Generation") && error.response.data.includes("too high for system size")) {
+                isKnown = true;
+                adapter.log.error("The generation amount to too high compared to the system size " + error.response.data );
+            }
+            else if (error.response.data.includes("Export") && error.response.data.includes("too high for system size")) {
+                isKnown = true;
+                adapter.log.error("The export amount to too high compared to the system size " + error.response.data);
+            }
+            else if (error.response.data.includes("Export") && error.response.data.includes("cannot exceed generation")) {
+                isKnown = true;
+                adapter.log.error("The export amount is too high compared to the generation amount " + error.response.data);
+            }
+            else if (error.response.data.includes("Consumption") && error.response.data.includes("too high on")) {
+                isKnown = true;
+                adapter.log.error("Consumption exceeded the 999999999Wh limit " + error.response.data);
+            }
+            else if (error.response.data.includes("Peak power") && error.response.data.includes("too high for system size")) {
+                isKnown = true;
+                adapter.log.error("The peak power is 50% greater than the system size. " + error.response.data);
+            }
+            else if (error.response.data.includes("Min/Max temp missing on ")) {
+                isKnown = true;
+                adapter.log.error("Both min and max temperature must exist or both should be omitted. " + error.response.data);
+            }
+        }
+        else if (error.response.status == 403) {
+            if (error.response.data.includes("Read only key")) {
+                isKnown = true;
+                adapter.log.error("The API key provided is a read only key and cannot access the requested service which updates system data, use the standard key to update system data.");
+            }
+            else if (error.response.data.includes("Exceeded number requests per hour")) {
+                isKnown = true;
+                adapter.log.error("The maximum number of requests per hour has been reached for the API key. Wait till the next hour before making further requests.");
+            }
+            else if (error.response.data.includes("Donation Mode")) {
+                isKnown = true;
+                adapter.log.error("Request is only available in Donation mode.");
+            }
+        }
+        else if (error.response.status == 403) {
+            if (error.response.data.includes("POST or GET only")) {
+                isKnown = true;
+                adapter.log.error("Data must be sent via the HTTP POST or GET method");
+            }
+        }
+        if (!isKnown) {
+            adapter.log.error(error.response.data);
+        }
+
+    } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        adapter.log.error(error.request);
+    } else {
+        // Something happened in setting up the request and triggered an Error
+        adapter.log.error('Error', error.message);
+    }
+   
+}
+
 
 //==========================================================================
 //write to PVOutput.org
@@ -387,11 +527,104 @@ async function write(system) {
 
     try {
 
+        //this is live data
+        sURL = "https://pvoutput.org/service/r2/addstatus.jsp?";
+        sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
+        sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
+
+
+        let date = new Date();
+        const year = date.getFullYear();
+        let month = date.getMonth();
+        month = month + 1;
+        let sMonth = "";
+        if (month < 10) {
+            sMonth = "0" + month;
+        }
+        else {
+            sMonth = month;
+        }
+        const day = date.getDate();
+        let sDate = year + sMonth + day;
+        sURL += "&d=" + sDate;
+
+        let sHour=""
+        let hour = date.getHours();
+        if (hour < 10) {
+            sHour = "0" + hour;
+        }
+        else {
+            sHour = hour;
+        }
+
+        
+        let sMinute = ""
+        let minute = date.getMinutes();
+        if (minute < 10) {
+            sMinute = "0" + minute;
+        }
+        else {
+            sMinute = minute;
+        }
+        let sTime = sHour + ":" + sMinute;
+        sURL += "&t=" + sTime;
+
+        let generated = await adapter.getStateAsync(system.Name + ".Upload.Generated");
+        if (generated != null && generated.val > 0) {
+            sURL += "&v1=" + generated.val;
+
+            adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
+            try {
+                let response = await axios.get(sURL, { timeout: 5000 });
+
+                if (response != null && response.status == 200) {
+                    adapter.log.debug("data written ");
+                }
+                else {
+                    adapter.log.warn("data not written " + JSON.stringify(response));
+                }
+            }
+            catch (error) {
+                ShowError(error);
+            }
+        }
+        else {
+            adapter.log.warn("no generated value on " + system.Name + ".Upload.Generated! upload skipped!");
+        }
+
+    }
+    catch (e) {
+        adapter.log.error("exception in write [" + e + "] " + sURL);
+    }
+
+}
+
+
+async function WriteEODData() {
+
+
+    for (const system of adapter.config.PVSystems) {
+        if (system.IsActive && system.Upload) {
+            await write_EOD(system);
+        }
+    }
+    adapter.log.debug("all systems written");
+}
+
+async function write_EOD(system) {
+    //https://pvoutput.org/help/api_specification.html
+    //
+
+    let sURL = "";
+
+    try {
+
+        //this is the end of day output
         sURL = "https://pvoutput.org/service/r2/addoutput.jsp?";
         sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
         sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
-        
+
         let date = new Date();
         const year = date.getFullYear();
         let month = date.getMonth();
@@ -411,15 +644,19 @@ async function write(system) {
         if (generated != null && generated.val > 0) {
             sURL += "&g=" + generated.val;
 
-            adapter.log.debug("URL " + sURL);
+            adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
+            try {
+                let response = await axios.get(sURL, { timeout: 5000 });
 
-            let response = await axios.get(sURL, { timeout: 5000 });
-
-            if (response != null && response.status == 200) {
-                adapter.log.debug("data written ");
+                if (response != null && response.status == 200) {
+                    adapter.log.debug("data written ");
+                }
+                else {
+                    adapter.log.warn("data not written " + JSON.stringify(response));
+                }
             }
-            else {
-                adapter.log.warn("data not written " + JSON.stringify(response));
+            catch (error) {
+                ShowError(error);
             }
         }
         else {
@@ -432,6 +669,9 @@ async function write(system) {
     }
 
 }
+
+
+
 
 async function HandleStateChange(id, state) {
 
@@ -1049,9 +1289,18 @@ function CronCreate(Minute, callback) {
 
         const timezone = adapter.config.timezone || "Europe/Berlin";
 
-        //https://crontab-generator.org/
-        let cronString = "*/" + Minute + " * * * * ";
-
+        let cronString = "";
+         //https://crontab-generator.org/
+        if (Minute == -99) {
+            //every day late evening
+            cronString = "5 23 * * *";
+            //just for logging
+            Minute = "late evening";
+        }
+        else {
+           
+            cronString = "*/" + Minute + " * * * * ";
+        }
 
         const nextCron = cronJobs.length;
 

@@ -27,6 +27,28 @@ For detailed information please have a look on [pvoutput.org help](https://pvout
 
 If you support pvoutput.org with a donation, additional features will be made available to you. At the moment these are not supported here in the adapter yet.
 
+##System Data
+
+##Status Data
+
+##Statistic Data
+
+
+##Upload Live Data
+
+###Power and Energy Calculation
+Power and energy values can be derived from one another. When a system sends only power values the corresponding energy values are automatically calculated.
+Similarly when only energy values are sent, PVOutput will calculate the average power.
+
+###Cumulative Energy
+The following values are valid for the Cumulative Flag.
+1 = Energy Generation and Energy Consumption values are lifetime energy values. Consumption and generation energy is reset to 0 at the start of the day.
+2 - Only Energy Generation generation is a lifetime energy value.
+3 - Only Energy Consumption consumption is a lifetime energy value.
+
+
+##Upload End Of Day Data
+
 
 ## known issues
 * please create issues at [github](https://github.com/rg-engineering/ioBroker.pvoutputorg/issues) if you find bugs or whish new features

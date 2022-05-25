@@ -548,7 +548,7 @@ async function write(system) {
         let sDate = year + sMonth + day;
         sURL += "&d=" + sDate;
 
-        let sHour=""
+        let sHour = ""
         let hour = date.getHours();
         if (hour < 10) {
             sHour = "0" + hour;
@@ -557,7 +557,6 @@ async function write(system) {
             sHour = hour;
         }
 
-        
         let sMinute = ""
         let minute = date.getMinutes();
         if (minute < 10) {
@@ -569,28 +568,49 @@ async function write(system) {
         let sTime = sHour + ":" + sMinute;
         sURL += "&t=" + sTime;
 
-        let generated = await adapter.getStateAsync(system.Name + ".Upload.Generated");
-        if (generated != null && generated.val > 0) {
-            sURL += "&v1=" + generated.val;
+        let PowerGeneration = await adapter.getStateAsync(system.Name + ".Upload.PowerGeneration");
+        let EnergyGeneration = await adapter.getStateAsync(system.Name + ".Upload.EnergyGeneration");
+        let PowerConsumption = await adapter.getStateAsync(system.Name + ".Upload.PowerConsumption");
+        let EnergyConsumption = await adapter.getStateAsync(system.Name + ".Upload.EnergyConsumption");
 
-            adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
-            try {
-                let response = await axios.get(sURL, { timeout: 5000 });
+        let temperature = await adapter.getStateAsync(system.Name + ".Upload.Temperature");
+        let voltage = await adapter.getStateAsync(system.Name + ".Upload.Voltage");
 
-                if (response != null && response.status == 200) {
-                    adapter.log.debug("data written ");
-                }
-                else {
-                    adapter.log.warn("data not written " + JSON.stringify(response));
-                }
+        if (EnergyGeneration != null && EnergyGeneration.val > 0) {
+            sURL += "&v1=" + EnergyGeneration.val;
+        }
+        if (PowerGeneration != null && PowerGeneration.val > 0) {
+            sURL += "&v2=" + PowerGeneration.val;
+        }
+        if (EnergyConsumption != null && EnergyConsumption.val > 0) {
+            sURL += "&v3=" + EnergyConsumption.val;
+        }
+        if (PowerConsumption != null && PowerConsumption.val > 0) {
+            sURL += "&v4=" + PowerConsumption.val;
+        }
+        if (temperature != null && temperature.val > 0) {
+            sURL += "&v5=" + temperature.val;
+        }
+        if (voltage != null && voltage.val > 0) {
+            sURL += "&v6=" + voltage.val;
+        }
+
+        adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
+        try {
+            let response = await axios.get(sURL, { timeout: 5000 });
+
+            if (response != null && response.status == 200) {
+                adapter.log.debug("data written ");
             }
-            catch (error) {
-                ShowError(error);
+            else {
+                adapter.log.warn("data not written " + JSON.stringify(response));
             }
         }
-        else {
-            adapter.log.warn("no generated value on " + system.Name + ".Upload.Generated! upload skipped!");
+        catch (error) {
+            ShowError(error);
         }
+
+
 
     }
     catch (e) {
@@ -1201,7 +1221,21 @@ async function checkVariables() {
 
 
         if (system.Upload) {
-            key = system.Name + ".Upload.Generated";
+            key = system.Name + ".Upload.EnergyGeneration";
+            obj = {
+                type: "state",
+                common: {
+                    name: "Generated Energy for Upload",
+                    type: "number",
+                    role: "value",
+                    read: true,
+                    write: true,
+                    unit: "Wh"
+                }
+            };
+            await CreateObject(key, obj);
+
+            key = system.Name + ".Upload.PowerGeneration";
             obj = {
                 type: "state",
                 common: {
@@ -1210,7 +1244,63 @@ async function checkVariables() {
                     role: "value",
                     read: true,
                     write: true,
+                    unit: "W"
+                }
+            };
+            await CreateObject(key, obj);
+
+            key = system.Name + ".Upload.EnergyConsumption";
+            obj = {
+                type: "state",
+                common: {
+                    name: "Consumed Energy for Upload",
+                    type: "number",
+                    role: "value",
+                    read: true,
+                    write: true,
                     unit: "Wh"
+                }
+            };
+            await CreateObject(key, obj);
+
+            key = system.Name + ".Upload.PowerConsumption";
+            obj = {
+                type: "state",
+                common: {
+                    name: "Consumed Power for Upload",
+                    type: "number",
+                    role: "value",
+                    read: true,
+                    write: true,
+                    unit: "W"
+                }
+            };
+            await CreateObject(key, obj);
+
+            key = system.Name + ".Upload.Temperature";
+            obj = {
+                type: "state",
+                common: {
+                    name: "Temperature for Upload",
+                    type: "number",
+                    role: "value",
+                    read: true,
+                    write: true,
+                    unit: "°C"
+                }
+            };
+            await CreateObject(key, obj);
+
+            key = system.Name + ".Upload.Voltage";
+            obj = {
+                type: "state",
+                common: {
+                    name: "Voltage for Upload",
+                    type: "number",
+                    role: "value",
+                    read: true,
+                    write: true,
+                    unit: "V"
                 }
             };
             await CreateObject(key, obj);

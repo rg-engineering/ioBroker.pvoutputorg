@@ -209,7 +209,7 @@ async function read(system) {
         sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
         sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
-        adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
+        adapter.log.debug("URL " + sURL.replace(/key=.*&sid=/, 'key=******&sid='));
         try {
             let buffer = await axios.get(sURL, { timeout: 5000 });
 
@@ -274,7 +274,7 @@ async function read(system) {
         sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
         sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
-        adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
+        adapter.log.debug("URL " + sURL.replace(/key=.*&sid=/, 'key=******&sid='));
 
         try {
             let buffer = await axios.get(sURL, { timeout: 5000 });
@@ -324,7 +324,7 @@ async function read(system) {
         sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
         sURL += "&sid=" + system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_');
 
-        adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
+        adapter.log.debug("URL " + sURL.replace(/key=.*&sid=/, 'key=******&sid='));
 
         try {
             let buffer = await axios.get(sURL, { timeout: 5000 });
@@ -595,7 +595,33 @@ async function write(system) {
             sURL += "&v6=" + voltage.val;
         }
 
-        adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
+        let CumulativeFlag = system.CumulativeFlag;
+        if (CumulativeFlag == null || CumulativeFlag < 1 || CumulativeFlag > 3) {
+            adapter.log.warn("unsupported cumulative Flag " + CumulativeFlag + " . set to 1");
+            CumulativeFlag = 1;
+        }
+        sURL += "&c1=" + CumulativeFlag;
+
+        let NetDataFlag = system.NetDataFlag;
+        if (NetDataFlag == null || NetDataFlag < 0 || NetDataFlag > 1) {
+            adapter.log.warn("unsupported NetDataFlag " + NetDataFlag + " . set to unchecked (0) ");
+            NetDataFlag = false;
+        }
+        sURL += "&n=" + NetDataFlag;
+
+
+        //to add
+        /*
+        Extended Value v7
+        Extended Value v8
+        Extended Value v9
+        Extended Value v10
+        Extended Value v11
+        Extended Value v12
+        Text Message 1 30 chars max
+        */
+
+        adapter.log.debug("URL " + sURL.replace(/key=.*&sid=/, 'key=******&sid='));
         try {
             let response = await axios.get(sURL, { timeout: 5000 });
 
@@ -609,14 +635,10 @@ async function write(system) {
         catch (error) {
             ShowError(error);
         }
-
-
-
     }
     catch (e) {
         adapter.log.error("exception in write [" + e + "] " + sURL);
     }
-
 }
 
 
@@ -660,27 +682,48 @@ async function write_EOD(system) {
         let sDate = year + sMonth + day;
         sURL += "&d=" + sDate;
 
-        let generated = await adapter.getStateAsync(system.Name + ".Upload.Generated");
-        if (generated != null && generated.val > 0) {
-            sURL += "&g=" + generated.val;
+        let EnergyGeneration = await adapter.getStateAsync(system.Name + ".Upload.EnergyGeneration");
+        let EnergyConsumption = await adapter.getStateAsync(system.Name + ".Upload.EnergyConsumption");
 
-            adapter.log.debug("URL " + sURL.replace(/key=.*&/, 'key=******&'));
-            try {
-                let response = await axios.get(sURL, { timeout: 5000 });
+        if (EnergyGeneration != null && EnergyGeneration.val > 0) {
+            sURL += "&g=" + EnergyGeneration.val;
+        }
+        if (EnergyConsumption != null && EnergyConsumption.val > 0) {
+            sURL += "&e=" + EnergyConsumption.val;
+        }
 
-                if (response != null && response.status == 200) {
-                    adapter.log.debug("data written ");
-                }
-                else {
-                    adapter.log.warn("data not written " + JSON.stringify(response));
-                }
+        //to add
+        /*
+        Peak Power number watts
+        Peak Time hh:mm time 
+        Condition text See Conditions 
+        Min Temp decimal celsius
+        Max Temp decimal celsius
+        Comments text Free text
+        Import Peak number watt hours
+        Import Off Peak watt hours
+        Import Shoulder number watt hours
+        Import High Shoulder number watt hours
+        Consumption number watt hours
+        Export Peak number watt hours
+        Export Off-Peak number watt hours
+        Export Shoulder number watt hours
+        Export High Shoulder number watt hours
+        */
+
+        adapter.log.debug("URL " + sURL.replace(/key=.*&sid=/, 'key=******&sid='));
+        try {
+            let response = await axios.get(sURL, { timeout: 5000 });
+
+            if (response != null && response.status == 200) {
+                adapter.log.debug("data written ");
             }
-            catch (error) {
-                ShowError(error);
+            else {
+                adapter.log.warn("data not written " + JSON.stringify(response));
             }
         }
-        else {
-            adapter.log.warn("no generated value on " + system.Name + ".Upload.Generated! upload skipped!");
+        catch (error) {
+            ShowError(error);
         }
 
     }

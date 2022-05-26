@@ -84,13 +84,14 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#cum
 The parameter when set to 1 will indicate that the power values passed are net export/import rather than gross generation/consumption. 
 This option is used for devices that are unable to report gross consumption data. The provided import/export data is merged with existing 
 generation data to derive consumption.
+
 Default : unchecked
 
 more on [API documentation](https://pvoutput.org/help/api_specification.html#net-data)
 
 ## Upload End Of Day Data
 
-At the end of the day a separate upload command will be executed. A lot of different data can be uploaded. All of them are optionally.
+At the end of the day a separate upload command will be executed. A lot of different data can be uploaded. These data are available as a Datapoint in upload-folder ofer every system. All of them are optionally.
 
 more on [API documentation](https://pvoutput.org/help/api_specification.html#add-output-service)
 

@@ -1,10 +1,14 @@
 {
     "ApiKey": "API 密钥",
+    "IsActive": "积极的",
     "IsDonated": "捐赠状况",
     "Main settings": "主要设置",
     "SystemId": "系统编号",
+    "Upload": "上传",
     "name": "姓名",
     "pvoutputorg adapter settings": "pvoutputorg 的适配器设置",
     "readInterval": "读取数据的间隔 [分钟]",
-    "systems": "系统"
+    "systems": "系统",
+    "timezone": "时区",
+    "writeInterval": "写入数据的间隔 [分钟]"
 }

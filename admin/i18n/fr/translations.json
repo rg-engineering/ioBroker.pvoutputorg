@@ -1,10 +1,14 @@
 {
     "ApiKey": "Clé API",
+    "IsActive": "actif",
     "IsDonated": "état du don",
     "Main settings": "Réglages principaux",
     "SystemId": "ID système",
+    "Upload": "Télécharger",
     "name": "Nom",
     "pvoutputorg adapter settings": "Paramètres de l'adaptateur pour pvoutputorg",
     "readInterval": "intervalle de lecture des données [min]",
-    "systems": "Système"
+    "systems": "Système",
+    "timezone": "Fuseau horaire",
+    "writeInterval": "intervalle d'écriture des données [min]"
 }

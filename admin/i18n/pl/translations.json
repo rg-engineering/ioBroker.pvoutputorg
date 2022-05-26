@@ -1,10 +1,14 @@
 {
     "ApiKey": "Klucz API",
+    "IsActive": "aktywny",
     "IsDonated": "status darowizny",
     "Main settings": "Ustawienia główne",
     "SystemId": "Identyfikator systemu",
+    "Upload": "Wgrywać",
     "name": "Nazwać",
     "pvoutputorg adapter settings": "Ustawienia adaptera dla pvoutputorg",
     "readInterval": "interwał odczytu danych [min]",
-    "systems": "System"
+    "systems": "System",
+    "timezone": "Strefa czasowa",
+    "writeInterval": "interwał zapisu danych [min]"
 }

@@ -1,10 +1,14 @@
 {
     "ApiKey": "API key",
+    "IsActive": "active",
     "IsDonated": "donation status",
     "Main settings": "Main settings",
-    "SystemId": "System ID",
+    "SystemId": "System ID (sid)",
+    "Upload": "Upload",
     "name": "Name",
     "pvoutputorg adapter settings": "Adapter settings for pvoutputorg",
     "readInterval": "interval to read data [min]",
-    "systems": "System"
+    "systems": "System",
+    "timezone": "Timezone",
+    "writeInterval": "interval to write data [min]"
 }

@@ -1,10 +1,14 @@
 {
     "ApiKey": "API sleutel",
+    "IsActive": "actief",
     "IsDonated": "donatiestatus",
     "Main settings": "Belangrijkste instellingen",
     "SystemId": "Systeem-ID",
+    "Upload": "Uploaden",
     "name": "Naam",
     "pvoutputorg adapter settings": "Adapterinstellingen voor pvoutputorg",
     "readInterval": "interval om gegevens te lezen [min]",
-    "systems": "Systeem"
+    "systems": "Systeem",
+    "timezone": "Tijdzone",
+    "writeInterval": "interval om gegevens te schrijven [min]"
 }

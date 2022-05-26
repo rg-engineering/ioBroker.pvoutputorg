@@ -1,10 +1,14 @@
 {
     "ApiKey": "API-Schlüssel",
+    "IsActive": "aktiv",
     "IsDonated": "wird gespendet",
     "Main settings": "Haupteinstellungen",
     "SystemId": "System-ID",
+    "Upload": "Hochladen",
     "name": "Name",
     "pvoutputorg adapter settings": "Adaptereinstellungen für pvoutputorg",
     "readInterval": "Intervall zum Lesen von Daten [min]",
-    "systems": "System"
+    "systems": "System",
+    "timezone": "Zeitzone",
+    "writeInterval": "Intervall zum Schreiben von Daten [min]"
 }

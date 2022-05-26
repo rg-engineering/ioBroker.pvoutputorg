@@ -777,7 +777,7 @@ async function checkVariables() {
             common: {
                 name: "Date",
                 type: "string",
-                role: "value",
+                role: "date",
                 read: true,
                 write: false
             }
@@ -831,7 +831,7 @@ async function checkVariables() {
             common: {
                 name: "Energy Consumption",
                 type: "number",
-                role: "value",
+                role: "value.power.consumption",
                 read: true,
                 write: false,
                 unit: "Wh"
@@ -845,7 +845,7 @@ async function checkVariables() {
             common: {
                 name: "Power Consumption",
                 type: "number",
-                role: "value",
+                role: "value.power.consumption",
                 read: true,
                 write: false,
                 unit: "W"
@@ -873,7 +873,7 @@ async function checkVariables() {
             common: {
                 name: "Temperature",
                 type: "number",
-                role: "value",
+                role: "value.temperature",
                 read: true,
                 write: false,
                 unit: "°C"
@@ -887,7 +887,7 @@ async function checkVariables() {
             common: {
                 name: "Voltage",
                 type: "number",
-                role: "value",
+                role: "value.voltage",
                 read: true,
                 write: false,
                 unit: "V"
@@ -1000,7 +1000,7 @@ async function checkVariables() {
             common: {
                 name: "Actual Date From",
                 type: "string",
-                role: "value",
+                role: "date",
                 read: true,
                 write: false,
                 unit: ""
@@ -1014,7 +1014,7 @@ async function checkVariables() {
             common: {
                 name: "Actual Date To",
                 type: "string",
-                role: "value",
+                role: "date",
                 read: true,
                 write: false,
                 unit: ""
@@ -1042,7 +1042,7 @@ async function checkVariables() {
             common: {
                 name: "Record Date",
                 type: "string",
-                role: "value",
+                role: "date",
                 read: true,
                 write: false,
                 unit: ""
@@ -1226,7 +1226,7 @@ async function checkVariables() {
             common: {
                 name: "Install Date",
                 type: "string",
-                role: "value",
+                role: "date",
                 read: true,
                 write: false,
                 unit: ""
@@ -1240,7 +1240,7 @@ async function checkVariables() {
             common: {
                 name: "Latitude",
                 type: "number",
-                role: "value",
+                role: "value.gps.latitude",
                 read: true,
                 write: false,
                 unit: ""
@@ -1254,7 +1254,7 @@ async function checkVariables() {
             common: {
                 name: "Longitude",
                 type: "number",
-                role: "value",
+                role: "value.gps.longitude",
                 read: true,
                 write: false,
                 unit: ""

@@ -1,9 +1,11 @@
 {
     "ApiKey": "Klucz API",
+    "CumulativeFlag": "Flaga skumulowana",
     "IsActive": "aktywny",
     "IsDonated": "status darowizny",
     "Main settings": "Ustawienia główne",
-    "SystemId": "Identyfikator systemu",
+    "NetDataFlag": "Flaga danych netto",
+    "SystemId": "Identyfikator systemu (sid)",
     "Upload": "Wgrywać",
     "name": "Nazwać",
     "pvoutputorg adapter settings": "Ustawienia adaptera dla pvoutputorg",

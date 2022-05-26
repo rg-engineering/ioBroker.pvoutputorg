@@ -1,9 +1,11 @@
 {
     "ApiKey": "Clé API",
+    "CumulativeFlag": "Drapeau cumulatif",
     "IsActive": "actif",
     "IsDonated": "état du don",
     "Main settings": "Réglages principaux",
-    "SystemId": "ID système",
+    "NetDataFlag": "Indicateur de données réseau",
+    "SystemId": "ID système (sid)",
     "Upload": "Télécharger",
     "name": "Nom",
     "pvoutputorg adapter settings": "Paramètres de l'adaptateur pour pvoutputorg",

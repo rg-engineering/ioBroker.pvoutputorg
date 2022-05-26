@@ -1,8 +1,10 @@
 {
     "ApiKey": "API key",
+    "CumulativeFlag": "Cumulative Flag",
     "IsActive": "active",
     "IsDonated": "donation status",
     "Main settings": "Main settings",
+    "NetDataFlag": "Net Data Flag",
     "SystemId": "System ID (sid)",
     "Upload": "Upload",
     "name": "Name",

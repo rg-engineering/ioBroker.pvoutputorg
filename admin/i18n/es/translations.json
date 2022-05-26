@@ -1,9 +1,11 @@
 {
     "ApiKey": "Clave API",
+    "CumulativeFlag": "Indicador acumulativo",
     "IsActive": "activo",
     "IsDonated": "estado de donación",
     "Main settings": "Ajustes principales",
-    "SystemId": "identificación del sistema",
+    "NetDataFlag": "Indicador de datos netos",
+    "SystemId": "ID del sistema (sid)",
     "Upload": "Subir",
     "name": "Nombre",
     "pvoutputorg adapter settings": "Configuración del adaptador para pvoutputorg",

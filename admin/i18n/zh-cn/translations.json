@@ -1,9 +1,11 @@
 {
     "ApiKey": "API 密钥",
+    "CumulativeFlag": "累积标志",
     "IsActive": "积极的",
     "IsDonated": "捐赠状况",
     "Main settings": "主要设置",
-    "SystemId": "系统编号",
+    "NetDataFlag": "网络数据标志",
+    "SystemId": "系统 ID (sid)",
     "Upload": "上传",
     "name": "姓名",
     "pvoutputorg adapter settings": "pvoutputorg 的适配器设置",

@@ -1,9 +1,11 @@
 {
     "ApiKey": "API sleutel",
+    "CumulativeFlag": "Cumulatieve vlag",
     "IsActive": "actief",
     "IsDonated": "donatiestatus",
     "Main settings": "Belangrijkste instellingen",
-    "SystemId": "Systeem-ID",
+    "NetDataFlag": "Net data-vlag",
+    "SystemId": "Systeem-ID (sid)",
     "Upload": "Uploaden",
     "name": "Naam",
     "pvoutputorg adapter settings": "Adapterinstellingen voor pvoutputorg",

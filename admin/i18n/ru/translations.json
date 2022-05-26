@@ -1,9 +1,11 @@
 {
     "ApiKey": "ключ API",
+    "CumulativeFlag": "Совокупный флаг",
     "IsActive": "активный",
     "IsDonated": "статус пожертвования",
     "Main settings": "Основные параметры",
-    "SystemId": "Идентификатор системы",
+    "NetDataFlag": "Флаг сетевых данных",
+    "SystemId": "Идентификатор системы (сид)",
     "Upload": "Загрузить",
     "name": "Имя",
     "pvoutputorg adapter settings": "Настройки адаптера для pvoutputorg",

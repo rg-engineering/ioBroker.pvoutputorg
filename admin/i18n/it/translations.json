@@ -1,9 +1,11 @@
 {
     "ApiKey": "Chiave API",
+    "CumulativeFlag": "Bandiera cumulativa",
     "IsActive": "attivo",
     "IsDonated": "stato di donazione",
     "Main settings": "Impostazioni principali",
-    "SystemId": "ID di sistema",
+    "NetDataFlag": "Flag di dati netti",
+    "SystemId": "ID sistema (sid)",
     "Upload": "Caricamento",
     "name": "Nome",
     "pvoutputorg adapter settings": "Impostazioni dell'adattatore per pvoutputorg",

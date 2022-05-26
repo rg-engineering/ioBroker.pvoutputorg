@@ -1,9 +1,11 @@
 {
     "ApiKey": "API-Schlüssel",
+    "CumulativeFlag": "Kumulatives Flag",
     "IsActive": "aktiv",
     "IsDonated": "wird gespendet",
     "Main settings": "Haupteinstellungen",
-    "SystemId": "System-ID",
+    "NetDataFlag": "Nettodaten-Flag",
+    "SystemId": "System-ID (sid)",
     "Upload": "Hochladen",
     "name": "Name",
     "pvoutputorg adapter settings": "Adaptereinstellungen für pvoutputorg",

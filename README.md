@@ -27,28 +27,72 @@ For detailed information please have a look on [pvoutput.org help](https://pvout
 
 If you support pvoutput.org with a donation, additional features will be made available to you. At the moment these are not supported here in the adapter yet.
 
+#Download
+
+The adapter downloads thre types of data
+* System data
+* status data
+* Statistic Data
+
+To download data the adapter runs an adjustable cron job. The download frequency can be adjusted on admin page with "interval to read data [min]".
+Typically value for download frequency is 15 minutes, but no longer then 59 minutes.
+
 ##System Data
+The adpater retrieves system status information and live output data
+
+more on [API documentation](https://pvoutput.org/help/api_specification.html#id25)
 
 ##Status Data
+Status data (or live data) includes all possible system data available for your system.
+
+more on [API documentation](https://pvoutput.org/help/api_specification.html#id16)
 
 ##Statistic Data
+The adapter retrieves system statisticial information.
 
+more on [API documentation](https://pvoutput.org/help/api_specification.html#id21)
+
+# Upload
+Data upload is only an option. If you upload data with other application like sbfspot then disable upload here in the adapter.
 
 ##Upload Live Data
+
+To upload live data / status data the adapter runs an adjustable cron job. The upload frequency can be adjusted on admin page with "interval to write data [min]".
+Typically value for upload frequency is 5 to 15 minutes, but no longer then 59 minutes.
+
+The adapter provides a lot of datapoints in "upload" folder for every system. Only power or energy datapoint must be used. All others are optionally. 
+
+more on [API documentation](https://pvoutput.org/help/api_specification.html#add-status-service)
 
 ###Power and Energy Calculation
 Power and energy values can be derived from one another. When a system sends only power values the corresponding energy values are automatically calculated.
 Similarly when only energy values are sent, PVOutput will calculate the average power.
 
-###Cumulative Energy
+more on [API documentation](https://pvoutput.org/help/api_specification.html#power-and-energy-calculation)
+
+###Cumulative Energy - CumulativeFlag in system configuration
 The following values are valid for the Cumulative Flag.
 1 = Energy Generation and Energy Consumption values are lifetime energy values. Consumption and generation energy is reset to 0 at the start of the day.
 2 - Only Energy Generation generation is a lifetime energy value.
 3 - Only Energy Consumption consumption is a lifetime energy value.
 
+Default: 1 
+
+more on [API documentation](https://pvoutput.org/help/api_specification.html#cumulative-energy)
+
+###Net Data - NetDataFlag in system configuration
+The parameter when set to 1 will indicate that the power values passed are net export/import rather than gross generation/consumption. 
+This option is used for devices that are unable to report gross consumption data. The provided import/export data is merged with existing 
+generation data to derive consumption.
+Default : unchecked
+
+more on [API documentation](https://pvoutput.org/help/api_specification.html#net-data)
 
 ##Upload End Of Day Data
 
+At the end of the day a separate upload command will be executed. A lot of different data can be uploaded. All of them are optionally.
+
+more on [API documentation](https://pvoutput.org/help/api_specification.html#add-output-service)
 
 ## known issues
 * please create issues at [github](https://github.com/rg-engineering/ioBroker.pvoutputorg/issues) if you find bugs or whish new features
@@ -58,6 +102,7 @@ The following values are valid for the Cumulative Flag.
 ### 1.3.0 (in progress)
 * (René) Upload live data and end-of-day
 * (René) better error handling when receiving errors from server
+* (René) CumulativeFlag and NetDataFlag added for upload service
 
 ### 1.2.0 (2022-05-21)
 * (René) IsActive per system added

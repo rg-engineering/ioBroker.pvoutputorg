@@ -100,6 +100,9 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
    
 ## Changelog
 
+### 1.4.0 (in progress)
+* (René) changed to post requests
+
 ### 1.3.0 (2022-05-26)
 * (René) Upload live data and end-of-day
 * (René) better error handling when receiving errors from server

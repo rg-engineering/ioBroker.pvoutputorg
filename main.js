@@ -379,9 +379,17 @@ async function read(system) {
             await adapter.setStateAsync(system.Name + ".Statistic.RecordEfficiency", { ack: true, val: Number(data[9]) });
             await adapter.setStateAsync(system.Name + ".Statistic.RecordDate", { ack: true, val: toDate(data[10]) });
 
-            await adapter.setStateAsync(system.Name + ".RateLimit.Remaining", { ack: true, val: buffer.headers['x-rate-limit-remaining'] });
-            await adapter.setStateAsync(system.Name + ".RateLimit.Limit", { ack: true, val: buffer.headers['x-rate-limit-limit'] });
-            await adapter.setStateAsync(system.Name + ".RateLimit.Reset", { ack: true, val: buffer.headers['x-rate-limit-reset'] });
+            await adapter.setStateAsync(system.Name + ".RateLimit.Remaining", { ack: true, val: Number(buffer.headers['x-rate-limit-remaining']) });
+
+            if (Number(buffer.headers['x-rate-limit-remaining']) <10) {
+                adapter.log.error("too many requests per hour! remaining " + buffer.headers['x-rate-limit-remaining'] + " limit per hour is " + buffer.headers['x-rate-limit-limit']);
+            }
+
+            await adapter.setStateAsync(system.Name + ".RateLimit.Limit", { ack: true, val: Number(buffer.headers['x-rate-limit-limit']) });
+
+            let oDate = new Date(Number(buffer.headers['x-rate-limit-reset'])*1000);
+
+            await adapter.setStateAsync(system.Name + ".RateLimit.Reset", { ack: true, val: oDate.toLocaleString() });
 
 
 
@@ -1320,7 +1328,7 @@ async function checkVariables() {
             type: "state",
             common: {
                 name: "time when the limit is reset",
-                type: "number",
+                type: "string",
                 role: "date",
                 read: true,
                 write: false,

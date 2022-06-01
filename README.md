@@ -100,7 +100,7 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
    
 ## Changelog
 
-### 1.4.0 (in progress)
+### 1.4.0 (2022-06-01)
 * (René) changed to post requests
 
 ### 1.3.0 (2022-05-26)

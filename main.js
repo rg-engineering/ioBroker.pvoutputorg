@@ -9,10 +9,16 @@
 
 const utils = require("@iobroker/adapter-core");
 const axios = require('axios');
+const SunCalc = require("suncalc2");
 
 const CronJob = require("cron").CronJob;
 
 let cronJobs = [];
+
+let readIntervalID = null;
+let writeIntervalID = null;
+let longitude;
+let latitude;
 
 let adapter;
 function startAdapter(options) {
@@ -35,8 +41,10 @@ function startAdapter(options) {
         unload: function (callback) {
             try {
                 CronStop();
-                //clearInterval(intervalID);
-                //intervalID = null;
+                clearInterval(readIntervalID);
+                readIntervalID = null;
+                clearInterval(writeIntervalID);
+                writeIntervalID = null;
                 adapter && adapter.log && adapter.log.info && adapter.log.info("cleaned everything up...");
                 callback();
             } catch (e) {
@@ -45,12 +53,12 @@ function startAdapter(options) {
         },
         //#######################################
         //
-        SIGINT: function () {
-            CronStop();
-            //clearInterval(intervalID);
-            //intervalID = null;
-            adapter && adapter.log && adapter.log.info && adapter.log.info("cleaned everything up...");
-        },
+        //SIGINT: function () {
+        //    CronStop();
+        //    //clearInterval(intervalID);
+        //    //intervalID = null;
+        //    adapter && adapter.log && adapter.log.info && adapter.log.info("cleaned everything up...");
+        //},
         //#######################################
         //  is called if a subscribed object changes
         //objectChange: function (id, obj) {
@@ -61,9 +69,9 @@ function startAdapter(options) {
         //stateChange: function (id, state) {
         //HandleStateChange(id, state);
         //},
-        stateChange: async (id, state) => {
-            await HandleStateChange(id, state);
-        },
+        //stateChange: async (id, state) => {
+        //    await HandleStateChange(id, state);
+        //},
         //#######################################
         //
     });
@@ -131,11 +139,9 @@ async function main() {
 
     adapter.log.debug("start  ");
 
-    
     await checkVariables();
 
     subscribeVars();
-
 
     let readInterval = 15;
     if (parseInt(adapter.config.readInterval) > 0) {
@@ -145,9 +151,9 @@ async function main() {
         adapter.log.warn("read interval not defined");
     }
     adapter.log.debug("read every  " + readInterval + " minutes");
-    //intervalID = setInterval(Do, readInterval * 60 * 1000);
+    readIntervalID = setInterval(DoRead, readInterval * 60 * 1000);
 
-    CronCreate(readInterval, DoRead)
+    //CronCreate(readInterval, DoRead)
 
     let writeInterval = 15;
     if (parseInt(adapter.config.writeInterval) > 0) {
@@ -157,13 +163,36 @@ async function main() {
         adapter.log.warn("write interval not defined");
     }
     adapter.log.debug("write every  " + writeInterval + " minutes");
-    //intervalID = setInterval(Do, readInterval * 60 * 1000);
+    writeIntervalID = setInterval(DoWrite, writeInterval * 60 * 1000);
 
-    CronCreate(writeInterval, DoWrite)
+    //CronCreate(writeInterval, DoWrite)
+
+    await GetSystemDateformat();
 
     CronCreate(-99, DoWriteEOD)
-    
 }
+
+async function GetSystemDateformat() {
+    try {
+        const ret = await adapter.getForeignObjectAsync("system.config");
+
+        if (typeof ret != undefined && ret != null) {
+            //dateformat = ret.common.dateFormat;
+            longitude = ret.common.longitude;
+            latitude = ret.common.latitude;
+            adapter.log.debug("system: longitude " + longitude + " latitude " + latitude);
+        }
+        else {
+            adapter.log.error("system.config not available. longitude and latitude set to Berlin");
+            longitude = 52.520008;
+            latitude = 13.404954;
+        }
+    }
+    catch (e) {
+        adapter.log.error("exception in GetSystemDateformat [" + e + "]");
+    }
+}
+
 
 async function DoRead() {
 
@@ -184,6 +213,9 @@ async function DoWriteEOD() {
     adapter.log.debug("start writing end of day ... ");
 
     await WriteEODData();
+
+    CronStop();
+    CronCreate(-99, DoWriteEOD);
 }
 
 async function ReadData(){
@@ -203,8 +235,8 @@ async function getData(system, url, data) {
     try {
         let config = {
             headers: {
-                'X-Pvoutput-Apikey': system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_'),
-                'X-Pvoutput-SystemId': system.SystemId.replace(adapter.FORBIDDEN_CHARS, '_'),
+                'X-Pvoutput-Apikey': system.ApiKey,
+                'X-Pvoutput-SystemId': system.SystemId,
                 'X-Rate-Limit':1
             },
             timeout: 5000
@@ -243,7 +275,7 @@ async function read(system) {
         let data = null;
         let buffer = await getData(system, sURL, data);
 
-        
+        const SystemName = system.Name.replace(adapter.FORBIDDEN_CHARS, '_');
 
         if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
 
@@ -255,21 +287,21 @@ async function read(system) {
 
             let data = buffer.data.split(",");
 
-            await adapter.setStateAsync(system.Name + ".System.SystemName", { ack: true, val: data[0] });
-            await adapter.setStateAsync(system.Name + ".System.SystemSize", { ack: true, val: Number(data[1]) });
-            await adapter.setStateAsync(system.Name + ".System.Postcode", { ack: true, val: Number(data[2]) });
-            await adapter.setStateAsync(system.Name + ".System.Panels", { ack: true, val: Number(data[3]) });
-            await adapter.setStateAsync(system.Name + ".System.PanelPower", { ack: true, val: Number(data[4]) });
-            await adapter.setStateAsync(system.Name + ".System.PanelBrand", { ack: true, val: data[5] });
-            await adapter.setStateAsync(system.Name + ".System.Inverters", { ack: true, val: Number(data[6]) });
-            await adapter.setStateAsync(system.Name + ".System.InverterPower", { ack: true, val: Number(data[7]) });
-            await adapter.setStateAsync(system.Name + ".System.InverterBrand", { ack: true, val: data[8] });
-            await adapter.setStateAsync(system.Name + ".System.Orientation", { ack: true, val: data[9] });
-            await adapter.setStateAsync(system.Name + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
-            await adapter.setStateAsync(system.Name + ".System.Shade", { ack: true, val: data[11] });
-            await adapter.setStateAsync(system.Name + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
-            await adapter.setStateAsync(system.Name + ".System.Latitude", { ack: true, val: Number(data[13]) });
-            await adapter.setStateAsync(system.Name + ".System.Longitude", { ack: true, val: Number(data[14]) });
+            await adapter.setStateAsync(SystemName + ".System.SystemName", { ack: true, val: data[0] });
+            await adapter.setStateAsync(SystemName + ".System.SystemSize", { ack: true, val: Number(data[1]) });
+            await adapter.setStateAsync(SystemName + ".System.Postcode", { ack: true, val: Number(data[2]) });
+            await adapter.setStateAsync(SystemName + ".System.Panels", { ack: true, val: Number(data[3]) });
+            await adapter.setStateAsync(SystemName + ".System.PanelPower", { ack: true, val: Number(data[4]) });
+            await adapter.setStateAsync(SystemName + ".System.PanelBrand", { ack: true, val: data[5] });
+            await adapter.setStateAsync(SystemName + ".System.Inverters", { ack: true, val: Number(data[6]) });
+            await adapter.setStateAsync(SystemName + ".System.InverterPower", { ack: true, val: Number(data[7]) });
+            await adapter.setStateAsync(SystemName + ".System.InverterBrand", { ack: true, val: data[8] });
+            await adapter.setStateAsync(SystemName + ".System.Orientation", { ack: true, val: data[9] });
+            await adapter.setStateAsync(SystemName + ".System.ArrayTilt", { ack: true, val: Number(data[10]) });
+            await adapter.setStateAsync(SystemName + ".System.Shade", { ack: true, val: data[11] });
+            await adapter.setStateAsync(SystemName + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
+            await adapter.setStateAsync(SystemName + ".System.Latitude", { ack: true, val: Number(data[13]) });
+            await adapter.setStateAsync(SystemName + ".System.Longitude", { ack: true, val: Number(data[14]) });
         }
         else {
             adapter.log.error("error receiving system data: " + JSON.stringify(buffer));
@@ -320,15 +352,15 @@ async function read(system) {
 
             let data = buffer.data.split(",");
 
-            await adapter.setStateAsync(system.Name + ".Status.Date", { ack: true, val: toDate(data[0]) });
-            await adapter.setStateAsync(system.Name + ".Status.Time", { ack: true, val: data[1] });
-            await adapter.setStateAsync(system.Name + ".Status.EnergyGeneration", { ack: true, val: Number(data[2]) });
-            await adapter.setStateAsync(system.Name + ".Status.PowerGeneration", { ack: true, val: Number(data[3]) });
-            await adapter.setStateAsync(system.Name + ".Status.EnergyConsumption", { ack: true, val: Number(data[4]) });
-            await adapter.setStateAsync(system.Name + ".Status.PowerConsumption", { ack: true, val: Number(data[5]) });
-            await adapter.setStateAsync(system.Name + ".Status.NormalisedOutput", { ack: true, val: Number(data[6]) });
-            await adapter.setStateAsync(system.Name + ".Status.Temperature", { ack: true, val: Number(data[7]) });
-            await adapter.setStateAsync(system.Name + ".Status.Voltage", { ack: true, val: Number(data[8]) });
+            await adapter.setStateAsync(SystemName + ".Status.Date", { ack: true, val: toDate(data[0]) });
+            await adapter.setStateAsync(SystemName + ".Status.Time", { ack: true, val: data[1] });
+            await adapter.setStateAsync(SystemName + ".Status.EnergyGeneration", { ack: true, val: Number(data[2]) });
+            await adapter.setStateAsync(SystemName + ".Status.PowerGeneration", { ack: true, val: Number(data[3]) });
+            await adapter.setStateAsync(SystemName + ".Status.EnergyConsumption", { ack: true, val: Number(data[4]) });
+            await adapter.setStateAsync(SystemName + ".Status.PowerConsumption", { ack: true, val: Number(data[5]) });
+            await adapter.setStateAsync(SystemName + ".Status.NormalisedOutput", { ack: true, val: Number(data[6]) });
+            await adapter.setStateAsync(SystemName + ".Status.Temperature", { ack: true, val: Number(data[7]) });
+            await adapter.setStateAsync(SystemName + ".Status.Voltage", { ack: true, val: Number(data[8]) });
         }
         else {
             adapter.log.error("error receiving status data: " + JSON.stringify(buffer));
@@ -367,29 +399,29 @@ async function read(system) {
 
             let data = buffer.data.split(",");
 
-            await adapter.setStateAsync(system.Name + ".Statistic.EnergyGenerated", { ack: true, val: Number(data[0]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.EnergyExported", { ack: true, val: Number(data[1]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.AverageGeneration", { ack: true, val: Number(data[2]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.MinimumGeneration", { ack: true, val: Number(data[3]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.MaximumGeneration", { ack: true, val: Number(data[4]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.AverageEfficiency", { ack: true, val: Number(data[5]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.Outputs", { ack: true, val: Number(data[6]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.ActualDateFrom", { ack: true, val: toDate(data[7]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.ActualDateTo", { ack: true, val: toDate(data[8]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.RecordEfficiency", { ack: true, val: Number(data[9]) });
-            await adapter.setStateAsync(system.Name + ".Statistic.RecordDate", { ack: true, val: toDate(data[10]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.EnergyGenerated", { ack: true, val: Number(data[0]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.EnergyExported", { ack: true, val: Number(data[1]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.AverageGeneration", { ack: true, val: Number(data[2]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.MinimumGeneration", { ack: true, val: Number(data[3]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.MaximumGeneration", { ack: true, val: Number(data[4]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.AverageEfficiency", { ack: true, val: Number(data[5]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.Outputs", { ack: true, val: Number(data[6]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.ActualDateFrom", { ack: true, val: toDate(data[7]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.ActualDateTo", { ack: true, val: toDate(data[8]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.RecordEfficiency", { ack: true, val: Number(data[9]) });
+            await adapter.setStateAsync(SystemName + ".Statistic.RecordDate", { ack: true, val: toDate(data[10]) });
 
-            await adapter.setStateAsync(system.Name + ".RateLimit.Remaining", { ack: true, val: Number(buffer.headers['x-rate-limit-remaining']) });
+            await adapter.setStateAsync(SystemName + ".RateLimit.Remaining", { ack: true, val: Number(buffer.headers['x-rate-limit-remaining']) });
 
             if (Number(buffer.headers['x-rate-limit-remaining']) <10) {
                 adapter.log.error("too many requests per hour! remaining " + buffer.headers['x-rate-limit-remaining'] + " limit per hour is " + buffer.headers['x-rate-limit-limit']);
             }
 
-            await adapter.setStateAsync(system.Name + ".RateLimit.Limit", { ack: true, val: Number(buffer.headers['x-rate-limit-limit']) });
+            await adapter.setStateAsync(SystemName + ".RateLimit.Limit", { ack: true, val: Number(buffer.headers['x-rate-limit-limit']) });
 
             let oDate = new Date(Number(buffer.headers['x-rate-limit-reset'])*1000);
 
-            await adapter.setStateAsync(system.Name + ".RateLimit.Reset", { ack: true, val: oDate.toLocaleString() });
+            await adapter.setStateAsync(SystemName + ".RateLimit.Reset", { ack: true, val: oDate.toLocaleString() });
 
 
 
@@ -563,6 +595,7 @@ async function write(system) {
     let data = "";
 
     try {
+        const SystemName = system.Name.replace(adapter.FORBIDDEN_CHARS, '_');
 
         //this is live data
         sURL = "https://pvoutput.org/service/r2/addstatus.jsp";
@@ -604,13 +637,13 @@ async function write(system) {
         let sTime = sHour + ":" + sMinute;
         data += "&t=" + sTime;
 
-        let PowerGeneration = await adapter.getStateAsync(system.Name + ".Upload.PowerGeneration");
-        let EnergyGeneration = await adapter.getStateAsync(system.Name + ".Upload.EnergyGeneration");
-        let PowerConsumption = await adapter.getStateAsync(system.Name + ".Upload.PowerConsumption");
-        let EnergyConsumption = await adapter.getStateAsync(system.Name + ".Upload.EnergyConsumption");
+        let PowerGeneration = await adapter.getStateAsync(SystemName + ".Upload.PowerGeneration");
+        let EnergyGeneration = await adapter.getStateAsync(SystemName + ".Upload.EnergyGeneration");
+        let PowerConsumption = await adapter.getStateAsync(SystemName + ".Upload.PowerConsumption");
+        let EnergyConsumption = await adapter.getStateAsync(SystemName + ".Upload.EnergyConsumption");
 
-        let temperature = await adapter.getStateAsync(system.Name + ".Upload.Temperature");
-        let voltage = await adapter.getStateAsync(system.Name + ".Upload.Voltage");
+        let temperature = await adapter.getStateAsync(SystemName + ".Upload.Temperature");
+        let voltage = await adapter.getStateAsync(SystemName + ".Upload.Voltage");
 
         if (EnergyGeneration != null && EnergyGeneration.val > 0) {
             data += "&v1=" + EnergyGeneration.val;
@@ -695,6 +728,8 @@ async function write_EOD(system) {
 
     try {
 
+        const SystemName = system.Name.replace(adapter.FORBIDDEN_CHARS, '_');
+
         //this is the end of day output
         sURL = "https://pvoutput.org/service/r2/addoutput.jsp";
         //sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
@@ -716,8 +751,8 @@ async function write_EOD(system) {
         let sDate = year + sMonth + day;
         data += "d=" + sDate;
 
-        let EnergyGeneration = await adapter.getStateAsync(system.Name + ".Upload.EnergyGeneration");
-        let EnergyConsumption = await adapter.getStateAsync(system.Name + ".Upload.EnergyConsumption");
+        let EnergyGeneration = await adapter.getStateAsync(SystemName + ".Upload.EnergyGeneration");
+        let EnergyConsumption = await adapter.getStateAsync(SystemName + ".Upload.EnergyConsumption");
 
         if (EnergyGeneration != null && EnergyGeneration.val > 0) {
             data += "&g=" + EnergyGeneration.val;
@@ -765,9 +800,8 @@ async function write_EOD(system) {
 
 }
 
-
-
-
+/*
+ * prepared for later use
 async function HandleStateChange(id, state) {
 
     //prepared for further extensions e.g. write data to PVOutput.org
@@ -787,6 +821,7 @@ async function HandleStateChange(id, state) {
     }
 
 }
+*/
 
 function subscribeVars() {
     //adapter.subscribeStates("cmd");
@@ -799,11 +834,13 @@ async function checkVariables() {
 
     for (const system of adapter.config.PVSystems) {
 
+        const SystemName = system.Name.replace(adapter.FORBIDDEN_CHARS, '_');
+
         let key;
         let obj;
 
         // Status ====================================
-        key = system.Name + ".Status.Date" ; 
+        key = SystemName + ".Status.Date" ; 
         obj= {
             type: "state",
             common: {
@@ -816,7 +853,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Status.Time";
+        key = SystemName + ".Status.Time";
         obj= {
             type: "state",
             common: {
@@ -829,7 +866,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Status.EnergyGeneration";
+        key = SystemName + ".Status.EnergyGeneration";
         obj= {
             type: "state",
             common: {
@@ -843,7 +880,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Status.PowerGeneration";
+        key = SystemName + ".Status.PowerGeneration";
         obj= {
             type: "state",
             common: {
@@ -857,7 +894,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Status.EnergyConsumption";
+        key = SystemName + ".Status.EnergyConsumption";
         obj= {
             type: "state",
             common: {
@@ -871,7 +908,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Status.PowerConsumption";
+        key = SystemName + ".Status.PowerConsumption";
         obj= {
             type: "state",
             common: {
@@ -885,7 +922,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Status.NormalisedOutput";
+        key = SystemName + ".Status.NormalisedOutput";
         obj= {
             type: "state",
             common: {
@@ -899,7 +936,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Status.Temperature";
+        key = SystemName + ".Status.Temperature";
         obj= {
             type: "state",
             common: {
@@ -913,7 +950,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Status.Voltage";
+        key = SystemName + ".Status.Voltage";
         obj= {
             type: "state",
             common: {
@@ -928,7 +965,7 @@ async function checkVariables() {
         await CreateObject(key, obj);
 
         // Statistic ====================================
-        key = system.Name + ".Statistic.EnergyGenerated";
+        key = SystemName + ".Statistic.EnergyGenerated";
         obj= {
             type: "state",
             common: {
@@ -942,7 +979,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.EnergyExported";
+        key = SystemName + ".Statistic.EnergyExported";
         obj= {
             type: "state",
             common: {
@@ -956,7 +993,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.AverageGeneration";
+        key = SystemName + ".Statistic.AverageGeneration";
         obj= {
             type: "state",
             common: {
@@ -970,7 +1007,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.MinimumGeneration";
+        key = SystemName + ".Statistic.MinimumGeneration";
         obj= {
             type: "state",
             common: {
@@ -984,7 +1021,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.MaximumGeneration";
+        key = SystemName + ".Statistic.MaximumGeneration";
         obj= {
             type: "state",
             common: {
@@ -998,7 +1035,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.AverageEfficiency";
+        key = SystemName + ".Statistic.AverageEfficiency";
         obj= {
             type: "state",
             common: {
@@ -1012,7 +1049,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.Outputs";
+        key = SystemName + ".Statistic.Outputs";
         obj= {
             type: "state",
             common: {
@@ -1026,7 +1063,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.ActualDateFrom";
+        key = SystemName + ".Statistic.ActualDateFrom";
         obj= {
             type: "state",
             common: {
@@ -1040,7 +1077,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.ActualDateTo";
+        key = SystemName + ".Statistic.ActualDateTo";
         obj= {
             type: "state",
             common: {
@@ -1054,7 +1091,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.RecordEfficiency";
+        key = SystemName + ".Statistic.RecordEfficiency";
         obj= {
             type: "state",
             common: {
@@ -1068,7 +1105,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".Statistic.RecordDate";
+        key = SystemName + ".Statistic.RecordDate";
         obj= {
             type: "state",
             common: {
@@ -1084,7 +1121,7 @@ async function checkVariables() {
 
 
         // System ====================================
-        key = system.Name + ".System.SystemName";
+        key = SystemName + ".System.SystemName";
         obj= {
             type: "state",
             common: {
@@ -1098,7 +1135,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.SystemSize";
+        key = SystemName + ".System.SystemSize";
         obj= {
             type: "state",
             common: {
@@ -1112,7 +1149,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.Postcode";
+        key = SystemName + ".System.Postcode";
         obj= {
             type: "state",
             common: {
@@ -1126,7 +1163,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.Panels";
+        key = SystemName + ".System.Panels";
         obj= {
             type: "state",
             common: {
@@ -1140,7 +1177,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.PanelPower";
+        key = SystemName + ".System.PanelPower";
         obj= {
             type: "state",
             common: {
@@ -1154,7 +1191,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.PanelBrand";
+        key = SystemName + ".System.PanelBrand";
         obj= {
             type: "state",
             common: {
@@ -1168,7 +1205,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.Inverters";
+        key = SystemName + ".System.Inverters";
         obj= {
             type: "state",
             common: {
@@ -1182,7 +1219,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.InverterPower";
+        key = SystemName + ".System.InverterPower";
         obj= {
             type: "state",
             common: {
@@ -1196,7 +1233,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.InverterBrand";
+        key = SystemName + ".System.InverterBrand";
         obj= {
             type: "state",
             common: {
@@ -1210,7 +1247,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.Orientation";
+        key = SystemName + ".System.Orientation";
         obj= {
             type: "state",
             common: {
@@ -1224,7 +1261,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.ArrayTilt";
+        key = SystemName + ".System.ArrayTilt";
         obj= {
             type: "state",
             common: {
@@ -1238,7 +1275,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.Shade";
+        key = SystemName + ".System.Shade";
         obj= {
             type: "state",
             common: {
@@ -1252,7 +1289,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.InstallDate";
+        key = SystemName + ".System.InstallDate";
         obj = {
             type: "state",
             common: {
@@ -1266,7 +1303,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.Latitude";
+        key = SystemName + ".System.Latitude";
         obj = {
             type: "state",
             common: {
@@ -1280,7 +1317,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".System.Longitude";
+        key = SystemName + ".System.Longitude";
         obj = {
             type: "state",
             common: {
@@ -1295,7 +1332,7 @@ async function checkVariables() {
         await CreateObject(key, obj);
 
 
-        key = system.Name + ".RateLimit.Remaining";
+        key = SystemName + ".RateLimit.Remaining";
         obj = {
             type: "state",
             common: {
@@ -1309,7 +1346,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".RateLimit.Limit";
+        key = SystemName + ".RateLimit.Limit";
         obj = {
             type: "state",
             common: {
@@ -1323,7 +1360,7 @@ async function checkVariables() {
         };
         await CreateObject(key, obj);
 
-        key = system.Name + ".RateLimit.Reset";
+        key = SystemName + ".RateLimit.Reset";
         obj = {
             type: "state",
             common: {
@@ -1339,7 +1376,7 @@ async function checkVariables() {
 
 
         if (system.Upload) {
-            key = system.Name + ".Upload.EnergyGeneration";
+            key = SystemName + ".Upload.EnergyGeneration";
             obj = {
                 type: "state",
                 common: {
@@ -1353,7 +1390,7 @@ async function checkVariables() {
             };
             await CreateObject(key, obj);
 
-            key = system.Name + ".Upload.PowerGeneration";
+            key = SystemName + ".Upload.PowerGeneration";
             obj = {
                 type: "state",
                 common: {
@@ -1367,7 +1404,7 @@ async function checkVariables() {
             };
             await CreateObject(key, obj);
 
-            key = system.Name + ".Upload.EnergyConsumption";
+            key = SystemName + ".Upload.EnergyConsumption";
             obj = {
                 type: "state",
                 common: {
@@ -1381,7 +1418,7 @@ async function checkVariables() {
             };
             await CreateObject(key, obj);
 
-            key = system.Name + ".Upload.PowerConsumption";
+            key = SystemName + ".Upload.PowerConsumption";
             obj = {
                 type: "state",
                 common: {
@@ -1395,7 +1432,7 @@ async function checkVariables() {
             };
             await CreateObject(key, obj);
 
-            key = system.Name + ".Upload.Temperature";
+            key = SystemName + ".Upload.Temperature";
             obj = {
                 type: "state",
                 common: {
@@ -1409,7 +1446,7 @@ async function checkVariables() {
             };
             await CreateObject(key, obj);
 
-            key = system.Name + ".Upload.Voltage";
+            key = SystemName + ".Upload.Voltage";
             obj = {
                 type: "state",
                 common: {
@@ -1464,6 +1501,7 @@ async function CreateObject(key, obj) {
 
 //===============================================================================
 //cron functions
+
 function CronStop() {
     if (cronJobs.length > 0) {
         adapter.log.debug("delete " + cronJobs.length + " cron jobs");
@@ -1500,10 +1538,20 @@ function CronCreate(Minute, callback) {
         let cronString = "";
          //https://crontab-generator.org/
         if (Minute == -99) {
-            //every day late evening
-            cronString = "5 23 * * *";
+            //every day after sunset
+
+            const times = SunCalc.getTimes(new Date(), latitude, longitude);
+
+            // format sunset/sunrise time from the Date object
+            const sunsetStr = ("0" + times.sunset.getHours()).slice(-2) + ":" + ("0" + times.sunset.getMinutes()).slice(-2);
+            adapter.log.debug(" sunset " + sunsetStr );
+
+            let hour = times.sunset.getHours() + 1;
+            let minute = times.sunset.getMinutes();
+
+            cronString = minute + " " + hour + " * * *";
             //just for logging
-            Minute = "late evening";
+            Minute = "sunsetStr";
         }
         else {
            

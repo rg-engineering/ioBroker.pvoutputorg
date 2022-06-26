@@ -1,6 +1,6 @@
 {
   "name": "iobroker.pvoutputorg",
-  "version": "1.4.0",
+  "version": "1.6.0",
   "description": "ioBroker Adapter for PvOutput.org",
   "author": {
     "name": "René G.",
@@ -22,7 +22,8 @@
   "dependencies": {
     "@iobroker/adapter-core": "2.6.0",
     "axios": "0.27.2",
-    "cron": "2.0.0"
+    "cron": "2.0.0",
+    "suncalc2": "1.8.1"
   },
   "devDependencies": {
     "@iobroker/testing": "3.0.2",

@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.4.0",
+        "version": "1.6.0",
         "news": {
+            "1.6.0": {
+                "en": "change back to interval",
+                "de": "wieder auf Intervall umschalten",
+                "ru": "вернуться к интервалу",
+                "pt": "voltar ao intervalo",
+                "nl": "verander terug naar interval",
+                "fr": "revenir à l'intervalle",
+                "it": "tornare all'intervallo",
+                "es": "cambiar de nuevo al intervalo",
+                "pl": "zmień z powrotem na interwał",
+                "zh-cn": "改回区间"
+            },
             "1.4.0": {
                 "en": "changed to post requests",
                 "de": "geändert, um Anfragen zu posten",

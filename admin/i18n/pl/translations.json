@@ -2,6 +2,7 @@
     "ApiKey": "Klucz API",
     "CumulativeFlag": "Flaga skumulowana",
     "DeleteSystemNoDeleteDP_hint": "Jeśli zmienisz nazwę systemu lub usuniesz system, upewnij się, że nieużywane punkty danych zostały usunięte ręcznie.",
+    "GetDataOnlyWhenDaylight": "odczyt i zapis danych tylko w świetle dziennym",
     "IsActive": "aktywny",
     "IsDonated": "status darowizny",
     "IsDonated_hint": "Jeśli opcja darowizny jest zaznaczona to dostępnych jest więcej funkcji Upewnij sięże odznaczyłeśczy okres darowizny kończy sięaby uniknąć niepotrzebnych komunikatów o błędach",

@@ -168,6 +168,7 @@
         "PVSystems": [],
         "readInterval": 15,
         "writeInterval": 15,
-        "timezone": "Europe/Berlin"
+        "timezone": "Europe/Berlin",
+        "GetDataOnlyWhenDaylight": true
     }
 }

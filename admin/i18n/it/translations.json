@@ -2,6 +2,7 @@
     "ApiKey": "Chiave API",
     "CumulativeFlag": "Bandiera cumulativa",
     "DeleteSystemNoDeleteDP_hint": "Se modifichi il nome del sistema o elimini un sistema, assicurati di eliminare manualmente i punti dati inutilizzati.",
+    "GetDataOnlyWhenDaylight": "leggere e scrivere dati solo alla luce del giorno",
     "IsActive": "attivo",
     "IsDonated": "stato di donazione",
     "IsDonated_hint": "Se è selezionato Donato, sono disponibili altre funzionalità Assicurati di deselezionare se il periodo di donazione termina con avpid messaggi di errore non necessari",

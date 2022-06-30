@@ -222,7 +222,7 @@ async function ReadData(){
 
 
     for (const system of adapter.config.PVSystems) {
-        if (system.IsActive) {
+        if (system.IsActive && IsDaylight()) {
             await read(system);
         }
     }
@@ -580,7 +580,7 @@ async function WriteData() {
 
 
     for (const system of adapter.config.PVSystems) {
-        if (system.IsActive && system.Upload) {
+        if (system.IsActive && system.Upload && IsDaylight()) {
             await write(system);
         }
     }
@@ -1542,6 +1542,7 @@ function CronCreate(Minute, callback) {
 
             const times = SunCalc.getTimes(new Date(), latitude, longitude);
 
+
             // format sunset/sunrise time from the Date object
             const sunsetStr = ("0" + times.sunset.getHours()).slice(-2) + ":" + ("0" + times.sunset.getMinutes()).slice(-2);
             adapter.log.debug(" sunset " + sunsetStr );
@@ -1603,9 +1604,33 @@ function CronStatus() {
     }
 }
 
+function IsDaylight() {
+    let daylight = false;
 
+    if (adapter.config.GetDataOnlyWhenDaylight) {
 
+        const times = SunCalc.getTimes(new Date(), latitude, longitude);
 
+        // format sunset/sunrise time from the Date object
+        const sunsetStr = ("0" + times.sunset.getHours()).slice(-2) + ":" + ("0" + times.sunset.getMinutes()).slice(-2);
+        const sunriseStr = ("0" + times.sunrise.getHours()).slice(-2) + ":" + ("0" + times.sunrise.getMinutes()).slice(-2);
+
+        adapter.log.debug("sunrise " + sunriseStr + " sunset " + sunsetStr + " " + adapter.config.GetDataOnlyWhenDaylight);
+
+        const now = new Date();
+
+        if ((now.getHours() > times.sunrise.getHours() || (now.getHours() == times.sunrise.getHours() && now.getMinutes() > times.sunrise.getMinutes()))
+            && (now.getHours() < times.sunset.getHours() || (now.getHours() == times.sunset.getHours() && now.getMinutes() < times.sunset.getMinutes()))) {
+            daylight = true;
+        }
+    }
+    else {
+        //always
+        daylight = true;
+    }
+
+    return daylight;
+}
 
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {

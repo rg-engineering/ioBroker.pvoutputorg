@@ -2,6 +2,7 @@
     "ApiKey": "API 密钥",
     "CumulativeFlag": "累积标志",
     "DeleteSystemNoDeleteDP_hint": "如果您更改系统名称或删除系统，请确保手动删除未使用的数据点。",
+    "GetDataOnlyWhenDaylight": "仅在白天读写数据",
     "IsActive": "积极的",
     "IsDonated": "捐赠状况",
     "IsDonated_hint": "如果选中了捐赠，则可以使用更多功能确保取消选中捐赠期是否结束以显示不必要的错误消息",

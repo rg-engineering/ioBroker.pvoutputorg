@@ -2,6 +2,7 @@
     "ApiKey": "Clé API",
     "CumulativeFlag": "Drapeau cumulatif",
     "DeleteSystemNoDeleteDP_hint": "Si vous modifiez le nom du système ou supprimez un système, assurez-vous de supprimer manuellement les points de données inutilisés.",
+    "GetDataOnlyWhenDaylight": "lire et écrire des données uniquement à la lumière du jour",
     "IsActive": "actif",
     "IsDonated": "état du don",
     "IsDonated_hint": "Si le don est coché, d'autres fonctionnalités sont disponibles. Assurez-vous de décocher si la période de don se termine pour éviter les messages d'erreur inutiles.",

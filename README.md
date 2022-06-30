@@ -100,10 +100,10 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
    
 ## Changelog
 
-### 1.6.0 (2022-06-24)
+### 1.6.0 (2022-07-01)
 * (René) change back from cron to interval
 * (René) end of day data are written 1 hour after sunset
-* (René) some 
+* (René) read and write data only when daylight as an option 
 
 ### 1.5.0 (2022-04-21)
 * (René) datapoint added to show when data uploaded to pvoutput.org

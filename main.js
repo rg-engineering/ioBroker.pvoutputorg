@@ -614,7 +614,14 @@ async function write(system) {
             sMonth = month;
         }
         const day = date.getDate();
-        let sDate = year + sMonth + day;
+        let sDay = "";
+        if (day < 10) {
+            sDay = "0" + day;
+        }
+        else {
+            sDay = day;
+        }
+        let sDate = year + sMonth + sDay;
         data += "d=" + sDate;
 
         let sHour = ""
@@ -748,7 +755,15 @@ async function write_EOD(system) {
             sMonth = month;
         }
         const day = date.getDate();
-        let sDate = year + sMonth + day;
+        let sDay = "";
+        if (day < 10) {
+            sDay = "0" + day;
+        }
+        else {
+            sDay = day;
+        }
+
+        let sDate = year + sMonth + sDay;
         data += "d=" + sDate;
 
         let EnergyGeneration = await adapter.getStateAsync(SystemName + ".Upload.EnergyGeneration");

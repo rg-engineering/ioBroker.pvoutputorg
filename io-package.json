@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.6.0",
+        "version": "1.6.1",
         "news": {
+            "1.6.1": {
+                "en": "bug fix for day string",
+                "de": "Fehlerbehebung für Tageszeichenfolge",
+                "ru": "исправление ошибки для строки дня",
+                "pt": "correção de bug para a string do dia",
+                "nl": "bugfix voor dagtekenreeks",
+                "fr": "correction de bogue pour la chaîne de jour",
+                "it": "correzione di bug per la stringa del giorno",
+                "es": "corrección de errores para la cadena de días",
+                "pl": "poprawka błędu w ciągu dnia",
+                "zh-cn": "日字符串的错误修复"
+            },
             "1.6.0": {
                 "en": "change back to interval",
                 "de": "wieder auf Intervall umschalten",

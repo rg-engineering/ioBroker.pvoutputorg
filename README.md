@@ -100,6 +100,9 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
    
 ## Changelog
 
+### 1.6.1 (2022-07-06)
+* (René) bug fix date string in write status and end of day data
+
 ### 1.6.0 (2022-07-01)
 * (René) change back from cron to interval
 * (René) end of day data are written 1 hour after sunset

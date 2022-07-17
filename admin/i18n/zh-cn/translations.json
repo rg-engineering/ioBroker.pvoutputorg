@@ -1,4 +1,7 @@
 {
+    "10 minutes": "10分钟",
+    "15 minutes": "15分钟",
+    "5 minutes": "5分钟",
     "ApiKey": "API 密钥",
     "CumulativeFlag": "累积标志",
     "DeleteSystemNoDeleteDP_hint": "如果您更改系统名称或删除系统，请确保手动删除未使用的数据点。",

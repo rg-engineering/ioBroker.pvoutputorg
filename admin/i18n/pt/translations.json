@@ -1,4 +1,7 @@
 {
+    "10 minutes": "10 minutos",
+    "15 minutes": "15 minutos",
+    "5 minutes": "5 minutos",
     "ApiKey": "Chave API",
     "CumulativeFlag": "Sinalização cumulativa",
     "DeleteSystemNoDeleteDP_hint": "Se você alterar o nome do sistema ou excluir um sistema, certifique-se de excluir manualmente os pontos de dados não utilizados.",

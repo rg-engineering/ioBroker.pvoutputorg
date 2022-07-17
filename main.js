@@ -156,11 +156,13 @@ async function main() {
     //CronCreate(readInterval, DoRead)
 
     let writeInterval = 15;
-    if (parseInt(adapter.config.writeInterval) > 0) {
+    if (parseInt(adapter.config.writeInterval) == 5
+        || parseInt(adapter.config.writeInterval) == 10
+        || parseInt(adapter.config.writeInterval) == 15    ) {
         writeInterval = adapter.config.writeInterval;
     }
     else {
-        adapter.log.warn("write interval not defined");
+        adapter.log.warn("write interval not defined, make sure you use the same setting as in PVoutput.org configured");
     }
     adapter.log.debug("write every  " + writeInterval + " minutes");
     writeIntervalID = setInterval(DoWrite, writeInterval * 60 * 1000);
@@ -775,6 +777,34 @@ async function write_EOD(system) {
         if (EnergyConsumption != null && EnergyConsumption.val > 0) {
             data += "&e=" + EnergyConsumption.val;
         }
+
+        //weather conditions
+        /*
+        Fine
+        Partly Cloudy
+        Mostly Cloudy
+        Cloudy
+        Showers
+        Snow
+        Hazy
+        Fog
+        Dusty
+        Frost
+        Storm
+        */
+        let WeatherConditions = await adapter.getStateAsync(SystemName + ".Upload.WeatherConditions");
+        if (WeatherConditions != null && WeatherConditions.val.length > 0) {
+
+            conditions = WeatherConditions.val;
+            if (conditions.match(/^(Fine|Partly Cloudy|Mostly Cloudy|Cloudy|Showers|Snow|Hazy|Fog|Dusty|Frost|Storm)$/)) {
+                data += "&cd=" + WeatherConditions.val;
+            }
+            else {
+                adapter.log.warn("weather conditions  " + conditions + " does not macth to one of the following " + "Fine|Partly Cloudy|Mostly Cloudy|Cloudy|Showers|Snow|Hazy|Fog|Dusty|Frost|Storm");
+            }
+        }
+
+
 
         //to add
         /*
@@ -1474,6 +1504,22 @@ async function checkVariables() {
                 }
             };
             await CreateObject(key, obj);
+
+            
+            key = SystemName + ".Upload.WeatherConditions";
+            obj = {
+                type: "state",
+                common: {
+                    name: "WeatherConditions for EoD Upload",
+                    type: "string",
+                    role: "value",
+                    read: true,
+                    write: true,
+                    unit: ""
+                }
+            };
+            await CreateObject(key, obj);
+
 
         }
 

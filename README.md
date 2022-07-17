@@ -100,6 +100,10 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
    
 ## Changelog
 
+### 1.7.0 (2022-07-17)
+* (René) WeatherConditions for upload end of the day (EoD) data added
+* (René) write-Interval selectable out of 5, 10 or 15 minutes according PVOutput.org-specification
+
 ### 1.6.1 (2022-07-06)
 * (René) bug fix date string in write status and end of day data
 

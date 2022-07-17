@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.6.1",
+        "version": "1.7.0",
         "news": {
+            "1.7.0": {
+                "en": "upload interval selectable (5, 10 or 15 minutes)",
+                "de": "Upload-Intervall wählbar (5, 10 oder 15 Minuten)",
+                "ru": "выбор интервала загрузки (5, 10 или 15 минут)",
+                "pt": "intervalo de upload selecionável (5, 10 ou 15 minutos)",
+                "nl": "upload interval selecteerbaar (5, 10 of 15 minuten)",
+                "fr": "intervalle de téléchargement sélectionnable (5, 10 ou 15 minutes)",
+                "it": "intervallo di caricamento selezionabile (5, 10 o 15 minuti)",
+                "es": "Intervalo de carga seleccionable (5, 10 o 15 minutos)",
+                "pl": "możliwość wyboru interwału przesyłania (5, 10 lub 15 minut)",
+                "zh-cn": "可选择上传间隔（5、10 或 15 分钟）"
+            },
             "1.6.1": {
                 "en": "bug fix for day string",
                 "de": "Fehlerbehebung für Tageszeichenfolge",

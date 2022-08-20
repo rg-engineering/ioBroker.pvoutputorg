@@ -100,6 +100,9 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
    
 ## Changelog
 
+### 1.8.0 (2022-08-20)
+* (René) WeatherConditions can be used directly from DasWetter adapter 
+
 ### 1.7.0 (2022-07-17)
 * (René) WeatherConditions for upload end of the day (EoD) data added
 * (René) write-Interval selectable out of 5, 10 or 15 minutes according PVOutput.org-specification

@@ -11,6 +11,7 @@
     "IsDonated_hint": "Se a doação estiver assinalada então estarão disponíveis mais funcionalidades Certifique-se de que desmarca se o período de doação terminar para avpid mensagens de erro desnecessárias",
     "Main settings": "Configurações principais",
     "NetDataFlag": "Sinalizador de dados líquidos",
+    "OID_WeatherConditions": "Objeto-ID para Símbolo de Condições Meteorológicas",
     "SystemId": "ID do sistema (sid)",
     "Upload": "Carregar",
     "Upload_hint": "O upload é opcionalmente Descrição dos sinalizadores que você pode encontrar no leia-me ou na documentação da API",
@@ -19,5 +20,6 @@
     "readInterval": "intervalo para ler os dados [min]",
     "systems": "Sistema",
     "timezone": "Fuso horário",
+    "useWeatherAdapter": "use DasWetter",
     "writeInterval": "intervalo para gravar dados [min]"
 }

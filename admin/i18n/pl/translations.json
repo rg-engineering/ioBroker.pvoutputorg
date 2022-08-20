@@ -11,6 +11,7 @@
     "IsDonated_hint": "Jeśli opcja darowizny jest zaznaczona to dostępnych jest więcej funkcji Upewnij sięże odznaczyłeśczy okres darowizny kończy sięaby uniknąć niepotrzebnych komunikatów o błędach",
     "Main settings": "Ustawienia główne",
     "NetDataFlag": "Flaga danych netto",
+    "OID_WeatherConditions": "Identyfikator obiektu dla symbolu warunków pogodowych",
     "SystemId": "Identyfikator systemu (sid)",
     "Upload": "Wgrywać",
     "Upload_hint": "Przesyłanie jest opcjonalnie Opis flag, które można znaleźć w readme lub w dokumentacji API",
@@ -19,5 +20,6 @@
     "readInterval": "interwał odczytu danych [min]",
     "systems": "System",
     "timezone": "Strefa czasowa",
+    "useWeatherAdapter": "użyj DasWetter",
     "writeInterval": "interwał zapisu danych [min]"
 }

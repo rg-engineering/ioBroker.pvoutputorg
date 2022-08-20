@@ -792,18 +792,53 @@ async function write_EOD(system) {
         Frost
         Storm
         */
-        let WeatherConditions = await adapter.getStateAsync(SystemName + ".Upload.WeatherConditions");
-        if (WeatherConditions != null && WeatherConditions.val.length > 0) {
 
-            conditions = WeatherConditions.val;
-            if (conditions.match(/^(Fine|Partly Cloudy|Mostly Cloudy|Cloudy|Showers|Snow|Hazy|Fog|Dusty|Frost|Storm)$/)) {
-                data += "&cd=" + WeatherConditions.val;
+        //direct from DasWetter
+        if (adapter.config.useWeatherAdapter && adapter.config.OID_WeatherConditions.length > 0) {
+            let WeatherConditions = await adapter.getStateAsync(adapter.config.OID_WeatherConditions);
+            if (WeatherConditions != null && Number(WeatherConditions.val) > 0) {
+                switch (Number(WeatherConditions.val)) {
+                    case 1: data += "&cd=fine"; break;
+                    case 2: data += "&cd=Partly Cloudy"; break;
+                    case 3: data += "&cd=Mostly Cloudy"; break;
+                    case 4: data += "&cd=Cloudy"; break;
+                    case 5: data += "&cd=Showers"; break;
+                    case 6: data += "&cd=Showers"; break;
+                    case 7: data += "&cd=Showers"; break;
+                    case 8: data += "&cd=Showers"; break;
+                    case 9: data += "&cd=Showers"; break;
+                    case 10: data += "&cd=Showers"; break;
+                    case 11: data += "&cd=Showers"; break;
+                    case 12: data += "&cd=Showers"; break;
+                    case 13: data += "&cd=Showers"; break;
+                    case 14: data += "&cd=Showers"; break;
+                    case 15: data += "&cd=Showers"; break;
+                    case 16: data += "&cd=Showers"; break;
+                    case 17: data += "&cd=Snow"; break;
+                    case 18: data += "&cd=Snow"; break;
+                    case 19: data += "&cd=Snow"; break;
+                    case 20: data += "&cd=Snow"; break;
+                    case 21: data += "&cd=Snow"; break;
+                    case 22: data += "&cd=Snow"; break;
+                }
             }
             else {
-                adapter.log.warn("weather conditions  " + conditions + " does not macth to one of the following " + "Fine|Partly Cloudy|Mostly Cloudy|Cloudy|Showers|Snow|Hazy|Fog|Dusty|Frost|Storm");
+                adapter.log.warn("unsupported value for weatherconditions : " + WeatherConditions.val + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
             }
         }
+        else {
+            let WeatherConditions = await adapter.getStateAsync(SystemName + ".Upload.WeatherConditions");
+            if (WeatherConditions != null && WeatherConditions.val.length > 0) {
 
+                conditions = WeatherConditions.val;
+                if (conditions.match(/^(Fine|Partly Cloudy|Mostly Cloudy|Cloudy|Showers|Snow|Hazy|Fog|Dusty|Frost|Storm)$/)) {
+                    data += "&cd=" + WeatherConditions.val;
+                }
+                else {
+                    adapter.log.warn("weather conditions  " + conditions + " does not macth to one of the following " + "Fine|Partly Cloudy|Mostly Cloudy|Cloudy|Showers|Snow|Hazy|Fog|Dusty|Frost|Storm");
+                }
+            }
+        }
 
 
         //to add

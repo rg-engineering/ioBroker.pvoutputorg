@@ -11,6 +11,7 @@
     "IsDonated_hint": "Als gedoneerd is aangevinkt, zijn er nog meer functies beschikbaar Zorg ervoor dat u het vinkje weghaalt als de donatieperiode eindigt om onnodige foutmeldingen te voorkomen",
     "Main settings": "Belangrijkste instellingen",
     "NetDataFlag": "Net data-vlag",
+    "OID_WeatherConditions": "Object-ID voor weersomstandigheden Symbool",
     "SystemId": "Systeem-ID (sid)",
     "Upload": "Uploaden",
     "Upload_hint": "Uploaden is optioneel Beschrijving van vlaggen die u kunt vinden in readme of op API-documentatie",
@@ -19,5 +20,6 @@
     "readInterval": "interval om gegevens te lezen [min]",
     "systems": "Systeem",
     "timezone": "Tijdzone",
+    "useWeatherAdapter": "gebruik DasWetter",
     "writeInterval": "interval om gegevens te schrijven [min]"
 }

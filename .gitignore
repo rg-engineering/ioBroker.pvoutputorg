@@ -16,3 +16,5 @@ node_modules
 .github
 READMEbackup.md
 main.test.js
+/bin/*
+/obj/*

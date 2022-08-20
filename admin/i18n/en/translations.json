@@ -11,6 +11,7 @@
     "IsDonated_hint": "If donated is checked then some more features are available Make sure to uncheck if donation period ends to avpid unnecessay error messages",
     "Main settings": "Main settings",
     "NetDataFlag": "Net Data Flag",
+    "OID_WeatherConditions": "Object-ID for Weather Conditions Symbol",
     "SystemId": "System ID (sid)",
     "Upload": "Upload",
     "Upload_hint": "Upload is optionally Description of flags you can find in readme or on API documentation",
@@ -19,5 +20,6 @@
     "readInterval": "interval to read data [min]",
     "systems": "System",
     "timezone": "Timezone",
+    "useWeatherAdapter": "use DasWetter",
     "writeInterval": "interval to write data [min]"
 }

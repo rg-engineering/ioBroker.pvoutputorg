@@ -11,6 +11,7 @@
     "IsDonated_hint": "如果选中了捐赠，则可以使用更多功能确保取消选中捐赠期是否结束以显示不必要的错误消息",
     "Main settings": "主要设置",
     "NetDataFlag": "网络数据标志",
+    "OID_WeatherConditions": "天气条件符号的对象 ID",
     "SystemId": "系统 ID (sid)",
     "Upload": "上传",
     "Upload_hint": "上传是可选的标志说明，您可以在自述文件或 API 文档中找到",
@@ -19,5 +20,6 @@
     "readInterval": "读取数据的间隔 [分钟]",
     "systems": "系统",
     "timezone": "时区",
+    "useWeatherAdapter": "使用 DasWetter",
     "writeInterval": "写入数据的间隔 [分钟]"
 }

@@ -11,6 +11,7 @@
     "IsDonated_hint": "Si se marca donado, hay más funciones disponibles. Asegúrese de desmarcar si el período de donación finaliza para recibir mensajes de error innecesarios.",
     "Main settings": "Ajustes principales",
     "NetDataFlag": "Indicador de datos netos",
+    "OID_WeatherConditions": "ID de objeto para el símbolo de las condiciones climáticas",
     "SystemId": "ID del sistema (sid)",
     "Upload": "Subir",
     "Upload_hint": "La carga es opcional Descripción de los indicadores que puede encontrar en el archivo Léame o en la documentación de la API",
@@ -19,5 +20,6 @@
     "readInterval": "intervalo para leer datos [min]",
     "systems": "Sistema",
     "timezone": "Zona horaria",
+    "useWeatherAdapter": "usar DasWetter",
     "writeInterval": "intervalo para escribir datos [min]"
 }

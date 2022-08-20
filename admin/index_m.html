@@ -25,6 +25,22 @@
     <!-- you have to define 2 functions in the global scope: -->
     <script type="text/javascript">
 
+        function showHideSettings() {
+
+            var $useWeatherAdapter = $('#useWeatherAdapter');
+
+            if ($useWeatherAdapter.prop('checked')) {
+                console.log('show settings for Weather');
+                $('.col-OID-WeatherConditions').show();
+            }
+            else {
+                console.log('hide settings for Weather');
+                $('.col-OID-WeatherConditions').hide();
+            }
+        }
+
+
+
         // the function loadSettings has to exist ...
         function load(settings, onChange) {
 
@@ -32,15 +48,20 @@
 
             // example: select elements with id=key and class=value and insert value
             for (var key in settings) {
-                // example: select elements with id=key and class=value and insert value
-                if ($('#' + key + '.value').attr('type') == 'checkbox') {
-                    $('#' + key + '.value').prop('checked', settings[key]).change(function () {
+                if (!settings.hasOwnProperty(key)) continue;
+                var $value = $('#' + key + '.value');
+                if ($value.attr('type') === 'checkbox') {
+
+                    $value.prop('checked', settings[key]).on('change', function () {
+                        showHideSettings();
                         onChange();
                     });
                 } else {
-                    $('#' + key + '.value').val(settings[key]).change(function () {
+                    $value.val(settings[key]).on('change', function () {
+                        console.log('on change');
+                        showHideSettings();
                         onChange();
-                    }).keyup(function () {
+                    }).on('keyup', function () {
                         $(this).trigger('change');
                     });
                 }
@@ -50,11 +71,11 @@
             // Signal to admin, that no changes yet
             onChange(false);
 
+            showHideSettings();
+
             M.updateTextFields();
 
             values2table('systems', settings.PVSystems, onChange, tableSystemsOnReady);
-
-
 
         }
 
@@ -129,9 +150,9 @@
                         <label for="writeInterval" class="translate">writeInterval</label>
 
                         <!--
-    <input class="value number" id="writeInterval" size="3" maxlength="3" min="1" max="59" type="number" />
-    <label for="writeInterval" class="translate">writeInterval</label>
-        -->
+            <input class="value number" id="writeInterval" size="3" maxlength="3" min="1" max="59" type="number" />
+            <label for="writeInterval" class="translate">writeInterval</label>
+                -->
                     </div>
 
                     <div class="input-field col s6">
@@ -141,8 +162,19 @@
                 </div>
 
 
-            </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="checkbox" id="useWeatherAdapter" class="value" />
+                        <label for="useWeatherAdapter" class="translate">useWeatherAdapter</label>
+                    </div>
 
+                    <div class="input-field col s6 col-OID-WeatherConditions">
+                        <input type="text" id="OID_WeatherConditions" class="value" />
+                        <label for="OID_WeatherConditions" class="translate">OID_WeatherConditions</label>
+                    </div>
+
+                </div>
+            </div>
             <!--  settings for systems -->
             <div id="tab-systems" class="col s12 page">
 

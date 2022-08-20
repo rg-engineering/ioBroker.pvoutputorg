@@ -11,6 +11,7 @@
     "IsDonated_hint": "Si le don est coché, d'autres fonctionnalités sont disponibles. Assurez-vous de décocher si la période de don se termine pour éviter les messages d'erreur inutiles.",
     "Main settings": "Réglages principaux",
     "NetDataFlag": "Indicateur de données réseau",
+    "OID_WeatherConditions": "ID d'objet pour le symbole des conditions météorologiques",
     "SystemId": "ID système (sid)",
     "Upload": "Télécharger",
     "Upload_hint": "Le téléchargement est optionnel Description des drapeaux que vous pouvez trouver dans le fichier readme ou sur la documentation de l'API",
@@ -19,5 +20,6 @@
     "readInterval": "intervalle de lecture des données [min]",
     "systems": "Système",
     "timezone": "Fuseau horaire",
+    "useWeatherAdapter": "utiliser DasWetter",
     "writeInterval": "intervalle d'écriture des données [min]"
 }

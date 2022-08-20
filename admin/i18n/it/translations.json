@@ -11,6 +11,7 @@
     "IsDonated_hint": "Se è selezionato Donato, sono disponibili altre funzionalità Assicurati di deselezionare se il periodo di donazione termina con avpid messaggi di errore non necessari",
     "Main settings": "Impostazioni principali",
     "NetDataFlag": "Flag di dati netti",
+    "OID_WeatherConditions": "Oggetto-ID per il simbolo delle condizioni meteorologiche",
     "SystemId": "ID sistema (sid)",
     "Upload": "Caricamento",
     "Upload_hint": "Il caricamento è facoltativamente Descrizione dei flag che puoi trovare nel file readme o nella documentazione dell'API",
@@ -19,5 +20,6 @@
     "readInterval": "intervallo di lettura dei dati [min]",
     "systems": "Sistema",
     "timezone": "Fuso orario",
+    "useWeatherAdapter": "usa DasWetter",
     "writeInterval": "intervallo di scrittura dei dati [min]"
 }

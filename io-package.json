@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.7.0",
+        "version": "1.8.0",
         "news": {
+            "1.8.0": {
+                "en": "weather conditions for upload added",
+                "de": "Wetterbedingungen für den Upload hinzugefügt",
+                "ru": "добавлены погодные условия для загрузки",
+                "pt": "condições meteorológicas para upload adicionadas",
+                "nl": "weersomstandigheden voor uploaden toegevoegd",
+                "fr": "conditions météorologiques pour le téléchargement ajoutées",
+                "it": "condizioni meteorologiche per il caricamento aggiunte",
+                "es": "condiciones meteorológicas para subir añadidas",
+                "pl": "dodano warunki pogodowe do przesłania",
+                "zh-cn": "添加了上传的天气条件"
+            },
             "1.7.0": {
                 "en": "upload interval selectable (5, 10 or 15 minutes)",
                 "de": "Upload-Intervall wählbar (5, 10 oder 15 Minuten)",
@@ -193,6 +205,8 @@
         "readInterval": 15,
         "writeInterval": 15,
         "timezone": "Europe/Berlin",
-        "GetDataOnlyWhenDaylight": true
+        "GetDataOnlyWhenDaylight": true,
+        "useWeatherAdapter": true,
+        "OID_WeatherConditions": "daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value"
     }
 }

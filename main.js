@@ -796,7 +796,12 @@ async function write_EOD(system) {
         //direct from DasWetter
         if (adapter.config.useWeatherAdapter && adapter.config.OID_WeatherConditions.length > 0) {
             let WeatherConditions = await adapter.getStateAsync(adapter.config.OID_WeatherConditions);
-            if (WeatherConditions != null && Number(WeatherConditions.val) > 0) {
+
+            //exception in write[TypeError: Cannot read properties of null(reading 'val')]https://pvoutput.org/service/r2/addoutput.jsp "d=20220820&g=1116699"
+            adapter.log.debug("use dasWetter " + JSON.stringify(WeatherConditions));
+
+
+            if (WeatherConditions != null && Number(WeatherConditions.val) > 0 && Number(WeatherConditions.val) < 23) {
                 switch (Number(WeatherConditions.val)) {
                     case 1: data += "&cd=fine"; break;
                     case 2: data += "&cd=Partly Cloudy"; break;
@@ -823,7 +828,7 @@ async function write_EOD(system) {
                 }
             }
             else {
-                adapter.log.warn("unsupported value for weatherconditions : " + WeatherConditions.val + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
+                adapter.log.warn("unsupported value for weatherconditions : " + JSON.stringify(WeatherConditions) + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
             }
         }
         else {
@@ -875,7 +880,7 @@ async function write_EOD(system) {
 
     }
     catch (e) {
-        adapter.log.error("exception in write [" + e + "] " + sURL + " " + JSON.stringify(data));
+        adapter.log.error("exception in write EoD [" + e + "] " + sURL + " " + JSON.stringify(data));
     }
 
 }

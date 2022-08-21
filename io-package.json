@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.8.1",
+        "version": "1.8.3",
         "news": {
-            "1.8.1": {
+            "1.8.3": {
                 "en": "weather conditions for upload added",
                 "de": "Wetterbedingungen für den Upload hinzugefügt",
                 "ru": "добавлены погодные условия для загрузки",

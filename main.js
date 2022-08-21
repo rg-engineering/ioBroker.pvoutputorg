@@ -795,10 +795,10 @@ async function write_EOD(system) {
 
         //direct from DasWetter
         if (adapter.config.useWeatherAdapter && adapter.config.OID_WeatherConditions.length > 0) {
-            let WeatherConditions = await adapter.getStateAsync(adapter.config.OID_WeatherConditions);
+            let WeatherConditions = await adapter.getForeignStateAsync(adapter.config.OID_WeatherConditions);
 
             //exception in write[TypeError: Cannot read properties of null(reading 'val')]https://pvoutput.org/service/r2/addoutput.jsp "d=20220820&g=1116699"
-            adapter.log.debug("use dasWetter " + JSON.stringify(WeatherConditions));
+            adapter.log.debug("use dasWetter " + adapter.config.OID_WeatherConditions  + " = "+ JSON.stringify(WeatherConditions));
 
 
             if (WeatherConditions != null && Number(WeatherConditions.val) > 0 && Number(WeatherConditions.val) < 23) {

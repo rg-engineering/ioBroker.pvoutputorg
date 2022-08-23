@@ -100,8 +100,9 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
    
 ## Changelog
 
-### 1.8.3 (2022-08-21)
+### 1.8.4 (2022-08-21)
 * (René) bug fix WeatherConditions
+* (René) bug fix EoD upload
 
 ### 1.8.0 (2022-08-20)
 * (René) WeatherConditions can be used directly from DasWetter adapter 

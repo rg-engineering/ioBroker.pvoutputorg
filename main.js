@@ -768,8 +768,8 @@ async function write_EOD(system) {
         let sDate = year + sMonth + sDay;
         data += "d=" + sDate;
 
-        let EnergyGeneration = await adapter.getStateAsync(SystemName + ".Upload.EnergyGeneration");
-        let EnergyConsumption = await adapter.getStateAsync(SystemName + ".Upload.EnergyConsumption");
+        let EnergyGeneration = await adapter.getStateAsync(SystemName + ".Upload.EnergyGenerationToday");
+        let EnergyConsumption = await adapter.getStateAsync(SystemName + ".Upload.EnergyExportedToday");
 
         if (EnergyGeneration != null && EnergyGeneration.val > 0) {
             data += "&g=" + EnergyGeneration.val;
@@ -1474,6 +1474,37 @@ async function checkVariables() {
                 }
             };
             await CreateObject(key, obj);
+
+            //for EoD
+            key = SystemName + ".Upload.EnergyGenerationToday";
+            obj = {
+                type: "state",
+                common: {
+                    name: "Generated Energy today for Upload for EoD",
+                    type: "number",
+                    role: "value",
+                    read: true,
+                    write: true,
+                    unit: "Wh"
+                }
+            };
+            await CreateObject(key, obj);
+
+            key = SystemName + ".Upload.EnergyExportedToday";
+            obj = {
+                type: "state",
+                common: {
+                    name: "Exported Energy today for Upload EoD",
+                    type: "number",
+                    role: "value",
+                    read: true,
+                    write: true,
+                    unit: "Wh"
+                }
+            };
+            await CreateObject(key, obj);
+
+
 
             key = SystemName + ".Upload.PowerGeneration";
             obj = {

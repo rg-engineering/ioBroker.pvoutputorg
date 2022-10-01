@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.8.4",
+        "version": "1.8.5",
         "news": {
+            "1.8.5": {
+                "en": "bug fix date format",
+                "de": "Bugfix-Datumsformat",
+                "ru": "формат даты исправления ошибок",
+                "pt": "formato de data de correção de bug",
+                "nl": "datumnotatie bug fix",
+                "fr": "format de date de correction de bogue",
+                "it": "formato della data di correzione dei bug",
+                "es": "formato de fecha de corrección de errores",
+                "pl": "format daty naprawy błędów",
+                "zh-cn": "错误修复日期格式"
+            },
             "1.8.4": {
                 "en": "weather conditions for upload added",
                 "de": "Wetterbedingungen für den Upload hinzugefügt",
@@ -136,7 +148,6 @@
                 "zh-cn": "初始发行"
             }
         },
-        "title": "PvOutput.org",
         "titleLang": {
             "en": "interface to PVOutput.org",
             "de": "Schnittstelle zu PVOutput.org",

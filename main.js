@@ -613,7 +613,7 @@ async function write(system) {
             sMonth = "0" + month;
         }
         else {
-            sMonth = month;
+            sMonth = month.toString();
         }
         const day = date.getDate();
         let sDay = "";
@@ -621,9 +621,9 @@ async function write(system) {
             sDay = "0" + day;
         }
         else {
-            sDay = day;
+            sDay = day.toString();
         }
-        let sDate = year + sMonth + sDay;
+        let sDate = year.toString() + sMonth + sDay;
         data += "d=" + sDate;
 
         let sHour = ""
@@ -632,7 +632,7 @@ async function write(system) {
             sHour = "0" + hour;
         }
         else {
-            sHour = hour;
+            sHour = hour.toString();
         }
 
         let sMinute = ""
@@ -641,7 +641,7 @@ async function write(system) {
             sMinute = "0" + minute;
         }
         else {
-            sMinute = minute;
+            sMinute = minute.toString();
         }
         let sTime = sHour + ":" + sMinute;
         data += "&t=" + sTime;
@@ -754,7 +754,7 @@ async function write_EOD(system) {
             sMonth = "0" + month;
         }
         else {
-            sMonth = month;
+            sMonth = month.toString();
         }
         const day = date.getDate();
         let sDay = "";
@@ -762,10 +762,10 @@ async function write_EOD(system) {
             sDay = "0" + day;
         }
         else {
-            sDay = day;
+            sDay = day.toString();
         }
 
-        let sDate = year + sMonth + sDay;
+        let sDate = year.toString() + sMonth + sDay;
         data += "d=" + sDate;
 
         let EnergyGeneration = await adapter.getStateAsync(SystemName + ".Upload.EnergyGenerationToday");

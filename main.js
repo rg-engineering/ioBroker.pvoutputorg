@@ -10,6 +10,7 @@
 const utils = require("@iobroker/adapter-core");
 const axios = require('axios');
 const SunCalc = require("suncalc2");
+const { isNumber } = require("util");
 
 const CronJob = require("cron").CronJob;
 
@@ -666,7 +667,7 @@ async function write(system) {
         if (PowerConsumption != null && PowerConsumption.val > 0) {
             data += "&v4=" + PowerConsumption.val;
         }
-        if (temperature != null && temperature.val > 0) {
+        if (temperature != null && isNumber(temperature.val)) {
             data += "&v5=" + temperature.val;
         }
         if (voltage != null && voltage.val > 0) {

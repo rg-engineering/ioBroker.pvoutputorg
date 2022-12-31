@@ -1,193 +1,73 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.8.6",
-      "news": {
-        "1.8.6": {
-          "en": "bug fix: neagtive temperatures"
-        },
-          "1.8.5": {
-            "en": "bug fix date format",
-            "de": "Bugfix-Datumsformat",
-            "ru": "формат даты исправления ошибок",
-            "pt": "formato de data de correção de bug",
-            "nl": "datumnotatie bug fix",
-            "fr": "format de date de correction de bogue",
-            "it": "formato della data di correzione dei bug",
-            "es": "formato de fecha de corrección de errores",
-            "pl": "format daty naprawy błędów",
-            "zh-cn": "错误修复日期格式",
-            "uk": "формат дати виправлено помилку"
-          },
-          "1.8.4": {
-            "en": "weather conditions for upload added",
-            "de": "Wetterbedingungen für den Upload hinzugefügt",
-            "ru": "добавлены погодные условия для загрузки",
-            "pt": "condições meteorológicas para upload adicionadas",
-            "nl": "weersomstandigheden voor uploaden toegevoegd",
-            "fr": "conditions météorologiques pour le téléchargement ajoutées",
-            "it": "condizioni meteorologiche per il caricamento aggiunte",
-            "es": "condiciones meteorológicas para subir añadidas",
-            "pl": "dodano warunki pogodowe do przesłania",
-            "zh-cn": "添加了上传的天气条件",
-            "uk": "додано погодні умови для завантаження"
-          },
-          "1.7.0": {
-            "en": "upload interval selectable (5, 10 or 15 minutes)",
-            "de": "Upload-Intervall wählbar (5, 10 oder 15 Minuten)",
-            "ru": "выбор интервала загрузки (5, 10 или 15 минут)",
-            "pt": "intervalo de upload selecionável (5, 10 ou 15 minutos)",
-            "nl": "upload interval selecteerbaar (5, 10 of 15 minuten)",
-            "fr": "intervalle de téléchargement sélectionnable (5, 10 ou 15 minutes)",
-            "it": "intervallo di caricamento selezionabile (5, 10 o 15 minuti)",
-            "es": "Intervalo de carga seleccionable (5, 10 o 15 minutos)",
-            "pl": "możliwość wyboru interwału przesyłania (5, 10 lub 15 minut)",
-            "zh-cn": "可选择上传间隔（5、10 或 15 分钟）",
-            "uk": "вибір інтервалу завантаження (5, 10 або 15 хвилин)"
-          },
-          "1.6.1": {
-            "en": "bug fix for day string",
-            "de": "Fehlerbehebung für Tageszeichenfolge",
-            "ru": "исправление ошибки для строки дня",
-            "pt": "correção de bug para a string do dia",
-            "nl": "bugfix voor dagtekenreeks",
-            "fr": "correction de bogue pour la chaîne de jour",
-            "it": "correzione di bug per la stringa del giorno",
-            "es": "corrección de errores para la cadena de días",
-            "pl": "poprawka błędu w ciągu dnia",
-            "zh-cn": "日字符串的错误修复",
-            "uk": "виправлено помилку для рядка дня"
-          },
-          "1.6.0": {
-            "en": "change back to interval",
-            "de": "wieder auf Intervall umschalten",
-            "ru": "вернуться к интервалу",
-            "pt": "voltar ao intervalo",
-            "nl": "verander terug naar interval",
-            "fr": "revenir à l'intervalle",
-            "it": "tornare all'intervallo",
-            "es": "cambiar de nuevo al intervalo",
-            "pl": "zmień z powrotem na interwał",
-            "zh-cn": "改回区间",
-            "uk": "повернутися до інтервалу"
-          },
-          "1.4.0": {
-            "en": "changed to post requests",
-            "de": "geändert, um Anfragen zu posten",
-            "ru": "изменено на публикацию запросов",
-            "pt": "alterado para postar solicitações",
-            "nl": "gewijzigd om verzoeken te plaatsen",
-            "fr": "changé pour publier des demandes",
-            "it": "modificato per inviare richieste",
-            "es": "cambiado para publicar solicitudes",
-            "pl": "zmieniono, aby wysłać prośby",
-            "zh-cn": "更改为发布请求",
-            "uk": "змінено на запити публікації"
-          },
-          "1.3.0": {
-            "en": "upload live and EOD data; error handling",
-            "de": "Live- und EOD-Daten hochladen; ",
-            "ru": "загружать оперативные данные и данные EOD; ",
-            "pt": "carregar dados ao vivo e EOD; ",
-            "nl": "upload live- en EOD-gegevens; ",
-            "fr": "télécharger des données en direct et EOD ; ",
-            "it": "caricare dati live ed EOD; ",
-            "es": "cargar datos en vivo y EOD; ",
-            "pl": "przesyłać dane na żywo i EOD; ",
-            "zh-cn": "上传实时和 EOD 数据；",
-            "uk": "завантажувати живі дані та дані EOD; обробка помилок"
-          },
-          "1.2.0": {
-            "en": "IsActive added",
-            "de": "IsActive hinzugefügt",
-            "ru": "Добавлен IsActive",
-            "pt": "Ativo adicionado",
-            "nl": "IsActive toegevoegd",
-            "fr": "Est actif ajouté",
-            "it": "Aggiunto IsActive",
-            "es": "Está activo agregado",
-            "pl": "Dodano opcję IsActive",
-            "zh-cn": "添加了 IsActive",
-            "uk": "IsActive додано"
-          },
-          "1.1.0": {
-            "en": "data upload added",
-            "de": "Datenupload hinzugefügt",
-            "ru": "добавлена ​​загрузка данных",
-            "pt": "upload de dados adicionado",
-            "nl": "gegevens uploaden toegevoegd",
-            "fr": "téléchargement de données ajouté",
-            "it": "caricamento dati aggiunto",
-            "es": "carga de datos agregada",
-            "pl": "dodano przesyłanie danych",
-            "zh-cn": "添加了数据上传",
-            "uk": "додано завантаження даних"
-          },
-          "1.0.1": {
-            "en": "bug fixes after adapter check",
-            "de": "Fehlerbehebungen nach Adapterprüfung",
-            "ru": "исправления ошибок после проверки адаптера",
-            "pt": "correções de bugs após a verificação do adaptador",
-            "nl": "bugfixes na adaptercontrole",
-            "fr": "corrections de bugs après vérification de l'adaptateur",
-            "it": "correzioni di bug dopo il controllo dell'adattatore",
-            "es": "corrección de errores después de la verificación del adaptador",
-            "pl": "poprawki błędów po sprawdzeniu adaptera",
-            "zh-cn": "适配器检查后的错误修复",
-            "uk": "виправлення помилок після перевірки адаптера"
-          },
-          "1.0.0": {
-            "en": "first official release",
-            "de": "erste offizielle Veröffentlichung",
-            "ru": "первый официальный релиз",
-            "pt": "primeiro lançamento oficial",
-            "nl": "eerste officiële release",
-            "fr": "première sortie officielle",
-            "it": "prima uscita ufficiale",
-            "es": "primer lanzamiento oficial",
-            "pl": "pierwsze oficjalne wydanie",
-            "zh-cn": "第一次正式发布",
-            "uk": "перший офіційний реліз"
-          },
-          "0.0.1": {
-            "en": "initial release",
-            "de": "Erstveröffentlichung",
-            "ru": "Первый выпуск",
-            "pt": "lançamento inicial",
-            "nl": "Eerste uitgave",
-            "fr": "Première version",
-            "it": "Versione iniziale",
-            "es": "Versión inicial",
-            "pl": "Pierwsze wydanie",
-            "zh-cn": "初始发行",
-            "uk": "початковий випуск"
-          }
+        "version": "1.8.7",
+        "news": {
+            "1.8.7": {
+                "en": "in progress",
+                "de": "in Bearbeitung",
+                "ru": "в ходе выполнения",
+                "pt": "em progresso",
+                "nl": "bezig",
+                "fr": "en cours",
+                "it": "in corso",
+                "es": "en curso",
+                "pl": "w trakcie",
+                "uk": "в процесі",
+                "zh-cn": "进行中"
+            },
+            "1.8.6": {
+                "en": "bug fix: negative temperatures",
+                "de": "Fehlerbehebung: negative Temperaturen",
+                "ru": "исправлена ​​ошибка: отрицательные температуры",
+                "pt": "correção de bug: temperaturas negativas",
+                "nl": "bugfix: negatieve temperaturen",
+                "fr": "correction de bug : températures négatives",
+                "it": "bug fix: temperature negative",
+                "es": "corrección de errores: temperaturas negativas",
+                "pl": "poprawka błędu: ujemne temperatury",
+                "uk": "виправлено помилку: негативні температури",
+                "zh-cn": "错误修复：负温度"
+            },
+            "1.8.5": {
+                "en": "bug fix date format",
+                "de": "Bugfix-Datumsformat",
+                "ru": "формат даты исправления ошибок",
+                "pt": "formato de data de correção de bug",
+                "nl": "datumnotatie bug fix",
+                "fr": "format de date de correction de bogue",
+                "it": "formato della data di correzione dei bug",
+                "es": "formato de fecha de corrección de errores",
+                "pl": "format daty naprawy błędów",
+                "zh-cn": "错误修复日期格式",
+                "uk": "формат дати виправлено помилку"
+            }
         },
         "titleLang": {
-          "en": "interface to PVOutput.org",
-          "de": "Schnittstelle zu PVOutput.org",
-          "ru": "интерфейс к PVOutput.org",
-          "pt": "interface para PVOutput.org",
-          "nl": "interface naar PVOutput.org",
-          "fr": "interface vers PVOutput.org",
-          "it": "interfaccia a PVOutput.org",
-          "es": "interfaz con PVOutput.org",
-          "pl": "interfejs do PVOutput.org",
-          "zh-cn": "PVOutput.org 的接口",
-          "uk": "інтерфейс до PVOutput.org"
+            "en": "interface to PVOutput.org",
+            "de": "Schnittstelle zu PVOutput.org",
+            "ru": "интерфейс к PVOutput.org",
+            "pt": "interface para PVOutput.org",
+            "nl": "interface naar PVOutput.org",
+            "fr": "interface vers PVOutput.org",
+            "it": "interfaccia a PVOutput.org",
+            "es": "interfaz con PVOutput.org",
+            "pl": "interfejs do PVOutput.org",
+            "zh-cn": "PVOutput.org 的接口",
+            "uk": "інтерфейс до PVOutput.org"
         },
         "desc": {
-          "en": "PvOutput.org Adapter: reads and writes data on PVOutput.org. supports different System-Ids",
-          "de": "PvOutput.org Adapter: liest und schreibt Daten auf PVOutput.org. ",
-          "ru": "Адаптер PvOutput.org: читает и записывает данные на PVOutput.org. ",
-          "pt": "Adaptador PvOutput.org: lê e grava dados em PVOutput.org. ",
-          "nl": "PvOutput.org Adapter: leest en schrijft gegevens op PVOutput.org. ",
-          "fr": "Adaptateur PvOutput.org : lit et écrit des données sur PVOutput.org. ",
-          "it": "Adattatore PvOutput.org: legge e scrive dati su PVOutput.org. ",
-          "es": "Adaptador PvOutput.org: lee y escribe datos en PVOutput.org. ",
-          "pl": "Adapter PvOutput.org: odczytuje i zapisuje dane na PVOutput.org. ",
-          "zh-cn": "PvOutput.org 适配器：在 PVOutput.org 上读取和写入数据。",
-          "uk": "Адаптер PvOutput.org: читає та записує дані на PVOutput.org. підтримує різні ідентифікатори системи"
+            "en": "PvOutput.org Adapter: reads and writes data on PVOutput.org. supports different System-Ids",
+            "de": "PvOutput.org Adapter: liest und schreibt Daten auf PVOutput.org. ",
+            "ru": "Адаптер PvOutput.org: читает и записывает данные на PVOutput.org. ",
+            "pt": "Adaptador PvOutput.org: lê e grava dados em PVOutput.org. ",
+            "nl": "PvOutput.org Adapter: leest en schrijft gegevens op PVOutput.org. ",
+            "fr": "Adaptateur PvOutput.org : lit et écrit des données sur PVOutput.org. ",
+            "it": "Adattatore PvOutput.org: legge e scrive dati su PVOutput.org. ",
+            "es": "Adaptador PvOutput.org: lee y escribe datos en PVOutput.org. ",
+            "pl": "Adapter PvOutput.org: odczytuje i zapisuje dane na PVOutput.org. ",
+            "zh-cn": "PvOutput.org 适配器：在 PVOutput.org 上读取和写入数据。",
+            "uk": "Адаптер PvOutput.org: читає та записує дані на PVOutput.org. підтримує різні ідентифікатори системи"
         },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
@@ -196,7 +76,7 @@
         "messagebox": true,
         "extIcon": "https://raw.githubusercontent.com/rg-engineering/ioBroker.pvoutputorg/master/admin/pvoutputorg.png",
         "keywords": [
-          "PvOutput.org"
+            "PvOutput.org"
         ],
         "readme": "https://github.com/rg-engineering/ioBroker.pvoutputorg/blob/master/README.md",
         "loglevel": "info",
@@ -205,29 +85,29 @@
         "license": "MIT",
         "materialize": true,
         "dependencies": [
-          {
-            "js-controller": ">=2.0.0"
-          }
+            {
+                "js-controller": ">=2.0.0"
+            }
         ],
         "plugins": {
-          "sentry": {
-            "dsn": "https://bb7e6f51a1274ced81576d84f82f667e@o390433.ingest.sentry.io/5434784"
-          }
+            "sentry": {
+                "dsn": "https://bb7e6f51a1274ced81576d84f82f667e@o390433.ingest.sentry.io/5434784"
+            }
         },
         "compact": true,
         "authors": [
-          {
-            "name": "René G.",
-            "email": "info@rg-engineering.eu"
-          }
+            {
+                "name": "René G.",
+                "email": "info@rg-engineering.eu"
+            }
         ],
         "connectionType": "local",
         "dataSource": "push",
         "adminUI": {
-          "config": "materialize"
+            "config": "materialize"
         },
         "messages": []
-      },
+    },
     "native": {
         "PVSystems": [],
         "readInterval": 15,

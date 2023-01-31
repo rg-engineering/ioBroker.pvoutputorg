@@ -4,17 +4,17 @@
         "version": "1.8.7",
         "news": {
             "1.8.7": {
-                "en": "in progress",
-                "de": "in Bearbeitung",
-                "ru": "в ходе выполнения",
-                "pt": "em progresso",
-                "nl": "bezig",
-                "fr": "en cours",
-                "it": "in corso",
-                "es": "en curso",
-                "pl": "w trakcie",
-                "uk": "в процесі",
-                "zh-cn": "进行中"
+                "en": "dependencies updated",
+                "de": "Abhängigkeiten aktualisiert",
+                "ru": "зависимости обновлены",
+                "pt": "dependências atualizadas",
+                "nl": "afhankelijkheden bijgewerkt",
+                "fr": "dépendances mises à jour",
+                "it": "dipendenze aggiornate",
+                "es": "dependencias actualizadas",
+                "pl": "zaktualizowane zależności",
+                "uk": "залежності оновлено",
+                "zh-cn": "依赖更新"
             },
             "1.8.6": {
                 "en": "bug fix: negative temperatures",

@@ -13,7 +13,7 @@ node_modules
 
 *.txt
 
-.github
+
 READMEbackup.md
 main.test.js
 /bin/*

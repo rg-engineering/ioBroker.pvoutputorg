@@ -1,6 +1,6 @@
 {
   "name": "iobroker.pvoutputorg",
-  "version": "1.8.8",
+  "version": "1.8.9",
   "description": "ioBroker Adapter for PvOutput.org",
   "author": {
     "name": "René G.",

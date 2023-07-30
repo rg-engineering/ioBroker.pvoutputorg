@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.8.8",
+        "version": "1.8.9",
         "news": {
-            "1.8.8": {
+            "1.8.9": {
                 "en": "dependencies updated",
                 "de": "Abhängigkeiten aktualisiert",
                 "ru": "зависимости обновлены",
@@ -90,9 +90,9 @@
             }
         ],
         "plugins": {
-          "sentry": {
-            "dsn": "https://d854bc7651ae48dbb6da668532480aa0@o390433.ingest.sentry.io/4505104248209408"
-          }
+            "sentry": {
+                "dsn": "https://d854bc7651ae48dbb6da668532480aa0@o390433.ingest.sentry.io/4505104248209408"
+            }
         },
         "compact": true,
         "authors": [

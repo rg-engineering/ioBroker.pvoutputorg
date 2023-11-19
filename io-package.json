@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "pvoutputorg",
-        "version": "1.8.9",
+        "version": "1.8.10",
         "news": {
-            "1.8.9": {
+            "1.8.10": {
                 "en": "dependencies updated",
                 "de": "Abhängigkeiten aktualisiert",
                 "ru": "зависимости обновлены",

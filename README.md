@@ -105,6 +105,9 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
   ### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+* (René) dependencies updates
+* 
 ### 1.8.9 (2023-07-30)
 * (René) dependencies updates
 

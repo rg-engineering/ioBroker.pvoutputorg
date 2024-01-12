@@ -113,7 +113,7 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.8.11 (2024-01-12)
 * (René) dependencies updates
 
 ### 1.8.10 (2023-11-19)

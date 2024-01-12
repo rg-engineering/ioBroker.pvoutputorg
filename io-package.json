@@ -1,120 +1,133 @@
 {
-    "common": {
-        "name": "pvoutputorg",
-        "version": "1.8.10",
-        "news": {
-            "1.8.10": {
-                "en": "dependencies updated",
-                "de": "Abhängigkeiten aktualisiert",
-                "ru": "зависимости обновлены",
-                "pt": "dependências atualizadas",
-                "nl": "afhankelijkheden bijgewerkt",
-                "fr": "dépendances mises à jour",
-                "it": "dipendenze aggiornate",
-                "es": "dependencias actualizadas",
-                "pl": "zaktualizowane zależności",
-                "uk": "залежності оновлено",
-                "zh-cn": "依赖更新"
-            },
-            "1.8.6": {
-                "en": "bug fix: negative temperatures",
-                "de": "Fehlerbehebung: negative Temperaturen",
-                "ru": "исправлена ​​ошибка: отрицательные температуры",
-                "pt": "correção de bug: temperaturas negativas",
-                "nl": "bugfix: negatieve temperaturen",
-                "fr": "correction de bug : températures négatives",
-                "it": "bug fix: temperature negative",
-                "es": "corrección de errores: temperaturas negativas",
-                "pl": "poprawka błędu: ujemne temperatury",
-                "uk": "виправлено помилку: негативні температури",
-                "zh-cn": "错误修复：负温度"
-            },
-            "1.8.5": {
-                "en": "bug fix date format",
-                "de": "Bugfix-Datumsformat",
-                "ru": "формат даты исправления ошибок",
-                "pt": "formato de data de correção de bug",
-                "nl": "datumnotatie bug fix",
-                "fr": "format de date de correction de bogue",
-                "it": "formato della data di correzione dei bug",
-                "es": "formato de fecha de corrección de errores",
-                "pl": "format daty naprawy błędów",
-                "zh-cn": "错误修复日期格式",
-                "uk": "формат дати виправлено помилку"
-            }
-        },
-        "titleLang": {
-            "en": "interface to PVOutput.org",
-            "de": "Schnittstelle zu PVOutput.org",
-            "ru": "интерфейс к PVOutput.org",
-            "pt": "interface para PVOutput.org",
-            "nl": "interface naar PVOutput.org",
-            "fr": "interface vers PVOutput.org",
-            "it": "interfaccia a PVOutput.org",
-            "es": "interfaz con PVOutput.org",
-            "pl": "interfejs do PVOutput.org",
-            "zh-cn": "PVOutput.org 的接口",
-            "uk": "інтерфейс до PVOutput.org"
-        },
-        "desc": {
-            "en": "PvOutput.org Adapter: reads and writes data on PVOutput.org. supports different System-Ids",
-            "de": "PvOutput.org Adapter: liest und schreibt Daten auf PVOutput.org. ",
-            "ru": "Адаптер PvOutput.org: читает и записывает данные на PVOutput.org. ",
-            "pt": "Adaptador PvOutput.org: lê e grava dados em PVOutput.org. ",
-            "nl": "PvOutput.org Adapter: leest en schrijft gegevens op PVOutput.org. ",
-            "fr": "Adaptateur PvOutput.org : lit et écrit des données sur PVOutput.org. ",
-            "it": "Adattatore PvOutput.org: legge e scrive dati su PVOutput.org. ",
-            "es": "Adaptador PvOutput.org: lee y escribe datos en PVOutput.org. ",
-            "pl": "Adapter PvOutput.org: odczytuje i zapisuje dane na PVOutput.org. ",
-            "zh-cn": "PvOutput.org 适配器：在 PVOutput.org 上读取和写入数据。",
-            "uk": "Адаптер PvOutput.org: читає та записує дані на PVOutput.org. підтримує різні ідентифікатори системи"
-        },
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "icon": "pvoutputorg.png",
-        "enabled": true,
-        "messagebox": true,
-        "extIcon": "https://raw.githubusercontent.com/rg-engineering/ioBroker.pvoutputorg/master/admin/pvoutputorg.png",
-        "keywords": [
-            "PvOutput.org"
-        ],
-        "readme": "https://github.com/rg-engineering/ioBroker.pvoutputorg/blob/master/README.md",
-        "loglevel": "info",
-        "stopBeforeUpdate": true,
-        "type": "energy",
-        "license": "MIT",
-        "materialize": true,
-        "dependencies": [
-            {
-                "js-controller": ">=2.0.0"
-            }
-        ],
-        "plugins": {
-            "sentry": {
-                "dsn": "https://d854bc7651ae48dbb6da668532480aa0@o390433.ingest.sentry.io/4505104248209408"
-            }
-        },
-        "compact": true,
-        "authors": [
-            {
-                "name": "René G.",
-                "email": "info@rg-engineering.eu"
-            }
-        ],
-        "connectionType": "local",
-        "dataSource": "push",
-        "adminUI": {
-            "config": "materialize"
-        },
-        "messages": []
+  "common": {
+    "name": "pvoutputorg",
+    "version": "1.8.11",
+    "news": {
+      "1.8.11": {
+        "en": "(René) dependencies updates",
+        "de": "(René)",
+        "ru": "(René)",
+        "pt": "(René) atualizações de dependências",
+        "nl": "(René) updates van afhankelijkheden",
+        "fr": "(René) mises à jour des dépendances",
+        "it": "(René) aggiornamenti sulle dipendenze",
+        "es": "(René)",
+        "pl": "(René) aktualizacje zależności",
+        "uk": "(René) оновлення залежності",
+        "zh-cn": "(René) 依赖性更新"
+      },
+      "1.8.10": {
+        "en": "dependencies updated",
+        "de": "Abhängigkeiten aktualisiert",
+        "ru": "зависимости обновлены",
+        "pt": "dependências atualizadas",
+        "nl": "afhankelijkheden bijgewerkt",
+        "fr": "dépendances mises à jour",
+        "it": "dipendenze aggiornate",
+        "es": "dependencias actualizadas",
+        "pl": "zaktualizowane zależności",
+        "uk": "залежності оновлено",
+        "zh-cn": "依赖更新"
+      },
+      "1.8.6": {
+        "en": "bug fix: negative temperatures",
+        "de": "Fehlerbehebung: negative Temperaturen",
+        "ru": "исправлена ​​ошибка: отрицательные температуры",
+        "pt": "correção de bug: temperaturas negativas",
+        "nl": "bugfix: negatieve temperaturen",
+        "fr": "correction de bug : températures négatives",
+        "it": "bug fix: temperature negative",
+        "es": "corrección de errores: temperaturas negativas",
+        "pl": "poprawka błędu: ujemne temperatury",
+        "uk": "виправлено помилку: негативні температури",
+        "zh-cn": "错误修复：负温度"
+      },
+      "1.8.5": {
+        "en": "bug fix date format",
+        "de": "Bugfix-Datumsformat",
+        "ru": "формат даты исправления ошибок",
+        "pt": "formato de data de correção de bug",
+        "nl": "datumnotatie bug fix",
+        "fr": "format de date de correction de bogue",
+        "it": "formato della data di correzione dei bug",
+        "es": "formato de fecha de corrección de errores",
+        "pl": "format daty naprawy błędów",
+        "zh-cn": "错误修复日期格式",
+        "uk": "формат дати виправлено помилку"
+      }
     },
-    "native": {
-        "PVSystems": [],
-        "readInterval": 15,
-        "writeInterval": 15,
-        "timezone": "Europe/Berlin",
-        "GetDataOnlyWhenDaylight": true,
-        "useWeatherAdapter": true,
-        "OID_WeatherConditions": "daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value"
-    }
+    "titleLang": {
+      "en": "interface to PVOutput.org",
+      "de": "Schnittstelle zu PVOutput.org",
+      "ru": "интерфейс к PVOutput.org",
+      "pt": "interface para PVOutput.org",
+      "nl": "interface naar PVOutput.org",
+      "fr": "interface vers PVOutput.org",
+      "it": "interfaccia a PVOutput.org",
+      "es": "interfaz con PVOutput.org",
+      "pl": "interfejs do PVOutput.org",
+      "zh-cn": "PVOutput.org 的接口",
+      "uk": "інтерфейс до PVOutput.org"
+    },
+    "desc": {
+      "en": "PvOutput.org Adapter: reads and writes data on PVOutput.org. supports different System-Ids",
+      "de": "PvOutput.org Adapter: liest und schreibt Daten auf PVOutput.org. ",
+      "ru": "Адаптер PvOutput.org: читает и записывает данные на PVOutput.org. ",
+      "pt": "Adaptador PvOutput.org: lê e grava dados em PVOutput.org. ",
+      "nl": "PvOutput.org Adapter: leest en schrijft gegevens op PVOutput.org. ",
+      "fr": "Adaptateur PvOutput.org : lit et écrit des données sur PVOutput.org. ",
+      "it": "Adattatore PvOutput.org: legge e scrive dati su PVOutput.org. ",
+      "es": "Adaptador PvOutput.org: lee y escribe datos en PVOutput.org. ",
+      "pl": "Adapter PvOutput.org: odczytuje i zapisuje dane na PVOutput.org. ",
+      "zh-cn": "PvOutput.org 适配器：在 PVOutput.org 上读取和写入数据。",
+      "uk": "Адаптер PvOutput.org: читає та записує дані на PVOutput.org. підтримує різні ідентифікатори системи"
+    },
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "pvoutputorg.png",
+    "enabled": true,
+    "messagebox": true,
+    "extIcon": "https://raw.githubusercontent.com/rg-engineering/ioBroker.pvoutputorg/master/admin/pvoutputorg.png",
+    "keywords": [
+      "PvOutput.org"
+    ],
+    "readme": "https://github.com/rg-engineering/ioBroker.pvoutputorg/blob/master/README.md",
+    "loglevel": "info",
+    "stopBeforeUpdate": true,
+    "type": "energy",
+    "license": "MIT",
+    "materialize": true,
+    "dependencies": [
+      {
+        "js-controller": ">=2.0.0"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://d854bc7651ae48dbb6da668532480aa0@o390433.ingest.sentry.io/4505104248209408"
+      }
+    },
+    "compact": true,
+    "authors": [
+      {
+        "name": "René G.",
+        "email": "info@rg-engineering.eu"
+      }
+    ],
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "materialize"
+    },
+    "messages": []
+  },
+  "native": {
+    "PVSystems": [],
+    "readInterval": 15,
+    "writeInterval": 15,
+    "timezone": "Europe/Berlin",
+    "GetDataOnlyWhenDaylight": true,
+    "useWeatherAdapter": true,
+    "OID_WeatherConditions": "daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value"
+  }
 }

@@ -172,7 +172,9 @@ async function main() {
 
     await GetSystemDateformat();
 
-    CronCreate(-99, DoWriteEOD)
+    CronCreate(-99, DoWriteEOD);
+
+    CronStatus();
 }
 
 async function GetSystemDateformat() {
@@ -1722,7 +1724,7 @@ function CronStatus() {
             //adapter.log.debug("cron jobs");
             for (n = 0; n < length; n++) {
                 if (cronJobs[n] !== undefined && cronJobs[n] != null) {
-                    adapter.log.debug("cron status = " + cronJobs[n].running + " next event: " + timeConverter("DE", cronJobs[n].nextDates()));
+                    adapter.log.debug("cron status = " + cronJobs[n].running + " next event: " + timeConverter("DE", cronJobs[n].nextDate()));
                 }
             }
 

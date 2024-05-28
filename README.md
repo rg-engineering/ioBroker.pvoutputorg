@@ -115,8 +115,6 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
 -->
 ### **WORK IN PROGRESS**
 * (René) change of dependencies
-
-### **WORK IN PROGRESS**
 * (René) show cron status after job creation
 
 ### 1.8.11 (2024-01-12)

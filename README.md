@@ -113,6 +113,8 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (René) change of dependencies
 
 ### **WORK IN PROGRESS**
 * (René) show cron status after job creation

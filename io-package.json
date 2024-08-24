@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pvoutputorg",
-    "version": "1.8.12",
+    "version": "1.8.13",
     "news": {
+      "1.8.13": {
+        "en": "update dependencies\nbug fixes based on adapter checker recommendation",
+        "de": "aktualisierung der abhängigkeiten\nfehlerbehebungen basierend auf adapter-checker empfehlung",
+        "ru": "обновление зависимостей\nисправления ошибок на основе рекомендации адаптера",
+        "pt": "dependências\ncorreções de bugs com base na recomendação do verificador do adaptador",
+        "nl": "afhankelijkheden bijwerken\nbug fixes op basis van adaptercontrole aanbeveling",
+        "fr": "mettre à jour les dépendances\ncorrection des bugs en fonction de la recommandation du vérificateur d'adaptateur",
+        "it": "aggiornamento dipendenze\ncorrezioni di bug in base alla raccomandazione dell'adattatore checker",
+        "es": "dependencias de actualización\ncorrecciones de errores basado en la recomendación de control de adaptador",
+        "pl": "aktualizacji zależności\npoprawki błędów oparte na rekomendacji sprawdzania adaptera",
+        "uk": "оновлення залежності\nвиправлення помилок на основі рекомендації адаптера",
+        "zh-cn": "更新依赖关系\n根据适配器检查器建议修正错误"
+      },
       "1.8.12": {
         "en": "(René) change of dependencies\n(René) show cron status after job creation",
         "de": "(René) Veränderung der Abhängigkeiten\n(René) den Status nach der Schaffung von Arbeitsplätzen anzeigen",

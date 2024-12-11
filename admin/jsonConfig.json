@@ -1,0 +1,264 @@
+{
+  "type": "tabs",
+  "i18n": true,
+  "items": {
+    "tab-main": {
+      "type": "panel",
+      "label": "Main settings",
+      "items": {
+
+        "icontest": {
+          "type": "staticImage",
+          "src": "pvoutputorg.png",
+          "newLine": true,
+          "xs": 12,
+          "sm": 3,
+          "md": 3,
+          "lg": 1.2,
+          "xl": 1.2
+        },
+
+        "dividerHdr1": {
+          "newLine": true,
+          "type": "header",
+          "text": "configuration",
+          "size": 2
+        },
+
+        "timezone": {
+          "newLine": true,
+          "type": "text",
+          "label": "timezone",
+          "help": "timezone",
+          "xs": 12,
+          "sm": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
+        },
+
+        "readInterval": {
+          "newLine": true,
+          "type": "text",
+          "label": "readInterval",
+          "help": "Interval to read data from PVSystem.org ",
+          "xs": 12,
+          "sm": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
+        },
+        "writeInterval": {
+          "newLine": true,
+          "type": "select",
+          "label": "writeInterval",
+          "help": "Interval to write data to PVSystem.org ",
+          "options": [
+            {
+              "label": { "en": "5 minutes" },
+              "value": 5
+            },
+            {
+              "label": { "en": "10 minutes" },
+              "value": 10
+            },
+            {
+              "label": { "en": "15 minutes" },
+              "value": 15
+            }
+
+          ],
+          "xs": 12,
+          "sm": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
+        },
+        "GetDataOnlyWhenDaylight": {
+          "newLine": true,
+          "type": "checkbox",
+          "label": "GetDataOnlyWhenDaylight",
+          "xs": 12,
+          "sm": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
+        },
+        "useWeatherAdapter": {
+          "newLine": true,
+          "type": "checkbox",
+          "label": "useWeatherAdapter",
+          "xs": 4,
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
+        },
+        "OID_WeatherConditions": {
+
+          "type": "text",
+          "label": "OID_WeatherConditions",
+          "help": "OID where weathe conditions are stored in DasWetter",
+          "hidden": "if (data.useWeatherAdapter == false) return true;",
+          "xs": 8,
+          "sm": 8,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
+        }
+
+      }
+    },
+    "tab-systems": {
+      "type": "panel",
+      "label": "page-systems",
+      "items": {
+        "dividerHdr2": {
+          "newLine": true,
+          "type": "header",
+          "text": "systems",
+          "size": 2
+        },
+        "hint1": {
+          "newLine": true,
+          "type": "staticText",
+          "label": "DeleteSystemNoDeleteDP_hint",
+          "xs": 12,
+          "sm": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
+        },
+        "hint2": {
+          "newLine": true,
+          "type": "staticText",
+          "label": "IsDonated_hint",
+          "xs": 12,
+          "sm": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
+        },
+        "hint3": {
+          "newLine": true,
+          "type": "staticText",
+          "label": "Upload_hint",
+          "xs": 12,
+          "sm": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
+        },
+        "PVSystems": {
+          "type": "table",
+          "newLine": true,
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12,
+          "label": "PVSystem settings",
+          "showSecondAddAt": 5,
+          "noDelete": false,
+
+          "items": [
+            {
+              "type": "checkbox",
+              "attr": "IsActive",
+              "width": "5% ",
+              "title": "IsActive",
+              "tooltip": "enable system",
+              "filter": false,
+              "sort": false,
+              "default": false
+            },
+            {
+              "type": "text",
+              "attr": "Name",
+              "width": "10% ",
+              "title": "Name",
+              "tooltip": "system name",
+              "filter": false,
+              "sort": false,
+              "default": false
+            },
+            {
+              "type": "text",
+              "attr": "SystemId",
+              "width": "10% ",
+              "title": "SystemId",
+              "tooltip": "system ID",
+              "filter": false,
+              "sort": false,
+              "default": false
+            },
+            {
+              "type": "text",
+              "attr": "ApiKey",
+              "width": "10% ",
+              "title": "ApiKey",
+              "tooltip": "system API key",
+              "filter": false,
+              "sort": false,
+              "default": false
+            },
+            {
+              "type": "checkbox",
+              "attr": "Upload",
+              "width": "5% ",
+              "title": "Upload",
+              "tooltip": "enable upload of data",
+              "filter": false,
+              "sort": false,
+              "default": false
+            },
+            {
+              "type": "select",
+              "attr": "CumulativeFlag",
+              "width": "10% ",
+              "title": "CumulativeFlag",
+              "tooltip": "",
+              "filter": false,
+              "sort": false,
+              "default": false,
+              "options": [
+                {
+                  "label": { "en": "1" },
+                  "value": 1
+                },
+                {
+                  "label": { "en": "2" },
+                  "value": 2
+                },
+                {
+                  "label": { "en": "3" },
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "type": "checkbox",
+              "attr": "NetDataFlag",
+              "width": "5% ",
+              "title": "NetDataFlag",
+              "tooltip": "",
+              "filter": false,
+              "sort": false,
+              "default": false
+            },
+            {
+              "type": "checkbox",
+              "attr": "IsDonated",
+              "width": "5% ",
+              "title": "IsDonated",
+              "tooltip": "",
+              "filter": false,
+              "sort": false,
+              "default": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

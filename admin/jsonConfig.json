@@ -89,25 +89,23 @@
           "type": "checkbox",
           "label": "useWeatherAdapter",
           "help": "used to upload weather conditions",
-          "xs": 4,
+          "xs": 12,
           "sm": 4,
           "md": 4,
           "lg": 4,
           "xl": 4
         },
         "OID_WeatherConditions": {
-
           "type": "text",
           "label": "OID_WeatherConditions",
           "help": "OID where weather conditions are stored in DasWetter",
           "hidden": "if (data.useWeatherAdapter == false) return true;",
-          "xs": 8,
+          "xs": 12,
           "sm": 8,
           "md": 4,
           "lg": 4,
           "xl": 4
         }
-
       }
     },
     "tab-systems": {

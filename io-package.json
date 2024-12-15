@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pvoutputorg",
-    "version": "1.8.13",
+    "version": "1.9.0",
     "news": {
+      "1.9.0": {
+        "en": "see issue #289: test with nodejs@22\nupdate dependencies\nmigration to jsonConfig",
+        "de": "siehe ausgabe #289: test mit nodejs@22\naktualisierung der abhängigkeiten\nmigration nach jsonConfig",
+        "ru": "#289: тест с nodejs@22\nобновление зависимостей\nмиграции в jsonConfig",
+        "pt": "veja a edição #289: teste com nodejs@22\ndependências\nmigração para jsonConfig",
+        "nl": "zie nummer #289: test met nodejs@22\nafhankelijkheden bijwerken\nmigratie naar jsonConfig",
+        "fr": "voir numéro #289: test avec nodejs@22\nmettre à jour les dépendances\nmigration vers jsonConfig",
+        "it": "vedi numero #289: prova con nodejs@22\naggiornamento dipendenze\nmigrazione a jsonConfig",
+        "es": "ver número #289: prueba con nodejs@22\ndependencias de actualización\nmigración a jsonConfig",
+        "pl": "zob. numer # 289: test z nodejs @ 22\naktualizacji zależności\nmigracja do jsonConfig",
+        "uk": "див. питання #289: тест з nodejs@22\nоновлення залежності\nміграції в jsonConfig",
+        "zh-cn": "参见第289期:带节点的测试@22\n更新依赖关系\n迁移到 jsonConfig"
+      },
       "1.8.13": {
         "en": "update dependencies\nbug fixes based on adapter checker recommendation",
         "de": "aktualisierung der abhängigkeiten\nfehlerbehebungen basierend auf adapter-checker empfehlung",

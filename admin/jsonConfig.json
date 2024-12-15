@@ -41,7 +41,7 @@
           "newLine": true,
           "type": "text",
           "label": "readInterval",
-          "help": "Interval to read data from PVSystem.org ",
+          "help": "Interval to read data from PVSystem.org",
           "xs": 12,
           "sm": 12,
           "md": 4,
@@ -52,7 +52,7 @@
           "newLine": true,
           "type": "select",
           "label": "writeInterval",
-          "help": "Interval to write data to PVSystem.org ",
+          "help": "Interval to write data to PVSystem.org",
           "options": [
             {
               "label": { "en": "5 minutes" },
@@ -88,6 +88,7 @@
           "newLine": true,
           "type": "checkbox",
           "label": "useWeatherAdapter",
+          "help": "used to upload weather conditions",
           "xs": 4,
           "sm": 4,
           "md": 4,
@@ -98,7 +99,7 @@
 
           "type": "text",
           "label": "OID_WeatherConditions",
-          "help": "OID where weathe conditions are stored in DasWetter",
+          "help": "OID where weather conditions are stored in DasWetter",
           "hidden": "if (data.useWeatherAdapter == false) return true;",
           "xs": 8,
           "sm": 8,
@@ -125,9 +126,9 @@
           "label": "DeleteSystemNoDeleteDP_hint",
           "xs": 12,
           "sm": 12,
-          "md": 4,
-          "lg": 4,
-          "xl": 4
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         },
         "hint2": {
           "newLine": true,
@@ -135,9 +136,9 @@
           "label": "IsDonated_hint",
           "xs": 12,
           "sm": 12,
-          "md": 4,
-          "lg": 4,
-          "xl": 4
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         },
         "hint3": {
           "newLine": true,
@@ -145,10 +146,26 @@
           "label": "Upload_hint",
           "xs": 12,
           "sm": 12,
-          "md": 4,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
+        },
+
+
+        "staticLink2pvoutputorgapi": {
+          "type": "staticLink",
+          "text": "API description of PVOutput.org",
+          "href": "https://pvoutput.org/help/api_specification.html#cumulative-energy",
+          "icon": "info",
+          "newLine": true,
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
           "lg": 4,
           "xl": 4
         },
+
+
         "PVSystems": {
           "type": "table",
           "newLine": true,
@@ -215,23 +232,23 @@
             {
               "type": "select",
               "attr": "CumulativeFlag",
-              "width": "10% ",
+              "width": "5% ",
               "title": "CumulativeFlag",
-              "tooltip": "",
+              "tooltip": "Cumulative Flag",
               "filter": false,
               "sort": false,
               "default": false,
               "options": [
                 {
-                  "label": { "en": "1" },
+                  "label": { "en": "Energy Generation and Consumption" },
                   "value": 1
                 },
                 {
-                  "label": { "en": "2" },
+                  "label": { "en": "only Energy Generation" },
                   "value": 2
                 },
                 {
-                  "label": { "en": "3" },
+                  "label": { "en": "only Energy Consumption" },
                   "value": 3
                 }
               ]
@@ -241,7 +258,7 @@
               "attr": "NetDataFlag",
               "width": "5% ",
               "title": "NetDataFlag",
-              "tooltip": "",
+              "tooltip": "NetData Flag",
               "filter": false,
               "sort": false,
               "default": false
@@ -251,7 +268,7 @@
               "attr": "IsDonated",
               "width": "5% ",
               "title": "IsDonated",
-              "tooltip": "",
+              "tooltip": "Donation status",
               "filter": false,
               "sort": false,
               "default": false

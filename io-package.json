@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pvoutputorg",
-    "version": "1.9.1",
+    "version": "1.9.2",
     "news": {
+      "1.9.2": {
+        "en": "bug fix date conversion",
+        "de": "fehlerbehebung datumskonvertierung",
+        "ru": "обновление даты исправления ошибки",
+        "pt": "conversão de data de correção de erros",
+        "nl": "bug fix datum conversie",
+        "fr": "correction de la date de conversion du bug",
+        "it": "correzione della data di conversione",
+        "es": "corrección de errores fecha conversión",
+        "pl": "konwersja daty poprawki błędu",
+        "uk": "перетворення дати виправлення помилок",
+        "zh-cn": "错误修正日期转换"
+      },
       "1.9.1": {
         "en": "changes requested by adapter checker\ndependencies updated",
         "de": "änderungen, die von adapter checker angefordert werden\naktualisierte abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane zależności",
         "uk": "залежності оновлено",
         "zh-cn": "依赖更新"
-      },
-      "1.8.6": {
-        "en": "bug fix: negative temperatures",
-        "de": "Fehlerbehebung: negative Temperaturen",
-        "ru": "исправлена ​​ошибка: отрицательные температуры",
-        "pt": "correção de bug: temperaturas negativas",
-        "nl": "bugfix: negatieve temperaturen",
-        "fr": "correction de bug : températures négatives",
-        "it": "bug fix: temperature negative",
-        "es": "corrección de errores: temperaturas negativas",
-        "pl": "poprawka błędu: ujemne temperatury",
-        "uk": "виправлено помилку: негативні температури",
-        "zh-cn": "错误修复：负温度"
       }
     },
     "titleLang": {

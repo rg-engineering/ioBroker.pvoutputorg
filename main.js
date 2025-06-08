@@ -177,6 +177,10 @@ async function main() {
 	CronCreate(-99, DoWriteEOD);
 
 	CronStatus();
+
+	//read after start
+	await DoRead();
+
 }
 
 async function GetSystemDateformat() {
@@ -460,12 +464,12 @@ async function read(system) {
 
 function toDate(sDate) {
 
-	//yyyymmdd
+	//yyyymmdd 20250608
 	const year = sDate.slice(0, 4);
 	const month = sDate.slice(4, 6);
-	const day = sDate.slice(6, 9);
+	const day = sDate.slice(6, 8);
 
-	const oDate = new Date(year, month - 1, day);
+	const oDate = new Date(`${year}-${month}-${day}`);
 
 	return oDate.toLocaleDateString();
 }

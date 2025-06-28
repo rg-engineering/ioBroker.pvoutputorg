@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pvoutputorg",
-    "version": "1.9.2",
+    "version": "1.9.3",
     "news": {
+      "1.9.3": {
+        "en": "update dependencies\nnew testing",
+        "de": "aktualisierung der abhängigkeiten\nneue tests",
+        "ru": "обновление зависимостей\nновые испытания",
+        "pt": "atualizar dependências\nnovos testes",
+        "nl": "afhankelijkheden bijwerken\nnieuwe tests",
+        "fr": "mettre à jour les dépendances\nnouveaux essais",
+        "it": "aggiornamento dipendenze\nnuovi test",
+        "es": "dependencias de actualización\nnuevas pruebas",
+        "pl": "aktualizacji zależności\nnowe badania",
+        "uk": "оновлення залежності\nновий тест",
+        "zh-cn": "更新依赖关系\n新测试"
+      },
       "1.9.2": {
         "en": "bug fix date conversion",
         "de": "fehlerbehebung datumskonvertierung",
@@ -80,19 +93,6 @@
         "pl": "(René) aktualizacje zależności",
         "uk": "(René) оновлення залежності",
         "zh-cn": "(René) 依赖性更新"
-      },
-      "1.8.10": {
-        "en": "dependencies updated",
-        "de": "Abhängigkeiten aktualisiert",
-        "ru": "зависимости обновлены",
-        "pt": "dependências atualizadas",
-        "nl": "afhankelijkheden bijgewerkt",
-        "fr": "dépendances mises à jour",
-        "it": "dipendenze aggiornate",
-        "es": "dependencias actualizadas",
-        "pl": "zaktualizowane zależności",
-        "uk": "залежності оновлено",
-        "zh-cn": "依赖更新"
       }
     },
     "titleLang": {

@@ -1,4 +1,5 @@
-﻿/*
+﻿/* eslint-disable prefer-template */
+/*
  * pvoutputorg adapter für iobroker
  *
  * Created: 23.04.2022 18:39:28
@@ -34,8 +35,7 @@ function startAdapter(options) {
 			try {
 				//adapter.log.debug('start');
 				main();
-			}
-			catch (e) {
+			} catch (e) {
 				adapter.log.error("exception catch after ready [" + e + "]");
 			}
 		},
@@ -51,6 +51,7 @@ function startAdapter(options) {
 				adapter && adapter.log && adapter.log.info && adapter.log.info("cleaned everything up...");
 				callback();
 			} catch (e) {
+				adapter.log.error("exception catch after unload [" + e + "]");
 				callback();
 			}
 		},
@@ -149,8 +150,7 @@ async function main() {
 	let readInterval = 15;
 	if (parseInt(adapter.config.readInterval) > 0) {
 		readInterval = adapter.config.readInterval;
-	}
-	else {
+	} else {
 		adapter.log.warn("read interval not defined");
 	}
 	adapter.log.debug("read every  " + readInterval + " minutes");
@@ -160,11 +160,10 @@ async function main() {
 
 	let writeInterval = 15;
 	if (parseInt(adapter.config.writeInterval) == 5
-        || parseInt(adapter.config.writeInterval) == 10
-        || parseInt(adapter.config.writeInterval) == 15    ) {
+		|| parseInt(adapter.config.writeInterval) == 10
+		|| parseInt(adapter.config.writeInterval) == 15) {
 		writeInterval = adapter.config.writeInterval;
-	}
-	else {
+	} else {
 		adapter.log.warn("write interval not defined, make sure you use the same setting as in PVoutput.org configured");
 	}
 	adapter.log.debug("write every  " + writeInterval + " minutes");
@@ -192,14 +191,12 @@ async function GetSystemDateformat() {
 			longitude = ret.common.longitude;
 			latitude = ret.common.latitude;
 			adapter.log.debug("system: longitude " + longitude + " latitude " + latitude);
-		}
-		else {
+		} else {
 			adapter.log.error("system.config not available. longitude and latitude set to Berlin");
 			longitude = 52.520008;
 			latitude = 13.404954;
 		}
-	}
-	catch (e) {
+	} catch (e) {
 		adapter.log.error("exception in GetSystemDateformat [" + e + "]");
 	}
 }
@@ -250,7 +247,7 @@ async function getData(system, url, data) {
 			headers: {
 				"X-Pvoutput-Apikey": system.ApiKey,
 				"X-Pvoutput-SystemId": system.SystemId,
-				"X-Rate-Limit":1
+				"X-Rate-Limit": 1
 			},
 			timeout: 5000
 		};
@@ -262,8 +259,7 @@ async function getData(system, url, data) {
 		adapter.log.debug(system.Name + " post url " + url + " data " + JSON.stringify(data));
 
 		result = await axios.post(url, null, config);
-	}
-	catch (error) {
+	} catch (error) {
 		ShowError(error);
 	}
 
@@ -292,11 +288,11 @@ async function read(system) {
 
 		if (buffer != null && buffer.status == 200 && buffer.data != null && typeof buffer.data === "string") {
 
-			adapter.log.debug("got data system, data: "  + JSON.stringify(buffer.data) + " headers " + JSON.stringify(buffer.headers));
+			adapter.log.debug("got data system, data: " + JSON.stringify(buffer.data) + " headers " + JSON.stringify(buffer.headers));
 
 			/*
-            got data system string "PV-System R-Wisch,2880,,16,180,Yingli YL 180,1,2500,SMA SB 2500,S,45.0,No,20081211,50.546189,12.36239,5;;0"
-            */
+			got data system string "PV-System R-Wisch,2880,,16,180,Yingli YL 180,1,2500,SMA SB 2500,S,45.0,No,20081211,50.546189,12.36239,5;;0"
+			*/
 
 			const data = buffer.data.split(",");
 
@@ -315,32 +311,31 @@ async function read(system) {
 			await adapter.setStateAsync(SystemName + ".System.InstallDate", { ack: true, val: toDate(data[12]) });
 			await adapter.setStateAsync(SystemName + ".System.Latitude", { ack: true, val: Number(data[13]) });
 			await adapter.setStateAsync(SystemName + ".System.Longitude", { ack: true, val: Number(data[14]) });
-		}
-		else {
+		} else {
 			adapter.log.error("error receiving system data: " + JSON.stringify(buffer));
 		}
 		/*
-         * System Name text PVOutput Demo
-         * System Size number watts 3200
-         * Postcode / Zipcode number 2162
-         * Panels number 10
-         * Panel Power number watts 320
-         * Panel Brand text Enertech
-         * Inverters number 1
-         * Inverter Power watts 5000
-         * Inverter Brand text Fronius
-         * Orientation text N
-         * Array Tilt decimal degrees 20.0
-         * Shade text No
-         * Install Date yyyymmdd date 20120228
-         * Latitude decimal -33.868135
-         * Longitude decimal 151.133423
-         */
+		 * System Name text PVOutput Demo
+		 * System Size number watts 3200
+		 * Postcode / Zipcode number 2162
+		 * Panels number 10
+		 * Panel Power number watts 320
+		 * Panel Brand text Enertech
+		 * Inverters number 1
+		 * Inverter Power watts 5000
+		 * Inverter Brand text Fronius
+		 * Orientation text N
+		 * Array Tilt decimal degrees 20.0
+		 * Shade text No
+		 * Install Date yyyymmdd date 20120228
+		 * Latitude decimal -33.868135
+		 * Longitude decimal 151.133423
+		 */
 
 
 		/*
-        https://pvoutput.org/service/r2/getstatus.jsp?key=key&sid=system
-        */
+		https://pvoutput.org/service/r2/getstatus.jsp?key=key&sid=system
+		*/
 
 		sURL = "https://pvoutput.org/service/r2/getstatus.jsp";
 		//sURL += "key=" + system.ApiKey.replace(adapter.FORBIDDEN_CHARS, '_');
@@ -360,8 +355,8 @@ async function read(system) {
 			adapter.log.debug("got data status, data " + JSON.stringify(buffer.data) + " headers " + JSON.stringify(buffer.headers));
 
 			/*
-            got data string "20220424,10:00,548,168,NaN,NaN,0.058,0.0,235.0"
-            */
+			got data string "20220424,10:00,548,168,NaN,NaN,0.058,0.0,235.0"
+			*/
 
 			const data = buffer.data.split(",");
 
@@ -374,22 +369,21 @@ async function read(system) {
 			await adapter.setStateAsync(SystemName + ".Status.NormalisedOutput", { ack: true, val: Number(data[6]) });
 			await adapter.setStateAsync(SystemName + ".Status.Temperature", { ack: true, val: Number(data[7]) });
 			await adapter.setStateAsync(SystemName + ".Status.Voltage", { ack: true, val: Number(data[8]) });
-		}
-		else {
+		} else {
 			adapter.log.error("error receiving status data: " + JSON.stringify(buffer));
 		}
 		/*
-         *
-         * Date yyyymmdd date 20210228
-         * Time hh:mm time 13:00
-         * Energy Generation number watt hours 359
-         * Power Generation number watt 731
-         * Energy Consumption number watt hours 92
-         * Power Consumption number watt 130
-         * Normalised Output number kW/kW 0.164
-         * Temperature decimal celsius 21.4
-         * Voltage decimal volts 240.4
-        */
+		 *
+		 * Date yyyymmdd date 20210228
+		 * Time hh:mm time 13:00
+		 * Energy Generation number watt hours 359
+		 * Power Generation number watt 731
+		 * Energy Consumption number watt hours 92
+		 * Power Consumption number watt 130
+		 * Normalised Output number kW/kW 0.164
+		 * Temperature decimal celsius 21.4
+		 * Voltage decimal volts 240.4
+		*/
 
 
 		sURL = "https://pvoutput.org/service/r2/getstatistic.jsp";
@@ -407,8 +401,8 @@ async function read(system) {
 			adapter.log.debug("got data statistic, data " + JSON.stringify(buffer.data) + " headers " + JSON.stringify(buffer.headers));
 
 			/*
-            got data statistic string "14088651,0,5932,1,16113,2.060,2375,20150510,20220424,5.595,20170424"
-            */
+			got data statistic string "14088651,0,5932,1,16113,2.060,2375,20150510,20220424,5.595,20170424"
+			*/
 
 			const data = buffer.data.split(",");
 
@@ -426,37 +420,35 @@ async function read(system) {
 
 			await adapter.setStateAsync(SystemName + ".RateLimit.Remaining", { ack: true, val: Number(buffer.headers["x-rate-limit-remaining"]) });
 
-			if (Number(buffer.headers["x-rate-limit-remaining"]) <10) {
+			if (Number(buffer.headers["x-rate-limit-remaining"]) < 10) {
 				adapter.log.error("too many requests per hour! remaining " + buffer.headers["x-rate-limit-remaining"] + " limit per hour is " + buffer.headers["x-rate-limit-limit"]);
 			}
 
 			await adapter.setStateAsync(SystemName + ".RateLimit.Limit", { ack: true, val: Number(buffer.headers["x-rate-limit-limit"]) });
 
-			const oDate = new Date(Number(buffer.headers["x-rate-limit-reset"])*1000);
+			const oDate = new Date(Number(buffer.headers["x-rate-limit-reset"]) * 1000);
 
 			await adapter.setStateAsync(SystemName + ".RateLimit.Reset", { ack: true, val: oDate.toLocaleString() });
 
 
 
-		}
-		else {
+		} else {
 			adapter.log.error("error receiving statistic data: " + JSON.stringify(buffer));
 		}
 		/*
-         * Energy Generated number watt hours 24600
-         * Energy Exported number watt hours 14220
-         * Average Generation number watt hours 2220
-         * Minimum Generation number watt hours 800
-         * Maximum Generation number watt hours 3400
-         * Average Efficiency number kWh/kW 3.358
-         * Outputs number 27
-         * Actual Date From yyyymmdd date 20210201
-         * Actual Date To yyyymmdd date 20210228
-         * Record Efficiency number kWh/kW 4.653
-         * Record Date yyyymmdd date 20210205
-         */
-	}
-	catch (e) {
+		 * Energy Generated number watt hours 24600
+		 * Energy Exported number watt hours 14220
+		 * Average Generation number watt hours 2220
+		 * Minimum Generation number watt hours 800
+		 * Maximum Generation number watt hours 3400
+		 * Average Efficiency number kWh/kW 3.358
+		 * Outputs number 27
+		 * Actual Date From yyyymmdd date 20210201
+		 * Actual Date To yyyymmdd date 20210228
+		 * Record Efficiency number kWh/kW 4.653
+		 * Record Date yyyymmdd date 20210205
+		 */
+	} catch (e) {
 		adapter.log.error("exception in read [" + e + "] " + sURL);
 	}
 }
@@ -477,9 +469,9 @@ function toDate(sDate) {
 function ShowError(error) {
 	if (error.response) {
 		/*
-         * The request was made and the server responded with a
-         * status code that falls out of the range of 2xx
-         */
+		 * The request was made and the server responded with a
+		 * status code that falls out of the range of 2xx
+		 */
 		let isKnown = false;
 
 		if (error.response.status == 400) {
@@ -487,81 +479,63 @@ function ShowError(error) {
 				isKnown = true;
 				adapter.log.error("No live data found on a specified date or no live data reported in the last 7 days when no date parameter is used.");
 			}
-		}
-		else if (error.response.status == 401) {
+		} else if (error.response.status == 401) {
 			if (error.response.data.includes("Inaccessible System ID")) {
 				isKnown = true;
 				adapter.log.error("This error is reported when another system id is requested from an account without donation enabled.");
-			}
-			else if (error.response.data.includes("Invalid System ID")) {
+			} else if (error.response.data.includes("Invalid System ID")) {
 				isKnown = true;
 				adapter.log.error("The required parameter X-Pvoutput-SystemId or sid is missing from the request. The sid is a number which identifies a system. The sid can be obtained from the Settings page under Registered Systems");
-			}
-			else if (error.response.data.includes("Invalid API Key")) {
+			} else if (error.response.data.includes("Invalid API Key")) {
 				isKnown = true;
 				adapter.log.error("The API key is missing in the header request or the API key is invalid.");
-			}
-			else if (error.response.data.includes("Disabled API Key")) {
+			} else if (error.response.data.includes("Disabled API Key")) {
 				isKnown = true;
 				adapter.log.error("The API key has not been enabled in the Settings.");
-			}
-			else if (error.response.data.includes("Missing, invalid or inactive api key information")) {
+			} else if (error.response.data.includes("Missing, invalid or inactive api key information")) {
 				isKnown = true;
 				adapter.log.error("The sid and key combination is invalid");
-			}
-			//write errors
-			else if (error.response.data.includes("Date") && error.response.data.includes("invalid") ) {
+			} else if (error.response.data.includes("Date") && error.response.data.includes("invalid")) {
+				//write errors
 				isKnown = true;
 				adapter.log.error("The date is incorrectly formatted, expecting yyyymmdd format");
-			}
-			else if (error.response.data.includes("Date") && error.response.data.includes("too old")) {
+			} else if (error.response.data.includes("Date") && error.response.data.includes("too old")) {
 				isKnown = true;
 				adapter.log.error("The date must be after 2000-01-01");
-			}
-			else if (error.response.data.includes("Date") && error.response.data.includes("too new")) {
+			} else if (error.response.data.includes("Date") && error.response.data.includes("too new")) {
 				isKnown = true;
 				adapter.log.error("The date must not be a future date");
-			}
-			else if (error.response.data.includes("Generation") && error.response.data.includes("too high for system size")) {
+			} else if (error.response.data.includes("Generation") && error.response.data.includes("too high for system size")) {
 				isKnown = true;
-				adapter.log.error("The generation amount to too high compared to the system size " + error.response.data );
-			}
-			else if (error.response.data.includes("Export") && error.response.data.includes("too high for system size")) {
+				adapter.log.error("The generation amount to too high compared to the system size " + error.response.data);
+			} else if (error.response.data.includes("Export") && error.response.data.includes("too high for system size")) {
 				isKnown = true;
 				adapter.log.error("The export amount to too high compared to the system size " + error.response.data);
-			}
-			else if (error.response.data.includes("Export") && error.response.data.includes("cannot exceed generation")) {
+			} else if (error.response.data.includes("Export") && error.response.data.includes("cannot exceed generation")) {
 				isKnown = true;
 				adapter.log.error("The export amount is too high compared to the generation amount " + error.response.data);
-			}
-			else if (error.response.data.includes("Consumption") && error.response.data.includes("too high on")) {
+			} else if (error.response.data.includes("Consumption") && error.response.data.includes("too high on")) {
 				isKnown = true;
 				adapter.log.error("Consumption exceeded the 999999999Wh limit " + error.response.data);
-			}
-			else if (error.response.data.includes("Peak power") && error.response.data.includes("too high for system size")) {
+			} else if (error.response.data.includes("Peak power") && error.response.data.includes("too high for system size")) {
 				isKnown = true;
 				adapter.log.error("The peak power is 50% greater than the system size. " + error.response.data);
-			}
-			else if (error.response.data.includes("Min/Max temp missing on ")) {
+			} else if (error.response.data.includes("Min/Max temp missing on ")) {
 				isKnown = true;
 				adapter.log.error("Both min and max temperature must exist or both should be omitted. " + error.response.data);
 			}
-		}
-		else if (error.response.status == 403) {
+		} else if (error.response.status == 403) {
 			if (error.response.data.includes("Read only key")) {
 				isKnown = true;
 				adapter.log.error("The API key provided is a read only key and cannot access the requested service which updates system data, use the standard key to update system data.");
-			}
-			else if (error.response.data.includes("Exceeded number requests per hour")) {
+			} else if (error.response.data.includes("Exceeded number requests per hour")) {
 				isKnown = true;
 				adapter.log.error("The maximum number of requests per hour has been reached for the API key. Wait till the next hour before making further requests.");
-			}
-			else if (error.response.data.includes("Donation Mode")) {
+			} else if (error.response.data.includes("Donation Mode")) {
 				isKnown = true;
 				adapter.log.error("Request is only available in Donation mode.");
 			}
-		}
-		else if (error.response.status == 405) {
+		} else if (error.response.status == 405) {
 			if (error.response.data.includes("POST or GET only")) {
 				isKnown = true;
 				adapter.log.error("Data must be sent via the HTTP POST or GET method");
@@ -573,10 +547,10 @@ function ShowError(error) {
 
 	} else if (error.request) {
 		/*
-         * The request was made but no response was received, `error.request`
-         * is an instance of XMLHttpRequest in the browser and an instance
-         * of http.ClientRequest in Node.js
-         */
+		 * The request was made but no response was received, `error.request`
+		 * is an instance of XMLHttpRequest in the browser and an instance
+		 * of http.ClientRequest in Node.js
+		 */
 		adapter.log.error(error.request);
 	} else {
 		// Something happened in setting up the request and triggered an Error
@@ -622,16 +596,14 @@ async function write(system) {
 		let sMonth = "";
 		if (month < 10) {
 			sMonth = "0" + month;
-		}
-		else {
+		} else {
 			sMonth = month.toString();
 		}
 		const day = date.getDate();
 		let sDay = "";
 		if (day < 10) {
 			sDay = "0" + day;
-		}
-		else {
+		} else {
 			sDay = day.toString();
 		}
 		const sDate = year.toString() + sMonth + sDay;
@@ -641,8 +613,7 @@ async function write(system) {
 		const hour = date.getHours();
 		if (hour < 10) {
 			sHour = "0" + hour;
-		}
-		else {
+		} else {
 			sHour = hour.toString();
 		}
 
@@ -650,8 +621,7 @@ async function write(system) {
 		const minute = date.getMinutes();
 		if (minute < 10) {
 			sMinute = "0" + minute;
-		}
-		else {
+		} else {
 			sMinute = minute.toString();
 		}
 		const sTime = sHour + ":" + sMinute;
@@ -701,14 +671,14 @@ async function write(system) {
 
 		//to add
 		/*
-        Extended Value v7
-        Extended Value v8
-        Extended Value v9
-        Extended Value v10
-        Extended Value v11
-        Extended Value v12
-        Text Message 1 30 chars max
-        */
+		Extended Value v7
+		Extended Value v8
+		Extended Value v9
+		Extended Value v10
+		Extended Value v11
+		Extended Value v12
+		Text Message 1 30 chars max
+		*/
 
 		adapter.log.debug("URL " + sURL.replace(/key=.*&sid=/, "key=******&sid="));
 
@@ -717,13 +687,11 @@ async function write(system) {
 
 		if (response != null && response.status == 200) {
 			adapter.log.debug("data written, headers " + JSON.stringify(response.headers));
-		}
-		else {
+		} else {
 			adapter.log.warn("data not written " + JSON.stringify(response));
 		}
 
-	}
-	catch (e) {
+	} catch (e) {
 		adapter.log.error("exception in write [" + e + "] " + sURL + " " + JSON.stringify(data));
 	}
 }
@@ -763,16 +731,14 @@ async function write_EOD(system) {
 		let sMonth = "";
 		if (month < 10) {
 			sMonth = "0" + month;
-		}
-		else {
+		} else {
 			sMonth = month.toString();
 		}
 		const day = date.getDate();
 		let sDay = "";
 		if (day < 10) {
 			sDay = "0" + day;
-		}
-		else {
+		} else {
 			sDay = day.toString();
 		}
 
@@ -791,25 +757,25 @@ async function write_EOD(system) {
 
 		//weather conditions
 		/*
-        Fine
-        Partly Cloudy
-        Mostly Cloudy
-        Cloudy
-        Showers
-        Snow
-        Hazy
-        Fog
-        Dusty
-        Frost
-        Storm
-        */
+		Fine
+		Partly Cloudy
+		Mostly Cloudy
+		Cloudy
+		Showers
+		Snow
+		Hazy
+		Fog
+		Dusty
+		Frost
+		Storm
+		*/
 
 		//direct from DasWetter
 		if (adapter.config.useWeatherAdapter && adapter.config.OID_WeatherConditions.length > 0) {
 			const WeatherConditions = await adapter.getForeignStateAsync(adapter.config.OID_WeatherConditions);
 
 			//exception in write[TypeError: Cannot read properties of null(reading 'val')]https://pvoutput.org/service/r2/addoutput.jsp "d=20220820&g=1116699"
-			adapter.log.debug("use dasWetter " + adapter.config.OID_WeatherConditions  + " = "+ JSON.stringify(WeatherConditions));
+			adapter.log.debug("use dasWetter " + adapter.config.OID_WeatherConditions + " = " + JSON.stringify(WeatherConditions));
 
 
 			if (WeatherConditions != null && Number(WeatherConditions.val) > 0 && Number(WeatherConditions.val) < 23) {
@@ -837,20 +803,17 @@ async function write_EOD(system) {
 					case 21: data += "&cd=Snow"; break;
 					case 22: data += "&cd=Snow"; break;
 				}
-			}
-			else {
+			} else {
 				adapter.log.warn("unsupported value for weatherconditions : " + JSON.stringify(WeatherConditions) + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
 			}
-		}
-		else {
+		} else {
 			const WeatherConditions = await adapter.getStateAsync(SystemName + ".Upload.WeatherConditions");
 			if (WeatherConditions != null && WeatherConditions.val.length > 0) {
 
 				const conditions = WeatherConditions.val;
 				if (conditions.match(/^(Fine|Partly Cloudy|Mostly Cloudy|Cloudy|Showers|Snow|Hazy|Fog|Dusty|Frost|Storm)$/)) {
 					data += "&cd=" + WeatherConditions.val;
-				}
-				else {
+				} else {
 					adapter.log.warn("weather conditions  " + conditions + " does not macth to one of the following " + "Fine|Partly Cloudy|Mostly Cloudy|Cloudy|Showers|Snow|Hazy|Fog|Dusty|Frost|Storm");
 				}
 			}
@@ -859,22 +822,22 @@ async function write_EOD(system) {
 
 		//to add
 		/*
-        Peak Power number watts
-        Peak Time hh:mm time
-        Condition text See Conditions
-        Min Temp decimal celsius
-        Max Temp decimal celsius
-        Comments text Free text
-        Import Peak number watt hours
-        Import Off Peak watt hours
-        Import Shoulder number watt hours
-        Import High Shoulder number watt hours
-        Consumption number watt hours
-        Export Peak number watt hours
-        Export Off-Peak number watt hours
-        Export Shoulder number watt hours
-        Export High Shoulder number watt hours
-        */
+		Peak Power number watts
+		Peak Time hh:mm time
+		Condition text See Conditions
+		Min Temp decimal celsius
+		Max Temp decimal celsius
+		Comments text Free text
+		Import Peak number watt hours
+		Import Off Peak watt hours
+		Import Shoulder number watt hours
+		Import High Shoulder number watt hours
+		Consumption number watt hours
+		Export Peak number watt hours
+		Export Off-Peak number watt hours
+		Export Shoulder number watt hours
+		Export High Shoulder number watt hours
+		*/
 
 		adapter.log.debug("URL " + sURL.replace(/key=.*&sid=/, "key=******&sid="));
 
@@ -883,14 +846,12 @@ async function write_EOD(system) {
 
 		if (response != null && response.status == 200) {
 			adapter.log.debug("data written, headers " + JSON.stringify(response.headers));
-		}
-		else {
+		} else {
 			adapter.log.warn("data not written " + JSON.stringify(response));
 		}
 
 
-	}
-	catch (e) {
+	} catch (e) {
 		adapter.log.error("exception in write EoD [" + e + "] " + sURL + " " + JSON.stringify(data));
 	}
 
@@ -1617,12 +1578,12 @@ async function CreateObject(key, obj) {
 	if (obj_new != null) {
 
 		if ((obj_new.common.role != obj.common.role
-            || obj_new.common.type != obj.common.type
-            || (obj_new.common.unit != obj.common.unit && obj.common.unit != null)
-            || obj_new.common.read != obj.common.read
-            || obj_new.common.write != obj.common.write
-            || obj_new.common.name != obj.common.name)
-            && obj.type === "state"
+			|| obj_new.common.type != obj.common.type
+			|| (obj_new.common.unit != obj.common.unit && obj.common.unit != null)
+			|| obj_new.common.read != obj.common.read
+			|| obj_new.common.write != obj.common.write
+			|| obj_new.common.name != obj.common.name)
+			&& obj.type === "state"
 		) {
 			adapter.log.warn("change object " + JSON.stringify(obj) + " " + JSON.stringify(obj_new));
 			await adapter.extendObject(key, {
@@ -1636,8 +1597,7 @@ async function CreateObject(key, obj) {
 				}
 			});
 		}
-	}
-	else {
+	} else {
 		await adapter.setObjectNotExistsAsync(key, obj);
 	}
 }
@@ -1690,7 +1650,7 @@ function CronCreate(Minute, callback) {
 
 			// format sunset/sunrise time from the Date object
 			const sunsetStr = ("0" + times.sunset.getHours()).slice(-2) + ":" + ("0" + times.sunset.getMinutes()).slice(-2);
-			adapter.log.debug(" sunset " + sunsetStr );
+			adapter.log.debug(" sunset " + sunsetStr);
 
 			const hour = times.sunset.getHours() + 1;
 			const minute = times.sunset.getMinutes();
@@ -1698,8 +1658,7 @@ function CronCreate(Minute, callback) {
 			cronString = minute + " " + hour + " * * *";
 			//just for logging
 			Minute = "sunsetStr";
-		}
-		else {
+		} else {
 
 			cronString = "*/" + Minute + " * * * * ";
 		}
@@ -1716,8 +1675,7 @@ function CronCreate(Minute, callback) {
 			timezone
 		);
 
-	}
-	catch (e) {
+	} catch (e) {
 		adapter.log.error("exception in CronCreate [" + e + "]");
 	}
 }
@@ -1738,13 +1696,11 @@ function CronStatus() {
 
 			if (length > 500) {
 				adapter.log.warn("more then 500 cron jobs existing for this adapter, this might be a configuration error! (" + length + ")");
-			}
-			else {
+			} else {
 				adapter.log.info(length + " cron job(s) created");
 			}
 		}
-	}
-	catch (e) {
+	} catch (e) {
 		adapter.log.error("exception in getCronStat [" + e + "] : " + n + " of " + length);
 	}
 }
@@ -1765,11 +1721,10 @@ function IsDaylight() {
 		const now = new Date();
 
 		if ((now.getHours() > times.sunrise.getHours() || (now.getHours() == times.sunrise.getHours() && now.getMinutes() > times.sunrise.getMinutes()))
-            && (now.getHours() < times.sunset.getHours() || (now.getHours() == times.sunset.getHours() && now.getMinutes() < times.sunset.getMinutes()))) {
+			&& (now.getHours() < times.sunset.getHours() || (now.getHours() == times.sunset.getHours() && now.getMinutes() < times.sunset.getMinutes()))) {
 			daylight = true;
 		}
-	}
-	else {
+	} else {
 		//always
 		daylight = true;
 	}

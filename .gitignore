@@ -19,3 +19,5 @@ main.test.js
 /bin/*
 /obj/*
 /*.orig
+.commitinfo 
+/.vscode/extensions.json

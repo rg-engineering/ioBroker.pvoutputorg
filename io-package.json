@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pvoutputorg",
-    "version": "1.9.4",
+    "version": "1.9.5",
     "news": {
+      "1.9.5": {
+        "en": "update dependencies + changes based on adapter checker",
+        "de": "aktualisierung abhängigkeiten + änderungen basierend auf adapter-checker",
+        "ru": "зависимости обновления + изменения на основе проверки адаптера",
+        "pt": "atualizar dependências + alterações com base no verificador de adaptadores",
+        "nl": "update afhankelijkheden + wijzigingen op basis van adaptercontrole",
+        "fr": "mettre à jour les dépendances + les changements basés sur le vérificateur d'adaptateur",
+        "it": "aggiornamento dipendenze + modifiche in base all'adattatore checker",
+        "es": "dependencias de actualización + cambios basados en el control de adaptador",
+        "pl": "aktualizacja zależności + zmiany w oparciu o sprawdzacz adaptera",
+        "uk": "оновлення залежності + зміни на основі перевірки адаптера",
+        "zh-cn": "根据适配器检查器更新依赖性+变化"
+      },
       "1.9.4": {
         "en": "update dependencies + changes based on adapter checker",
         "de": "aktualisierung abhängigkeiten + änderungen basierend auf adapter-checker",
@@ -80,19 +93,6 @@
         "pl": "aktualizacji zależności\npoprawki błędów oparte na rekomendacji sprawdzania adaptera",
         "uk": "оновлення залежності\nвиправлення помилок на основі рекомендації адаптера",
         "zh-cn": "更新依赖关系\n根据适配器检查器建议修正错误"
-      },
-      "1.8.12": {
-        "en": "(René) change of dependencies\n(René) show cron status after job creation",
-        "de": "(René) Veränderung der Abhängigkeiten\n(René) den Status nach der Schaffung von Arbeitsplätzen anzeigen",
-        "ru": "(René) изменение зависимостей\n(René) показать состояние крон после создания рабочих мест",
-        "pt": "(René) mudança de dependências\n(René) mostrar status cron após criação de emprego",
-        "nl": "(René) verandering van afhankelijkheden\n(René) tonen cron status na het scheppen van werkgelegenheid",
-        "fr": "(René) changement de dépendances\n(René) montrer le statut de cron après la création d'emplois",
-        "it": "(René) cambiamento delle dipendenze\n(René) mostrare lo stato cron dopo la creazione di posti di lavoro",
-        "es": "(René) cambio de dependencia\n(René) mostrar estado de cron después de la creación de empleo",
-        "pl": "(René) zmiana zależności\n(René) pokaż status cron po tworzeniu miejsc pracy",
-        "uk": "(Рене) зміна залежностей\n(René) показати статус Крону після створення роботи",
-        "zh-cn": "(René) 属地变化\n(René) 创造就业后显示 cron 状态"
       }
     },
     "titleLang": {

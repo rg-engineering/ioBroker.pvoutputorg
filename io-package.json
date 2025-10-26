@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pvoutputorg",
-    "version": "1.9.5",
+    "version": "1.9.6",
     "news": {
+      "1.9.6": {
+        "en": "bug fix sentry",
+        "de": "fehlerbehebung gesendet",
+        "ru": "исправлять ошибки",
+        "pt": "corrigir o erro sentinela",
+        "nl": "bug repareren wacht",
+        "fr": "correction du bug sentinelle",
+        "it": "bug fix sendry",
+        "es": "bug fix centry",
+        "pl": "bug fix sentry",
+        "uk": "виправлення помилок",
+        "zh-cn": "错误修正哨兵"
+      },
       "1.9.5": {
         "en": "update dependencies + changes based on adapter checker",
         "de": "aktualisierung abhängigkeiten + änderungen basierend auf adapter-checker",
@@ -80,19 +93,6 @@
         "pl": "zob. numer # 289: test z nodejs @ 22\naktualizacji zależności\nmigracja do jsonConfig",
         "uk": "див. питання #289: тест з nodejs@22\nоновлення залежності\nміграції в jsonConfig",
         "zh-cn": "参见第289期:带节点的测试@22\n更新依赖关系\n迁移到 jsonConfig"
-      },
-      "1.8.13": {
-        "en": "update dependencies\nbug fixes based on adapter checker recommendation",
-        "de": "aktualisierung der abhängigkeiten\nfehlerbehebungen basierend auf adapter-checker empfehlung",
-        "ru": "обновление зависимостей\nисправления ошибок на основе рекомендации адаптера",
-        "pt": "dependências\ncorreções de bugs com base na recomendação do verificador do adaptador",
-        "nl": "afhankelijkheden bijwerken\nbug fixes op basis van adaptercontrole aanbeveling",
-        "fr": "mettre à jour les dépendances\ncorrection des bugs en fonction de la recommandation du vérificateur d'adaptateur",
-        "it": "aggiornamento dipendenze\ncorrezioni di bug in base alla raccomandazione dell'adattatore checker",
-        "es": "dependencias de actualización\ncorrecciones de errores basado en la recomendación de control de adaptador",
-        "pl": "aktualizacji zależności\npoprawki błędów oparte na rekomendacji sprawdzania adaptera",
-        "uk": "оновлення залежності\nвиправлення помилок на основі рекомендації адаптера",
-        "zh-cn": "更新依赖关系\n根据适配器检查器建议修正错误"
       }
     },
     "titleLang": {

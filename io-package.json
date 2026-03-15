@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pvoutputorg",
-    "version": "1.9.6",
+    "version": "1.9.7",
     "news": {
+      "1.9.7": {
+        "en": "update dependencies + changes based on adapter checker",
+        "de": "aktualisierung abhängigkeiten + änderungen basierend auf adapter-checker",
+        "ru": "зависимости обновления + изменения на основе проверки адаптера",
+        "pt": "atualizar dependências + alterações com base no verificador de adaptadores",
+        "nl": "update afhankelijkheden + wijzigingen op basis van adaptercontrole",
+        "fr": "mettre à jour les dépendances + les changements basés sur le vérificateur d'adaptateur",
+        "it": "aggiornamento dipendenze + modifiche in base all'adattatore checker",
+        "es": "dependencias de actualización + cambios basados en el control de adaptador",
+        "pl": "aktualizacja zależności + zmiany w oparciu o sprawdzacz adaptera",
+        "uk": "оновлення залежності + зміни на основі перевірки адаптера",
+        "zh-cn": "根据适配器检查器更新依赖性+变化"
+      },
       "1.9.6": {
         "en": "bug fix sentry",
         "de": "fehlerbehebung gesendet",
@@ -80,19 +93,6 @@
         "pl": "zmiany wymagane przez sprawdzacz adaptera\nzaktualizowane zależności",
         "uk": "зміни, які вимагаються перевіркою адаптера\nоновлені залежності",
         "zh-cn": "适配器检查器要求的更改\n更新依赖关系"
-      },
-      "1.9.0": {
-        "en": "see issue #289: test with nodejs@22\nupdate dependencies\nmigration to jsonConfig",
-        "de": "siehe ausgabe #289: test mit nodejs@22\naktualisierung der abhängigkeiten\nmigration nach jsonConfig",
-        "ru": "#289: тест с nodejs@22\nобновление зависимостей\nмиграции в jsonConfig",
-        "pt": "veja a edição #289: teste com nodejs@22\ndependências\nmigração para jsonConfig",
-        "nl": "zie nummer #289: test met nodejs@22\nafhankelijkheden bijwerken\nmigratie naar jsonConfig",
-        "fr": "voir numéro #289: test avec nodejs@22\nmettre à jour les dépendances\nmigration vers jsonConfig",
-        "it": "vedi numero #289: prova con nodejs@22\naggiornamento dipendenze\nmigrazione a jsonConfig",
-        "es": "ver número #289: prueba con nodejs@22\ndependencias de actualización\nmigración a jsonConfig",
-        "pl": "zob. numer # 289: test z nodejs @ 22\naktualizacji zależności\nmigracja do jsonConfig",
-        "uk": "див. питання #289: тест з nodejs@22\nоновлення залежності\nміграції в jsonConfig",
-        "zh-cn": "参见第289期:带节点的测试@22\n更新依赖关系\n迁移到 jsonConfig"
       }
     },
     "titleLang": {

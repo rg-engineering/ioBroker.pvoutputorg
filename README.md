@@ -216,6 +216,8 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
 ### 0.0.1 (2022-04-24)
 * (René) initial release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 

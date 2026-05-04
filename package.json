@@ -39,7 +39,7 @@
   },
   "main": "main.js",
   "bugs": {
-    "url": "https://github.com/rg-engineering/ioBroker.pvoutputorg"
+    "url": "https://github.com/rg-engineering/ioBroker.pvoutputorg/issues"
   },
   "files": [
     "admin/",

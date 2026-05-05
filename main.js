@@ -11,7 +11,7 @@
 const utils = require("@iobroker/adapter-core");
 const axios = require("axios");
 const SunCalc = require("suncalc2");
-const { isNumber } = require("util");
+const { isNumber } = require("node:util");
 
 const CronJob = require("cron").CronJob;
 

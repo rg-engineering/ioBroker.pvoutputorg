@@ -114,7 +114,8 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
   ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-- (copilot) Adapter requires node.js >= 22 now
+* (copilot) Adapter requires node.js >= 22 now
+* (René) update dependencies
 
 ### 1.9.7 (2026-03-15)
 * (René) update dependencies + changes based on adapter checker

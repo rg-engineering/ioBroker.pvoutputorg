@@ -154,7 +154,7 @@ async function main() {
 		adapter.log.warn("read interval not defined");
 	}
 	adapter.log.debug("read every  " + readInterval + " minutes");
-	readIntervalID = this.setInterval(DoRead, readInterval * 60 * 1000);
+	readIntervalID = adapter.setInterval(DoRead, readInterval * 60 * 1000);
 
 	//CronCreate(readInterval, DoRead)
 
@@ -167,7 +167,7 @@ async function main() {
 		adapter.log.warn("write interval not defined, make sure you use the same setting as in PVoutput.org configured");
 	}
 	adapter.log.debug("write every  " + writeInterval + " minutes");
-	writeIntervalID = this.setInterval(DoWrite, writeInterval * 60 * 1000);
+	writeIntervalID = adapter.setInterval(DoWrite, writeInterval * 60 * 1000);
 
 	//CronCreate(writeInterval, DoWrite)
 

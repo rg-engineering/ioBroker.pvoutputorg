@@ -33,7 +33,7 @@ export default class pvoutput extends Base {
 		this.useWeatherAdapter = useWeatherAdapter;
 		this.OID_WeatherConditions = OID_WeatherConditions;
 
-		this.logDebug("instance created");
+		
 
 	}
 
@@ -582,36 +582,89 @@ export default class pvoutput extends Base {
 				this.logDebug("use dasWetter " + this.OID_WeatherConditions + " = " + JSON.stringify(WeatherConditions));
 
 
+				//daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value
+				//vs
+				//daswetter.0.location_1.ForecastDaily.Day_1.symbol
 
-                todo -> neue strukktur mit weather adapter und das wetter adapter einbinden
-
-				if (WeatherConditions != null && Number(WeatherConditions.val) > 0 && Number(WeatherConditions.val) < 23) {
-					switch (Number(WeatherConditions.val)) {
-						case 1: data += "&cd=fine"; break;
-						case 2: data += "&cd=Partly Cloudy"; break;
-						case 3: data += "&cd=Mostly Cloudy"; break;
-						case 4: data += "&cd=Cloudy"; break;
-						case 5: data += "&cd=Showers"; break;
-						case 6: data += "&cd=Showers"; break;
-						case 7: data += "&cd=Showers"; break;
-						case 8: data += "&cd=Showers"; break;
-						case 9: data += "&cd=Showers"; break;
-						case 10: data += "&cd=Showers"; break;
-						case 11: data += "&cd=Showers"; break;
-						case 12: data += "&cd=Showers"; break;
-						case 13: data += "&cd=Showers"; break;
-						case 14: data += "&cd=Showers"; break;
-						case 15: data += "&cd=Showers"; break;
-						case 16: data += "&cd=Showers"; break;
-						case 17: data += "&cd=Snow"; break;
-						case 18: data += "&cd=Snow"; break;
-						case 19: data += "&cd=Snow"; break;
-						case 20: data += "&cd=Snow"; break;
-						case 21: data += "&cd=Snow"; break;
-						case 22: data += "&cd=Snow"; break;
+				if	(this.adapter.config.OID_WeatherConditions?.includes("NextDaysDetailed.Location_1")) {
+					if (WeatherConditions != null && Number(WeatherConditions.val) > 0 && Number(WeatherConditions.val) < 23) {
+						switch (Number(WeatherConditions.val)) {
+							case 1: data += "&cd=fine"; break;
+							case 2: data += "&cd=Partly Cloudy"; break;
+							case 3: data += "&cd=Mostly Cloudy"; break;
+							case 4: data += "&cd=Cloudy"; break;
+							case 5: data += "&cd=Showers"; break;
+							case 6: data += "&cd=Showers"; break;
+							case 7: data += "&cd=Showers"; break;
+							case 8: data += "&cd=Showers"; break;
+							case 9: data += "&cd=Showers"; break;
+							case 10: data += "&cd=Showers"; break;
+							case 11: data += "&cd=Showers"; break;
+							case 12: data += "&cd=Showers"; break;
+							case 13: data += "&cd=Showers"; break;
+							case 14: data += "&cd=Showers"; break;
+							case 15: data += "&cd=Showers"; break;
+							case 16: data += "&cd=Showers"; break;
+							case 17: data += "&cd=Snow"; break;
+							case 18: data += "&cd=Snow"; break;
+							case 19: data += "&cd=Snow"; break;
+							case 20: data += "&cd=Snow"; break;
+							case 21: data += "&cd=Snow"; break;
+							case 22: data += "&cd=Snow"; break;
+						}
+					} else {
+						this.logWarn("unsupported value for weatherconditions : " + JSON.stringify(WeatherConditions) + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
 					}
 				} else {
-					this.logWarn("unsupported value for weatherconditions : " + JSON.stringify(WeatherConditions) + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
+					if (WeatherConditions != null && Number(WeatherConditions.val) > 0 && Number(WeatherConditions.val) < 23) {
+						switch (Number(WeatherConditions.val)) {
+							case 1: data += "&cd=fine"; break;
+							case 2: data += "&cd=fine"; break;
+							case 3: data += "&cd=fine"; break;
+							case 4: data += "&cd=Partly Cloudy"; break;
+							case 5: data += "&cd=Partly Cloudy"; break;
+							case 6: data += "&cd=Partly Cloudy"; break;
+							case 7: data += "&cd=Partly Cloudy"; break;
+							case 8: data += "&cd=Partly Cloudy"; break;
+							case 9: data += "&cd=Partly Cloudy"; break;
+							case 10: data += "&cd=Cloudy"; break;
+							case 11: data += "&cd=Cloudy"; break;
+							case 12: data += "&cd=Cloudy"; break;
+							case 13: data += "&cd=Cloudy"; break;
+							case 14: data += "&cd=Cloudy"; break;
+							case 15: data += "&cd=Showers"; break;
+							case 16: data += "&cd=Showers"; break;
+							case 17: data += "&cd=Showers"; break;
+							case 18: data += "&cd=Showers"; break;
+							case 19: data += "&cd=Showers"; break;
+							case 20: data += "&cd=Showers"; break;
+							case 21: data += "&cd=Showers"; break;
+							case 22: data += "&cd=Showers"; break;
+							case 23: data += "&cd=Showers"; break;
+							case 24: data += "&cd=Showers"; break;
+							case 25: data += "&cd=Showers"; break;
+							case 26: data += "&cd=Showers"; break;
+							case 27: data += "&cd=Snow"; break;
+							case 28: data += "&cd=Snow"; break;
+							case 29: data += "&cd=Snow"; break;
+							case 30: data += "&cd=Snow"; break;
+							case 31: data += "&cd=Snow"; break;
+							case 32: data += "&cd=Snow"; break;
+							case 33: data += "&cd=Snow"; break;
+							case 34: data += "&cd=Snow"; break;
+							case 35: data += "&cd=Snow"; break;
+							case 36: data += "&cd=Snow"; break;
+							case 37: data += "&cd=Snow"; break;
+							case 38: data += "&cd=Snow"; break;
+							case 39: data += "&cd=Snow"; break;
+							case 40: data += "&cd=Snow"; break;
+							case 41: data += "&cd=Snow"; break;
+							case 42: data += "&cd=Snow"; break;
+
+						}
+					} else {
+						this.logWarn("unsupported value for weatherconditions : " + JSON.stringify(WeatherConditions) + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
+					}
 				}
 			} else {
 				const WeatherConditions = await this.adapter.getStateAsync(SystemName + ".Upload.WeatherConditions");
@@ -1196,7 +1249,7 @@ export default class pvoutput extends Base {
 				role: "value",
 				read: true,
 				write: false,
-				unit: ""
+			 unit: ""
 			}
 		};
 		await this.CreateObject(key, obj);
@@ -1237,7 +1290,7 @@ export default class pvoutput extends Base {
 				type: "state",
 				common: {
 					name: "Generated Energy today for Upload for EoD",
-					type: "number",
+				 type: "number",
 					role: "value",
 					read: true,
 					write: true,

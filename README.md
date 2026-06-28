@@ -115,6 +115,7 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
 -->
 ### **WORK IN PROGRESS**
 * (René) rewritten in typescript
+* (René) support of new version of DasWetter adapter
 * (copilot) Adapter requires node.js >= 22 now
 * (René) update dependencies
 

@@ -114,6 +114,7 @@ more on [API documentation](https://pvoutput.org/help/api_specification.html#add
   ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+* (René) rewritten in typescript
 * (copilot) Adapter requires node.js >= 22 now
 * (René) update dependencies
 

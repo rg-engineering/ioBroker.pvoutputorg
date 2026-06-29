@@ -18,8 +18,8 @@ export class Pvoutputorg extends utils.Adapter {
 	private systems: (pvoutput)[] = [];
 	cronJobs: CronJob<() => void, null>[] = [];
 
-	readIntervalID: ReturnType<typeof setInterval> | null;
-	writeIntervalID: ReturnType<typeof setInterval> | null;
+	readIntervalID: ReturnType<typeof this.setInterval> | null;
+	writeIntervalID: ReturnType<typeof this.setInterval> | null;
 	longit: number;
 	latit: number;
 
@@ -61,7 +61,7 @@ export class Pvoutputorg extends utils.Adapter {
 				this.log.warn("read interval not defined");
 			}
 			this.log.debug("read every  " + readInterval + " minutes");
-			this.readIntervalID = setInterval(this.DoRead.bind(this), readInterval * 60 * 1000);
+			this.readIntervalID = this.setInterval(this.DoRead.bind(this), readInterval * 60 * 1000);
 
 			//CronCreate(readInterval, DoRead)
 
@@ -74,7 +74,7 @@ export class Pvoutputorg extends utils.Adapter {
 				this.log.warn("write interval not defined, make sure you use the same setting as in PVoutput.org configured");
 			}
 			this.log.debug("write every  " + writeInterval + " minutes");
-			this.writeIntervalID = setInterval(this.DoWrite.bind(this), writeInterval * 60 * 1000);
+			this.writeIntervalID = this.setInterval(this.DoWrite.bind(this), writeInterval * 60 * 1000);
 
 			//CronCreate(writeInterval, DoWrite)
 

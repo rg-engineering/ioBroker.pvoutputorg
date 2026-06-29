@@ -26,7 +26,6 @@ class pvoutput extends base_1.default {
         this.config = config;
         this.useWeatherAdapter = useWeatherAdapter;
         this.OID_WeatherConditions = OID_WeatherConditions;
-        this.logDebug("instance created");
     }
     async read() {
         let sURL = "";
@@ -193,7 +192,7 @@ class pvoutput extends base_1.default {
             if (data != null && typeof data === "string") {
                 url += "?" + data;
             }
-            this.logDebug(" post url " + url + " data " + JSON.stringify(data));
+            this.logDebug("post url " + url + " data " + JSON.stringify(data));
             result = await axios_1.default.post(url, null, config);
             if (result == null || result.status != 200) {
                 this.ShowError(result);
@@ -384,22 +383,22 @@ class pvoutput extends base_1.default {
             const EnergyConsumption = await this.adapter.getStateAsync(SystemName + ".Upload.EnergyConsumption");
             const temperature = await this.adapter.getStateAsync(SystemName + ".Upload.Temperature");
             const voltage = await this.adapter.getStateAsync(SystemName + ".Upload.Voltage");
-            if (EnergyGeneration != null && EnergyGeneration.val != null && typeof EnergyGeneration.val === "number" && EnergyGeneration.val > 0) {
+            if (EnergyGeneration != null && EnergyGeneration.val != null && typeof EnergyGeneration.val === "number" && EnergyGeneration.val >= 0) {
                 data += "&v1=" + EnergyGeneration.val;
             }
-            if (PowerGeneration != null && PowerGeneration.val != null && typeof PowerGeneration.val === "number" && PowerGeneration.val > 0) {
+            if (PowerGeneration != null && PowerGeneration.val != null && typeof PowerGeneration.val === "number" && PowerGeneration.val >= 0) {
                 data += "&v2=" + PowerGeneration.val;
             }
-            if (EnergyConsumption != null && EnergyConsumption.val != null && typeof EnergyConsumption.val === "number" && EnergyConsumption.val > 0) {
+            if (EnergyConsumption != null && EnergyConsumption.val != null && typeof EnergyConsumption.val === "number" && EnergyConsumption.val >= 0) {
                 data += "&v3=" + EnergyConsumption.val;
             }
-            if (PowerConsumption != null && PowerConsumption.val != null && typeof PowerConsumption.val === "number" && PowerConsumption.val > 0) {
+            if (PowerConsumption != null && PowerConsumption.val != null && typeof PowerConsumption.val === "number" && PowerConsumption.val >= 0) {
                 data += "&v4=" + PowerConsumption.val;
             }
             if (temperature != null && temperature.val != null && typeof temperature.val === "number") {
                 data += "&v5=" + temperature.val;
             }
-            if (voltage != null && voltage.val != null && typeof voltage.val === "number" && voltage.val > 0) {
+            if (voltage != null && voltage.val != null && typeof voltage.val === "number" && voltage.val >= 0) {
                 data += "&v6=" + voltage.val;
             }
             let CumulativeFlag = this.config.CumulativeFlag;
@@ -504,78 +503,218 @@ class pvoutput extends base_1.default {
                 const WeatherConditions = await this.adapter.getForeignStateAsync(this.adapter.config.OID_WeatherConditions);
                 //exception in write[TypeError: Cannot read properties of null(reading 'val')]https://pvoutput.org/service/r2/addoutput.jsp "d=20220820&g=1116699"
                 this.logDebug("use dasWetter " + this.OID_WeatherConditions + " = " + JSON.stringify(WeatherConditions));
-                if (WeatherConditions != null && Number(WeatherConditions.val) > 0 && Number(WeatherConditions.val) < 23) {
-                    switch (Number(WeatherConditions.val)) {
-                        case 1:
-                            data += "&cd=fine";
-                            break;
-                        case 2:
-                            data += "&cd=Partly Cloudy";
-                            break;
-                        case 3:
-                            data += "&cd=Mostly Cloudy";
-                            break;
-                        case 4:
-                            data += "&cd=Cloudy";
-                            break;
-                        case 5:
-                            data += "&cd=Showers";
-                            break;
-                        case 6:
-                            data += "&cd=Showers";
-                            break;
-                        case 7:
-                            data += "&cd=Showers";
-                            break;
-                        case 8:
-                            data += "&cd=Showers";
-                            break;
-                        case 9:
-                            data += "&cd=Showers";
-                            break;
-                        case 10:
-                            data += "&cd=Showers";
-                            break;
-                        case 11:
-                            data += "&cd=Showers";
-                            break;
-                        case 12:
-                            data += "&cd=Showers";
-                            break;
-                        case 13:
-                            data += "&cd=Showers";
-                            break;
-                        case 14:
-                            data += "&cd=Showers";
-                            break;
-                        case 15:
-                            data += "&cd=Showers";
-                            break;
-                        case 16:
-                            data += "&cd=Showers";
-                            break;
-                        case 17:
-                            data += "&cd=Snow";
-                            break;
-                        case 18:
-                            data += "&cd=Snow";
-                            break;
-                        case 19:
-                            data += "&cd=Snow";
-                            break;
-                        case 20:
-                            data += "&cd=Snow";
-                            break;
-                        case 21:
-                            data += "&cd=Snow";
-                            break;
-                        case 22:
-                            data += "&cd=Snow";
-                            break;
+                //daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value
+                //vs
+                //daswetter.0.location_1.ForecastDaily.Day_1.symbol
+                if (this.adapter.config.OID_WeatherConditions?.includes("NextDaysDetailed.Location_1")) {
+                    if (WeatherConditions != null && Number(WeatherConditions.val) > 0 && Number(WeatherConditions.val) < 23) {
+                        switch (Number(WeatherConditions.val)) {
+                            case 1:
+                                data += "&cd=fine";
+                                break;
+                            case 2:
+                                data += "&cd=Partly Cloudy";
+                                break;
+                            case 3:
+                                data += "&cd=Mostly Cloudy";
+                                break;
+                            case 4:
+                                data += "&cd=Cloudy";
+                                break;
+                            case 5:
+                                data += "&cd=Showers";
+                                break;
+                            case 6:
+                                data += "&cd=Showers";
+                                break;
+                            case 7:
+                                data += "&cd=Showers";
+                                break;
+                            case 8:
+                                data += "&cd=Showers";
+                                break;
+                            case 9:
+                                data += "&cd=Showers";
+                                break;
+                            case 10:
+                                data += "&cd=Showers";
+                                break;
+                            case 11:
+                                data += "&cd=Showers";
+                                break;
+                            case 12:
+                                data += "&cd=Showers";
+                                break;
+                            case 13:
+                                data += "&cd=Showers";
+                                break;
+                            case 14:
+                                data += "&cd=Showers";
+                                break;
+                            case 15:
+                                data += "&cd=Showers";
+                                break;
+                            case 16:
+                                data += "&cd=Showers";
+                                break;
+                            case 17:
+                                data += "&cd=Snow";
+                                break;
+                            case 18:
+                                data += "&cd=Snow";
+                                break;
+                            case 19:
+                                data += "&cd=Snow";
+                                break;
+                            case 20:
+                                data += "&cd=Snow";
+                                break;
+                            case 21:
+                                data += "&cd=Snow";
+                                break;
+                            case 22:
+                                data += "&cd=Snow";
+                                break;
+                        }
+                    }
+                    else {
+                        this.logWarn("unsupported value for weatherconditions : " + JSON.stringify(WeatherConditions) + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
                     }
                 }
                 else {
-                    this.logWarn("unsupported value for weatherconditions : " + JSON.stringify(WeatherConditions) + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
+                    if (WeatherConditions != null && Number(WeatherConditions.val) > 0 && Number(WeatherConditions.val) < 23) {
+                        switch (Number(WeatherConditions.val)) {
+                            case 1:
+                                data += "&cd=fine";
+                                break;
+                            case 2:
+                                data += "&cd=fine";
+                                break;
+                            case 3:
+                                data += "&cd=fine";
+                                break;
+                            case 4:
+                                data += "&cd=Partly Cloudy";
+                                break;
+                            case 5:
+                                data += "&cd=Partly Cloudy";
+                                break;
+                            case 6:
+                                data += "&cd=Partly Cloudy";
+                                break;
+                            case 7:
+                                data += "&cd=Partly Cloudy";
+                                break;
+                            case 8:
+                                data += "&cd=Partly Cloudy";
+                                break;
+                            case 9:
+                                data += "&cd=Partly Cloudy";
+                                break;
+                            case 10:
+                                data += "&cd=Cloudy";
+                                break;
+                            case 11:
+                                data += "&cd=Cloudy";
+                                break;
+                            case 12:
+                                data += "&cd=Cloudy";
+                                break;
+                            case 13:
+                                data += "&cd=Cloudy";
+                                break;
+                            case 14:
+                                data += "&cd=Cloudy";
+                                break;
+                            case 15:
+                                data += "&cd=Showers";
+                                break;
+                            case 16:
+                                data += "&cd=Showers";
+                                break;
+                            case 17:
+                                data += "&cd=Showers";
+                                break;
+                            case 18:
+                                data += "&cd=Showers";
+                                break;
+                            case 19:
+                                data += "&cd=Showers";
+                                break;
+                            case 20:
+                                data += "&cd=Showers";
+                                break;
+                            case 21:
+                                data += "&cd=Showers";
+                                break;
+                            case 22:
+                                data += "&cd=Showers";
+                                break;
+                            case 23:
+                                data += "&cd=Showers";
+                                break;
+                            case 24:
+                                data += "&cd=Showers";
+                                break;
+                            case 25:
+                                data += "&cd=Showers";
+                                break;
+                            case 26:
+                                data += "&cd=Showers";
+                                break;
+                            case 27:
+                                data += "&cd=Snow";
+                                break;
+                            case 28:
+                                data += "&cd=Snow";
+                                break;
+                            case 29:
+                                data += "&cd=Snow";
+                                break;
+                            case 30:
+                                data += "&cd=Snow";
+                                break;
+                            case 31:
+                                data += "&cd=Snow";
+                                break;
+                            case 32:
+                                data += "&cd=Snow";
+                                break;
+                            case 33:
+                                data += "&cd=Snow";
+                                break;
+                            case 34:
+                                data += "&cd=Snow";
+                                break;
+                            case 35:
+                                data += "&cd=Snow";
+                                break;
+                            case 36:
+                                data += "&cd=Snow";
+                                break;
+                            case 37:
+                                data += "&cd=Snow";
+                                break;
+                            case 38:
+                                data += "&cd=Snow";
+                                break;
+                            case 39:
+                                data += "&cd=Snow";
+                                break;
+                            case 40:
+                                data += "&cd=Snow";
+                                break;
+                            case 41:
+                                data += "&cd=Snow";
+                                break;
+                            case 42:
+                                data += "&cd=Snow";
+                                break;
+                        }
+                    }
+                    else {
+                        this.logWarn("unsupported value for weatherconditions : " + JSON.stringify(WeatherConditions) + "! Should be a number between 1 and 22 like daswetter.0.NextDaysDetailed.Location_1.Day_1.symbol_value");
+                    }
                 }
             }
             else {

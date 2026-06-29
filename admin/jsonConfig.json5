@@ -55,15 +55,15 @@
           "help": "Interval to write data to PVSystem.org",
           "options": [
             {
-              "label": { "en": "5 minutes" },
+              "label": "5 minutes",
               "value": 5
             },
             {
-              "label": { "en": "10 minutes" },
+              "label": "10 minutes",
               "value": 10
             },
             {
-              "label": { "en": "15 minutes" },
+              "label": "15 minutes",
               "value": 15
             }
 

@@ -36,7 +36,7 @@ For detailed information please have a look on [pvoutput.org help](https://pvout
 
 If you support pvoutput.org with a donation, additional features will be made available to you. At the moment these are not supported here in the adapter yet.
 
-# Download
+## Download
 
 The adapter downloads three types of data
 * System data
@@ -46,25 +46,25 @@ The adapter downloads three types of data
 To download data the adapter runs an adjustable cron job. The download frequency can be adjusted on admin page with "interval to read data [min]".
 Typically value for download frequency is 15 minutes, but no longer then 59 minutes.
 
-## System Data
+### System Data
 The adapter retrieves system status information and live output data.
 
 more on [API documentation](https://pvoutput.org/help/api_specification.html#id25)
 
-## Status Data
+### Status Data
 Status data (or live data) includes all possible system data available for your system.
 
 more on [API documentation](https://pvoutput.org/help/api_specification.html#id16)
 
-## Statistic Data
+### Statistic Data
 The adapter retrieves system statisticial information.
 
 more on [API documentation](https://pvoutput.org/help/api_specification.html#id21)
 
-# Upload
+## Upload
 Data upload is only an option. If you upload data with other application like sbfspot then disable upload here in the adapter.
 
-## Upload Live Data
+### Upload Live Data
 
 To upload live data / status data the adapter runs an adjustable cron job. The upload frequency can be adjusted on admin page with "interval to write data [min]".
 Typically value for upload frequency is 5 to 15 minutes, but no longer then 59 minutes.

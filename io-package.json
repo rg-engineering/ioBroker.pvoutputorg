@@ -17,7 +17,7 @@
         "zh-cn": "根据适配器检查器更新依赖性+变化"
       },
       "1.9.6": {
-        "en": "bug fix sentry",
+        "en": "bug fix based on sentry",
         "de": "fehlerbehebung gesendet",
         "ru": "исправлять ошибки",
         "pt": "corrigir o erro sentinela",

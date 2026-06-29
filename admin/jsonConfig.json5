@@ -238,15 +238,15 @@
               "default": false,
               "options": [
                 {
-                  "label": { "en": "Energy Generation and Consumption" },
+                  "label": "Energy Generation and Consumption",
                   "value": 1
                 },
                 {
-                  "label": { "en": "only Energy Generation" },
+                  "label": "only Energy Generation",
                   "value": 2
                 },
                 {
-                  "label": { "en": "only Energy Consumption" },
+                  "label": "only Energy Consumption",
                   "value": 3
                 }
               ]

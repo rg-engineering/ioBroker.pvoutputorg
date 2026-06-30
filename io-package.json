@@ -3,6 +3,19 @@
     "name": "pvoutputorg",
     "version": "1.9.7",
     "news": {
+      "2.0.0": {
+        "en": "rewritten in typescript\nsupport of new version of DasWetter adapter\nAdapter requires node.js >= 22 now\nupdate dependencies",
+        "de": "umgeschrieben in Typescript\nUnterstützung der neuen Version des DasWetter Adapters\nAdapter benötigt jetzt node.js >= 22 \nAbhängigkeiten aktualisiert",
+        "ru": "переписано в typescript\nподдержка новой версии адаптера DasWetter\nАдаптер требует node.js >= 22 сейчас\nобновление зависимостей",
+        "pt": "reescrito em texto\nsuporte à nova versão do adaptador DasWitter\nAdaptador requer nod.js >= 22 agora\natualizar dependências",
+        "nl": "herschreven in typescript\nondersteuning van nieuwe versie van DasWetter adapter\nVoor de adapter zijn node.js < 22 nu nodig\nafhankelijkheden bijwerken",
+        "fr": "réécrit en dactylographié\nprise en charge de la nouvelle version de DasWetter\nAdaptateur nécessite node.js >= 22 maintenant\nmettre à jour les dépendances",
+        "it": "riscritto nel testo\nsupporto della nuova versione dell'adattatore DasWetter\nAdattatore richiede node.js >= 22 ora\naggiornamento dipendenze",
+        "es": "reescrito en el tiposcript\nsoporte de nueva versión de DasWetter adaptador\nAdaptador requiere node.js ю= 22 ahora\ndependencias de actualización",
+        "pl": "przepisywane na maszynie\nobsługa nowej wersji adaptera DasWetter\nAdapter wymaga node.js > = 22\naktualizacji zależności",
+        "uk": "перезапис в форматі\nпідтримка нової версії адаптера DasWetter\nАдаптер вимагає node.js >= 22 тепер\nоновлення залежності",
+        "zh-cn": "用打字符重写\n支持新版本的 DasWetter 适配器\n适配器需要节点.js 现在22\n更新依赖关系"
+      },
       "1.9.7": {
         "en": "update dependencies + changes based on adapter checker",
         "de": "aktualisierung abhängigkeiten + änderungen basierend auf adapter-checker",

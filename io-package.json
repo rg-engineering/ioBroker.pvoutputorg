@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "pvoutputorg",
-    "version": "1.9.7",
+    "version": "2.0.0",
     "news": {
       "2.0.0": {
         "en": "rewritten in typescript\nsupport of new version of DasWetter adapter\nAdapter requires node.js >= 22 now\nupdate dependencies",
@@ -93,19 +93,6 @@
         "pl": "konwersja daty poprawki błędu",
         "uk": "перетворення дати виправлення помилок",
         "zh-cn": "错误修正日期转换"
-      },
-      "1.9.1": {
-        "en": "changes requested by adapter checker\ndependencies updated",
-        "de": "änderungen, die von adapter checker angefordert werden\naktualisierte abhängigkeiten",
-        "ru": "изменения, запрошенные adapter checker\nобновленные зависимости",
-        "pt": "alterações solicitadas pelo verificador do adaptador\ndependências atualizadas",
-        "nl": "wijzigingen gevraagd door adaptercontrole\nafhankelijkheden bijgewerkt",
-        "fr": "modifications demandées par l'adaptateur checker\ndépendances mises à jour",
-        "it": "modifiche richieste da adattatore checker\ndipendenze aggiornate",
-        "es": "cambios solicitados por el adaptador\ndependencias actualizadas",
-        "pl": "zmiany wymagane przez sprawdzacz adaptera\nzaktualizowane zależności",
-        "uk": "зміни, які вимагаються перевіркою адаптера\nоновлені залежності",
-        "zh-cn": "适配器检查器要求的更改\n更新依赖关系"
       }
     },
     "titleLang": {

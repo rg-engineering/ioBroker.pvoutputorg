@@ -38,7 +38,7 @@
     "@iobroker/testing": "^5.2.2",
     "@iobroker/build-tools": "^3.0.1",
     "@tsconfig/node22": "^22.0.5",
-    "@types/node": "^22.19.20",
+    "@types/node": "^22.20.0",
     "@types/suncalc": "^1.9.2"
   },
   "main": "build/main.js",

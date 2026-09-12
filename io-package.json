@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pvoutputorg",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "news": {
+      "2.0.1": {
+        "en": "update dependencies",
+        "de": "Abhängigkeiten updaten",
+        "ru": "обновить зависимости",
+        "pt": "atualizar dependências",
+        "nl": "afhankelijkheden bijwerken",
+        "fr": "mettre à jour les dépendances",
+        "it": "aggiorna dipendenze",
+        "es": "actualizar dependencias",
+        "pl": "aktualizuj zależności",
+        "uk": "оновлення залежностей",
+        "zh-cn": "更新依赖关系"
+      },
       "2.0.0": {
         "en": "rewritten in typescript\nsupport of new version of DasWetter adapter\nAdapter requires node.js >= 22 now\nupdate dependencies",
         "de": "umgeschrieben in Typescript\nUnterstützung der neuen Version des DasWetter Adapters\nAdapter benötigt jetzt node.js >= 22 \nAbhängigkeiten aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "aktualizacji zależności\nnowe badania",
         "uk": "оновлення залежності\nновий тест",
         "zh-cn": "更新依赖关系\n新测试"
-      },
-      "1.9.2": {
-        "en": "bug fix date conversion",
-        "de": "fehlerbehebung datumskonvertierung",
-        "ru": "обновление даты исправления ошибки",
-        "pt": "conversão de data de correção de erros",
-        "nl": "bug fix datum conversie",
-        "fr": "correction de la date de conversion du bug",
-        "it": "correzione della data di conversione",
-        "es": "corrección de errores fecha conversión",
-        "pl": "konwersja daty poprawki błędu",
-        "uk": "перетворення дати виправлення помилок",
-        "zh-cn": "错误修正日期转换"
       }
     },
     "titleLang": {
